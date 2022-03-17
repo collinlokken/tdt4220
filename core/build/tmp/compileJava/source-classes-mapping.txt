@@ -1,0 +1,2 @@
+com/mygdx/game/StripaSurvivor.java
+ com.mygdx.game.StripaSurvivor
