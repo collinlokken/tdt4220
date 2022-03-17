@@ -1,4 +1,0 @@
-com/mygdx/game/test/R.java
- com.mygdx.game.test.R
-com/mygdx/game/test/BuildConfig.java
- com.mygdx.game.test.BuildConfig
