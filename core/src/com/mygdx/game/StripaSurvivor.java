@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.MainMenuController;
 
@@ -19,8 +18,6 @@ public class StripaSurvivor extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		controllerManager = ControllerManager.getInstance();
-
-		ScreenUtils.clear(0, 0, 0, 1);
 		MainMenuController mainMenu = MainMenuController.getInstance(controllerManager);
 		controllerManager.push(mainMenu);
 	}

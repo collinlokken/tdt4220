@@ -1,7 +1,5 @@
 package com.mygdx.game.controller;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.view.View;
 
 public abstract class Controller<T extends View> {
