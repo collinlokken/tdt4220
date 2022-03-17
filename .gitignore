@@ -115,6 +115,4 @@ Thumbs.db
 /ios/IOSLauncher.app.dSYM
 
 ## chris
-/local.properties
-core/build/*
-desktop/build/*
+local.properties
