@@ -11,7 +11,7 @@ public class LoginController extends Controller<LoginView>{
 
     public static final LoginController getInstance(ControllerManager controllerManager){
         if (instance == null){
-            return new LoginController(controllerManager);
+            instance = new LoginController(controllerManager);
         }
         return instance;
     }

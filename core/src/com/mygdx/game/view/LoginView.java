@@ -14,7 +14,7 @@ public class LoginView extends View{
 
     public static final LoginView getInstance(){
         if (instance == null){
-            return new LoginView();
+            instance = new LoginView();
         }
         return instance;
     }
