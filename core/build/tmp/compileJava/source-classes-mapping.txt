@@ -1,0 +1,12 @@
+com/mygdx/game/controller/ControllerManager.java
+ com.mygdx.game.controller.ControllerManager
+com/mygdx/game/view/View.java
+ com.mygdx.game.view.View
+com/mygdx/game/StripaSurvivor.java
+ com.mygdx.game.StripaSurvivor
+com/mygdx/game/view/MainMenuView.java
+ com.mygdx.game.view.MainMenuView
+com/mygdx/game/controller/MainMenuController.java
+ com.mygdx.game.controller.MainMenuController
+com/mygdx/game/controller/Controller.java
+ com.mygdx.game.controller.Controller
