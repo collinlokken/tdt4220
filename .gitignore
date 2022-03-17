@@ -116,3 +116,5 @@ Thumbs.db
 
 ## chris
 local.properties
+core/build/*
+desktop/build/*
