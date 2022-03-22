@@ -33,11 +33,13 @@ public class ControllerManager {
         controllers.push(state);
     }
 
-    public void update(float dt){
-        controllers.peek().getView().update(dt);
+    public Controller getCurrent()
+    {
+        return this.controllers.peek();
     }
 
-    public void render(SpriteBatch sb){
-        controllers.peek().getView().render(sb);
+    public void update(float dt){
+        controllers.peek().update(dt);
     }
+
 }

@@ -1,7 +1,11 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.StripaSurvivor;
 import com.mygdx.game.controller.Controller;
 
 import java.util.ArrayList;
@@ -9,41 +13,23 @@ import java.util.List;
 
 public abstract class View<T extends Controller> {
     protected OrthographicCamera cam;
-
-    protected List<UIComponent> UIcomponents = new ArrayList<UIComponent>();
+    protected Stage stage;
 
     protected  T controller;
 
     protected View(){
-        cam = new OrthographicCamera();
+        this.stage = new Stage(new ScreenViewport(), StripaSurvivor.getSpriteBatchInstance());
     }
 
     public void setController(T controller){
         this.controller = controller;
     }
 
-    protected void addComponents(UIComponent ...components){
-        for (UIComponent comp : components){
-            this.UIcomponents.add(comp);
-        }
-    }
-
-
-    public abstract void handleInput();
-    public abstract void update(float dt);
-    public void render(SpriteBatch sb){
-        sb.begin();
-        for (UIComponent component : UIcomponents) {
-            if (component.isVisible()){
-                sb.draw(component.getActiveTexture(), component.getX(), component.getY(), component.getWidth(), component.getHeight());
-            }
-        }
-        sb.end();
+    public void render(float dt){
+        this.stage.act(dt);
     }
     public void dispose(){
-        for (UIComponent component : UIcomponents) {
-            component.dispose();
-        }
+        this.stage.dispose();
     }
 
 }

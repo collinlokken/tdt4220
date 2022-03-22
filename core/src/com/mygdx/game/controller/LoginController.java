@@ -15,4 +15,9 @@ public class LoginController extends Controller<LoginView>{
         }
         return instance;
     }
+
+    @Override
+    public void update(float dt) {
+
+    }
 }

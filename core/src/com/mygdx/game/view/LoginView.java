@@ -19,17 +19,5 @@ public class LoginView extends View{
         return instance;
     }
 
-    @Override
-    public void handleInput() { }
-
-    @Override
-    public void update(float dt) { }
-
-    @Override
-    public void render(SpriteBatch sb) {
-    }
-
-    @Override
-    public void dispose() { }
 
 }

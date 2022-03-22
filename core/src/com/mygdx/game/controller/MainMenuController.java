@@ -7,7 +7,6 @@ public class MainMenuController extends Controller<MainMenuView>{
 
     private static MainMenuController instance = null;
 
-
     private MainMenuController(ControllerManager controllerManager) {
         super(controllerManager, MainMenuView.getInstance());
     }
@@ -19,8 +18,8 @@ public class MainMenuController extends Controller<MainMenuView>{
         return instance;
     }
 
+    @Override
+    public void update(float dt) {
 
-
-
-
+    }
 }

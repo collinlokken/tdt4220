@@ -1,24 +1,31 @@
 package com.mygdx.game.view;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.game.StripaSurvivor;
 import com.mygdx.game.controller.MainMenuController;
 
 public class MainMenuView extends View<MainMenuController>{
-    private UIComponent bg;
-    private UIComponent playButton;
-    private UIComponent helpButton;
-    private UIComponent badge;
+    private Stage stage;
+    private Image background;
 
     private static MainMenuView instance = null;
 
     private MainMenuView() {
         super();
-        this.bg = new UIComponent(0, 0, StripaSurvivor.WIDTH, StripaSurvivor.HEIGHT, new Texture("white_bg.jpg"), true);
-        this.playButton = new UIComponent(StripaSurvivor.WIDTH/2, StripaSurvivor.HEIGHT/2, 64, 64, new Texture("play_button.png"), true);
-        this.helpButton = new UIComponent(StripaSurvivor.WIDTH/2-200, StripaSurvivor.HEIGHT/2-200, 64, 64, new Texture("help.png"), true);
-        this.badge = new UIComponent(StripaSurvivor.WIDTH/2+200, StripaSurvivor.HEIGHT/2+200, 342, 73, new Texture("badge.png"), true);
-        this.addComponents(this.bg, this.playButton, this.helpButton, this.badge);
+        this.stage = new Stage();
+        this.background = new Image(new Texture("bg.png"));
+        this.stage.addActor(this.background);
+        Music music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.1f);
+        music.play();
     }
 
     public static final MainMenuView getInstance(){
@@ -28,11 +35,6 @@ public class MainMenuView extends View<MainMenuController>{
         return instance;
     }
 
-    @Override
-    public void handleInput() { }
-
-    @Override
-    public void update(float dt) { }
 
 
 }

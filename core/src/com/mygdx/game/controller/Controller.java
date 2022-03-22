@@ -16,5 +16,6 @@ public abstract class Controller<T extends View> {
         return this.view;
     }
 
+    public abstract void update(float dt);
 
 }
