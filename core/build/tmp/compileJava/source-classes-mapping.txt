@@ -4,15 +4,18 @@ com/mygdx/game/controller/LoginController.java
  com.mygdx.game.controller.LoginController
 com/mygdx/game/model/Model.java
  com.mygdx.game.model.Model
+com/mygdx/game/view/mainMenu/MainMenuView.java
+ com.mygdx.game.view.mainMenu.MainMenuView
+ com.mygdx.game.view.mainMenu.MainMenuView$1
 com/mygdx/game/view/View.java
  com.mygdx.game.view.View
+com/mygdx/game/view/login/LoginView.java
+ com.mygdx.game.view.login.LoginView
 com/mygdx/game/StripaSurvivor.java
  com.mygdx.game.StripaSurvivor
-com/mygdx/game/view/MainMenuView.java
- com.mygdx.game.view.MainMenuView
 com/mygdx/game/controller/MainMenuController.java
  com.mygdx.game.controller.MainMenuController
-com/mygdx/game/view/LoginView.java
- com.mygdx.game.view.LoginView
+com/mygdx/game/view/mainMenu/Background.java
+ com.mygdx.game.view.mainMenu.Background
 com/mygdx/game/controller/Controller.java
  com.mygdx.game.controller.Controller

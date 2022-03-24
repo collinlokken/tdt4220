@@ -1,7 +1,7 @@
 package com.mygdx.game.controller;
 
 
-import com.mygdx.game.view.MainMenuView;
+import com.mygdx.game.view.mainMenu.MainMenuView;
 
 public class MainMenuController extends Controller<MainMenuView>{
 

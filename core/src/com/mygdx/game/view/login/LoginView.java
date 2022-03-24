@@ -1,11 +1,8 @@
-package com.mygdx.game.view;
+package com.mygdx.game.view.login;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.StripaSurvivor;
+import com.mygdx.game.view.View;
 
-import jdk.tools.jaotc.binformat.macho.MachOSegment;
-
-public class LoginView extends View{
+public class LoginView extends View {
     private static LoginView instance = null;
 
     private LoginView(){

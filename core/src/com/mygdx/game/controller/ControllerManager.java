@@ -1,5 +1,6 @@
 package com.mygdx.game.controller;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.Stack;
@@ -31,6 +32,7 @@ public class ControllerManager {
     public void set(Controller state){
         controllers.pop();
         controllers.push(state);
+        Gdx.input.setInputProcessor(state.getView());
     }
 
     public Controller getCurrent()
