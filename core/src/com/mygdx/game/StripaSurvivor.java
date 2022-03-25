@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
 
 public class StripaSurvivor extends ApplicationAdapter {
@@ -18,7 +19,8 @@ public class StripaSurvivor extends ApplicationAdapter {
 	public void create () {
 		controllerManager = ControllerManager.getInstance();
 		MainMenuController mainMenu = MainMenuController.getInstance(controllerManager);
-		controllerManager.push(mainMenu);
+		LoginController login = LoginController.getInstance(controllerManager);
+		controllerManager.push(login);
 	}
 
 	@Override

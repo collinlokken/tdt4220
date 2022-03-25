@@ -16,7 +16,7 @@ public class ControllerManager {
 
     public static final ControllerManager getInstance(){
         if (instance == null){
-            return new ControllerManager();
+            instance = new ControllerManager();
         }
         return instance;
     }

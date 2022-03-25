@@ -13,7 +13,7 @@ public class MainMenuController extends Controller<MainMenuView>{
 
     public static final MainMenuController getInstance(ControllerManager controllerManager){
         if (instance == null){
-            return new MainMenuController(controllerManager);
+            instance = new MainMenuController(controllerManager);
         }
         return instance;
     }
