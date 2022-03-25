@@ -11,8 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.StripaSurvivor;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.RegisterController;
 import com.mygdx.game.view.View;
 import com.mygdx.game.view.mainMenu.Background;
 
@@ -47,12 +49,21 @@ public class LoginView extends View {
             }
         });
 
-//        ImageButton registerButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("play.png"))));
-
+        ImageButton registerButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("register.png"))));
+        registerButton.setPosition(StripaSurvivor.WIDTH/2-100,100);
+        registerButton.setSize(200,50);
+        registerButton.addListener(new ClickListener() {
+            @Override //TODO Send username + pass to database
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                ControllerManager.getInstance().set(RegisterController.getInstance()); //I View??
+            }
+        });
         this.addActor(new Background());
         this.addActor(usernameField);
         this.addActor(passwordField);
         this.addActor(loginButton);
+        this.addActor(registerButton);
         Gdx.input.setInputProcessor(this);
     }
 
