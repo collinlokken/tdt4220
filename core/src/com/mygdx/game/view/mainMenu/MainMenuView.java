@@ -11,8 +11,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.StripaSurvivor;
+import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.GameController;
+import com.mygdx.game.controller.HelpController;
+import com.mygdx.game.controller.LeaderboardController;
+import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.view.View;
+
 
 public class MainMenuView extends View<MainMenuController> {
 
@@ -35,7 +41,7 @@ public class MainMenuView extends View<MainMenuController> {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                System.out.println("play");
+                ControllerManager.getInstance().set(GameController.getInstance(ControllerManager.getInstance()));
             }
         });
         this.addActor(playButton);
@@ -48,7 +54,7 @@ public class MainMenuView extends View<MainMenuController> {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                System.out.println("help");
+                ControllerManager.getInstance().set(HelpController.getInstance(ControllerManager.getInstance()));
             }
         });
         this.addActor(helpButton);
@@ -61,7 +67,7 @@ public class MainMenuView extends View<MainMenuController> {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                System.out.println("leaderboard");
+                ControllerManager.getInstance().set(LeaderboardController.getInstance(ControllerManager.getInstance()));
             }
         });
         this.addActor(leaderboardButton);
@@ -74,7 +80,7 @@ public class MainMenuView extends View<MainMenuController> {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                System.out.println("logout");
+                ControllerManager.getInstance().set(LoginController.getInstance(ControllerManager.getInstance()));
             }
         });
         this.addActor(logoutButton);

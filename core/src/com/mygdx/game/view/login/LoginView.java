@@ -36,7 +36,6 @@ public class LoginView extends View {
         this.addActor(usernameField);
         this.addActor(passwordField);
         this.addActor(loginButton);
-        Gdx.input.setInputProcessor(this);
     }
 
     public static final LoginView getInstance(){
