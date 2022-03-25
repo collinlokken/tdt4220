@@ -4,15 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.StripaSurvivor;
@@ -25,6 +20,7 @@ public class MainMenuView extends View<MainMenuController> {
 
     private MainMenuView() {
         super();
+
         // BACKGROUND OF MAIN MENU
         Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("bg.png"))));
         background.setPosition(0, 0);
@@ -87,12 +83,12 @@ public class MainMenuView extends View<MainMenuController> {
         Music music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
         music.setLooping(true);
         music.setVolume(0.1f);
-        //music.play();
+        music.play();
     }
 
     public static final MainMenuView getInstance(){
         if (instance == null){
-            return new MainMenuView();
+            instance = new MainMenuView();
         }
         return instance;
     }
