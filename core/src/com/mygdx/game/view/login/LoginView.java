@@ -4,13 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.AssetLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.view.View;
 import com.mygdx.game.view.mainMenu.Background;
+
+import jdk.tools.jmod.Main;
 
 public class LoginView extends View {
     private static LoginView instance = null;
@@ -19,11 +25,11 @@ public class LoginView extends View {
         super();
         Skin skin = new Skin(Gdx.files.internal("skin/metal-ui.json"));
 
-        TextField usernameField = new TextField("", skin);
+        final TextField usernameField = new TextField("", skin);
         usernameField.setPosition(250,197);
         usernameField.setMessageText("Username");
 
-        TextField passwordField = new TextField("", skin);
+        final TextField passwordField = new TextField("", skin);
         passwordField.setPosition(460,197);
         passwordField.setPasswordCharacter('*');
         passwordField.setPasswordMode(true);
@@ -31,6 +37,17 @@ public class LoginView extends View {
 
         ImageButton loginButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("play.png"))));
         loginButton.setPosition(700,180);
+        loginButton.addListener(new ClickListener(){
+            @Override //TODO Send username + pass to database
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                System.out.println("username = " + usernameField.getText());
+                System.out.println("password = " + passwordField.getText());
+                ControllerManager.getInstance().set(MainMenuController.getInstance(ControllerManager.getInstance())); //I View??
+            }
+        });
+
+//        ImageButton registerButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("play.png"))));
 
         this.addActor(new Background());
         this.addActor(usernameField);
