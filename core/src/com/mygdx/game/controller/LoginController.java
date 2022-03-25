@@ -1,6 +1,6 @@
 package com.mygdx.game.controller;
 
-import com.mygdx.game.view.LoginView;
+import com.mygdx.game.view.login.LoginView;
 
 public class LoginController extends Controller<LoginView>{
     private static LoginController instance = null;

@@ -13,14 +13,7 @@ public class StripaSurvivor extends ApplicationAdapter {
 
 	public static final String TITLE = "Stripa Survivor";
 	private ControllerManager controllerManager;
-	private static SpriteBatch sb;
 
-	public static SpriteBatch  getSpriteBatchInstance()
-	{
-		if(sb == null)
-			sb = new SpriteBatch();
-		return sb;
-	}
 	@Override
 	public void create () {
 		controllerManager = ControllerManager.getInstance();
@@ -31,7 +24,8 @@ public class StripaSurvivor extends ApplicationAdapter {
 	@Override
 	public void render () {
 		controllerManager.update(Gdx.graphics.getDeltaTime());
-		controllerManager.getCurrent().getView().render(Gdx.graphics.getDeltaTime());
+		controllerManager.getCurrent().getView().act();
+		controllerManager.getCurrent().getView().draw();
 	}
 	
 	@Override
