@@ -65,6 +65,7 @@ public class LoginView extends View {
         this.addActor(loginButton);
         this.addActor(registerButton);
         Gdx.input.setInputProcessor(this);
+
     }
 
     public static final LoginView getInstance(){

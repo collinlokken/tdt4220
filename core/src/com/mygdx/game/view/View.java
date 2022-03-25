@@ -28,6 +28,4 @@ public abstract class View<T extends Controller> extends Stage {
         this.controller = controller;
     }
 
-
-
 }
