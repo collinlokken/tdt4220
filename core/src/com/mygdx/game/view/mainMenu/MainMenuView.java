@@ -39,7 +39,7 @@ public class MainMenuView extends View<MainMenuController> {
 
     public static final MainMenuView getInstance(){
         if (instance == null){
-            return new MainMenuView();
+            instance = new MainMenuView();
         }
         return instance;
     }
