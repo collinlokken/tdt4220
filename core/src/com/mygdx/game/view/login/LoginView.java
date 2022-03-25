@@ -9,19 +9,25 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.view.View;
+import com.mygdx.game.view.mainMenu.Background;
 
 public class LoginView extends View {
     private static LoginView instance = null;
 
     private LoginView(){
         super();
-        Skin skin = new Skin();
-        TextField usernameField = new TextField("brukernavn", skin);
+        Skin skin = new Skin(Gdx.files.internal("skin/metal-ui.json"));
+        TextField usernameField = new TextField("edit", skin);
         usernameField.setPosition(500,500);
-        TextField passwordField = new TextField("passord", skin);
+        TextField passwordField = new TextField("password", skin);
         passwordField.setPosition(500,300);
         ImageButton loginButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("play.png"))));
         loginButton.setPosition(500,100);
+
+        this.addActor(new Background());
+        this.addActor(usernameField);
+        this.addActor(passwordField);
+        this.addActor(loginButton);
     }
 
     public static final LoginView getInstance(){
