@@ -1,14 +1,11 @@
 package com.mygdx.game.controller;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.StripaSurvivor;
-import com.mygdx.game.view.MainMenuView;
+
+import com.mygdx.game.view.mainMenu.MainMenuView;
 
 public class MainMenuController extends Controller<MainMenuView>{
 
     private static MainMenuController instance = null;
-
 
     private MainMenuController(ControllerManager controllerManager) {
         super(controllerManager, MainMenuView.getInstance());
@@ -21,8 +18,8 @@ public class MainMenuController extends Controller<MainMenuView>{
         return instance;
     }
 
+    @Override
+    public void update(float dt) {
 
-
-
-
+    }
 }
