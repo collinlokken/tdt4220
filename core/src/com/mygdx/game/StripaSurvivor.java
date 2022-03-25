@@ -2,8 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
@@ -26,8 +24,8 @@ public class StripaSurvivor extends ApplicationAdapter {
 	@Override
 	public void render () {
 		controllerManager.update(Gdx.graphics.getDeltaTime());
-		controllerManager.getCurrent().getView().draw();
 		controllerManager.getCurrent().getView().act();
+		controllerManager.getCurrent().getView().draw();
 	}
 	
 	@Override

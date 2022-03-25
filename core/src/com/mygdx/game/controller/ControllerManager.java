@@ -23,6 +23,7 @@ public class ControllerManager {
 
     public void push(Controller state){
         controllers.push(state);
+        Gdx.input.setInputProcessor(state.getView());
     }
 
     public void pop(){
