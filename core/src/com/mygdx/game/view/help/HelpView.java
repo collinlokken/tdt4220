@@ -9,7 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.StripaSurvivor;
+import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.HelpController;
+import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.view.View;
 
 public class HelpView extends View<HelpController> {
@@ -19,6 +21,13 @@ public class HelpView extends View<HelpController> {
         Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("help_eksempel.png"))));
         background.setPosition(0, 0);
         background.setSize(StripaSurvivor.WIDTH, StripaSurvivor.HEIGHT);
+        background.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                super.clicked(event, x, y);
+                ControllerManager.getInstance().set(MainMenuController.getInstance(ControllerManager.getInstance()));
+            }
+        });
         this.addActor(background);
 
     }

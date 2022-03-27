@@ -18,6 +18,7 @@ import com.mygdx.game.controller.LeaderboardController;
 import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.view.View;
+import com.mygdx.game.view.login.LoginView;
 
 
 public class MainMenuView extends View<MainMenuController> {
@@ -85,11 +86,7 @@ public class MainMenuView extends View<MainMenuController> {
         });
         this.addActor(logoutButton);
 
-        // MUSIC
-        Music music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
-        music.setLooping(true);
-        music.setVolume(0.1f);
-        //music.play();
+
     }
 
     public static final MainMenuView getInstance(){
