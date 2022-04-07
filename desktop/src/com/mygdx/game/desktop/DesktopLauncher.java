@@ -10,6 +10,6 @@ public class DesktopLauncher {
 		config.width = StripaSurvivor.WIDTH;
 		config.height = StripaSurvivor.HEIGHT;
 		config.title = StripaSurvivor.TITLE;
-		new LwjglApplication(new StripaSurvivor(), config);
+		new LwjglApplication(new StripaSurvivor(new DesktopInterfaceClass()), config);
 	}
 }
