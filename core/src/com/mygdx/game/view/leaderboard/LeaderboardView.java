@@ -19,7 +19,7 @@ public class LeaderboardView extends View<LeaderboardController> {
     private LeaderboardView(){
         Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("leaderboard_eksempel.png"))));
         background.setPosition(0, 0);
-        background.setSize(StripaSurvivor.WIDTH, StripaSurvivor.HEIGHT);
+        background.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         background.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){

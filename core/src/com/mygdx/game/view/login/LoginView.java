@@ -29,25 +29,26 @@ public class LoginView extends View {
     private LoginView(){
         super();
         Skin skin = new Skin(Gdx.files.internal("skin/metal-ui.json"));
-
         Image bg = new Image(new TextureRegionDrawable(new Texture("login_bg.png")));
         bg.setPosition(0, 0);
-        bg.setSize(StripaSurvivor.WIDTH, StripaSurvivor.HEIGHT);
+        bg.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         this.addActor(bg);
 
         final TextField usernameField = new TextField("", skin);
-        usernameField.setPosition((float) (StripaSurvivor.WIDTH*0.25),(float) (StripaSurvivor.HEIGHT*0.34));
+        usernameField.setPosition((float) (getCamera().viewportWidth*0.20),(float) (getCamera().viewportHeight*0.335));
+        usernameField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
         usernameField.setMessageText("Username");
 
         final TextField passwordField = new TextField("", skin);
-        passwordField.setPosition((float) (StripaSurvivor.WIDTH*0.45),(float) (StripaSurvivor.HEIGHT*0.34));
+        passwordField.setPosition((float) (getCamera().viewportWidth*0.45),(float) (getCamera().viewportHeight*0.335));
+        passwordField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
         passwordField.setPasswordCharacter('*');
         passwordField.setPasswordMode(true);
         passwordField.setMessageText("Password");
 
         ImageButton loginButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("login.png"))));
-        loginButton.setPosition((float) (StripaSurvivor.WIDTH*0.66),(float) (StripaSurvivor.HEIGHT*0.322));
-        loginButton.setSize(55, 55);
+        loginButton.setPosition((float) (getCamera().viewportWidth*0.7),(float) (getCamera().viewportHeight*0.322));
+        loginButton.setSize((float) (getCamera().viewportWidth*0.08), (float) (getCamera().viewportHeight*0.08));
         loginButton.addListener(new ClickListener(){
             @Override //TODO Send username + pass to database to authenticate
             public void clicked(InputEvent event, float x, float y) {
@@ -63,9 +64,12 @@ public class LoginView extends View {
         Label startText = new Label("Don't have an account? Click", mySkin, "font", "black");
         Label text = new Label("here", mySkin, "font", "dark-cyan");
         Label endText = new Label("to register!", mySkin, "font", "black");
-        startText.setPosition((float) (StripaSurvivor.WIDTH*0.3),(float) (StripaSurvivor.HEIGHT*0.18));
-        text.setPosition((float) (StripaSurvivor.WIDTH*0.53),(float) (StripaSurvivor.HEIGHT*0.18));
-        endText.setPosition((float) (StripaSurvivor.WIDTH*0.57),(float) (StripaSurvivor.HEIGHT*0.18));
+        startText.setPosition((float) (getCamera().viewportWidth*0.315),(float) (getCamera().viewportHeight*0.18));
+        startText.setFontScale(getCamera().viewportHeight/550);
+        text.setPosition((float) (getCamera().viewportWidth*0.53),(float) (getCamera().viewportHeight*0.18));
+        text.setFontScale(getCamera().viewportHeight/550);
+        endText.setPosition((float) (getCamera().viewportWidth*0.57),(float) (getCamera().viewportHeight*0.18));
+        endText.setFontScale(getCamera().viewportHeight/550);
 
         text.addListener(new ClickListener(){
             @Override
