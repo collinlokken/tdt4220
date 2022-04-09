@@ -19,7 +19,7 @@ public class GameView extends View<GameController> {
     private GameView(){
         Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("game_eksempel.png"))));
         background.setPosition(0, 0);
-        background.setSize(StripaSurvivor.WIDTH, StripaSurvivor.HEIGHT);
+        background.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         background.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){

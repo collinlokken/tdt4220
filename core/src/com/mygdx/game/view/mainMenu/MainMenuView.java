@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.StripaSurvivor;
@@ -31,13 +32,13 @@ public class MainMenuView extends View<MainMenuController> {
         // BACKGROUND OF MAIN MENU
         Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("bg.png"))));
         background.setPosition(0, 0);
-        background.setSize(StripaSurvivor.WIDTH, StripaSurvivor.HEIGHT);
+        background.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         this.addActor(background);
 
         // PLAYBUTTON
-        Button playButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("play.png"))));
+        ImageButton playButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("play.png"))));
         playButton.setSize(64, 64);
-        playButton.setPosition((float) (StripaSurvivor.WIDTH*0.5-64/2), (float) (StripaSurvivor.HEIGHT*0.25));
+        playButton.setPosition((float) (getCamera().viewportWidth*0.5-playButton.getWidth()/2), (float) (getCamera().viewportHeight*0.25));
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -50,7 +51,7 @@ public class MainMenuView extends View<MainMenuController> {
         // HELP BUTTON
         Button helpButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("help_button.png"))));
         helpButton.setSize(64, 64);
-        helpButton.setPosition((float) (StripaSurvivor.WIDTH*0.75-64/2), (float) (StripaSurvivor.HEIGHT*0.25));
+        helpButton.setPosition((float) (getCamera().viewportWidth*0.75-64/2), (float) (getCamera().viewportHeight*0.25));
         helpButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -63,7 +64,7 @@ public class MainMenuView extends View<MainMenuController> {
         // LEADERBOARD BUTTON
         Button leaderboardButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("leaderboard.png"))));
         leaderboardButton.setSize(64, 64);
-        leaderboardButton.setPosition((float) (StripaSurvivor.WIDTH*0.25-64/2), (float) (StripaSurvivor.HEIGHT*0.25));
+        leaderboardButton.setPosition((float) (getCamera().viewportWidth*0.25-64/2), (float) (getCamera().viewportHeight*0.25));
         leaderboardButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -76,7 +77,7 @@ public class MainMenuView extends View<MainMenuController> {
         // LOGOUT BUTTON
         Button logoutButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("logout.png"))));
         logoutButton.setSize(64, 64);
-        logoutButton.setPosition((float) (StripaSurvivor.WIDTH-67), (float) (StripaSurvivor.HEIGHT-73));
+        logoutButton.setPosition((float) (getCamera().viewportWidth-67), (float) (getCamera().viewportHeight-73));
         logoutButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

@@ -26,26 +26,32 @@ public class RegisterView extends View<RegisterController> {
         super();
         Image bg = new Image(new TextureRegionDrawable(new Texture("register_bg.png")));
         bg.setPosition(0, 0);
-        bg.setSize(StripaSurvivor.WIDTH, StripaSurvivor.HEIGHT);
+        bg.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         this.addActor(bg);
 
         Skin metalSkin = new Skin(Gdx.files.internal("skin/metal-ui.json"));
 
         final TextField usernameField = new TextField("", metalSkin);
-        usernameField.setPosition((float) (StripaSurvivor.WIDTH*0.08),(float) (StripaSurvivor.HEIGHT*0.8));
+        usernameField.setPosition((float) (getCamera().viewportWidth*0.08),(float) (getCamera().viewportHeight*0.8));
         usernameField.setMessageText("Username");
+        usernameField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
+
 
         final TextField passwordField = new TextField("", metalSkin);
-        passwordField.setPosition((float) (StripaSurvivor.WIDTH*0.08),(float) (StripaSurvivor.HEIGHT*0.6));
+        passwordField.setPosition((float) (getCamera().viewportWidth*0.08),(float) (getCamera().viewportHeight*0.6));
         passwordField.setPasswordCharacter('*');
         passwordField.setPasswordMode(true);
         passwordField.setMessageText("Password");
+        passwordField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
+
 
         final TextField confirmPasswordField = new TextField("", metalSkin);
-        confirmPasswordField.setPosition((float) (StripaSurvivor.WIDTH*0.08),(float) (StripaSurvivor.HEIGHT*0.4));
+        confirmPasswordField.setPosition((float) (getCamera().viewportWidth*0.08),(float) (getCamera().viewportHeight*0.4));
         confirmPasswordField.setPasswordCharacter('*');
         confirmPasswordField.setPasswordMode(true);
         confirmPasswordField.setMessageText("Confirm password");
+        confirmPasswordField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
+
 
         this.addActor(usernameField);
         this.addActor(passwordField);
@@ -54,8 +60,8 @@ public class RegisterView extends View<RegisterController> {
         Skin glassySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
 
         Button registerButton = new TextButton("Create account", glassySkin, "small");
-        registerButton.setPosition((float) (StripaSurvivor.WIDTH*0.08), (float) (StripaSurvivor.HEIGHT*0.2));
-        registerButton.setSize(155, 40);
+        registerButton.setPosition((float) (getCamera().viewportWidth*0.08), (float) (getCamera().viewportHeight*0.2));
+        registerButton.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.1));
         registerButton.addListener(new ClickListener(){
             @Override //TODO add user in database
             public void clicked(InputEvent event, float x, float y){
