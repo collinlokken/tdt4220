@@ -69,12 +69,12 @@ public class AndroidInterfaceClass implements FireBaseInterface{
                     for(DataSnapshot child: task.getResult().getChildren()){
                         if (child.child("username").getValue().toString().equals(uname) &&
                                 child.child("password").getValue().toString().equals(pwd)) {
-                            Log.d("firebase", "User "+uname+" was found!");
-                        }
-                        else {
-                            Log.d("firebase", "No user with username "+uname+" and password "+pwd+" was found...");
+                            Log.d("firebase", "User " + uname + " was found!");
+                            return;
                         }
                     }
+                    // should only reach here if no user is found
+                    Log.d("firebase", "No user with username "+uname+" and password "+pwd+" was found...");
                 }
             }
         });
