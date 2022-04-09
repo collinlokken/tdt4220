@@ -6,13 +6,13 @@ import com.mygdx.game.view.leaderboard.LeaderboardView;
 public class GameController extends Controller<GameView>{
     private static GameController instance = null;
 
-    private GameController(ControllerManager controllerManager){
-        super(controllerManager, GameView.getInstance());
+    private GameController(){
+        super(GameView.getInstance());
     }
 
-    public static final GameController getInstance(ControllerManager controllerManager){
+    public static final GameController getInstance(){
         if (instance == null){
-            instance = new GameController(controllerManager);
+            instance = new GameController();
         }
         return instance;
     }

@@ -1,13 +1,20 @@
 package com.mygdx.game;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.mygdx.game.model.User;
 
 import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
+
+import java.util.HashMap;
 
 public class AndroidInterfaceClass implements FireBaseInterface{
 
@@ -44,7 +51,33 @@ public class AndroidInterfaceClass implements FireBaseInterface{
     }
 
     @Override
-    public void SetValueInDBb(String target, String value) {
+    public void SetValueInDBb(String target, Object value) {
         getDatabase().getReference(target).setValue(value);
+        Log.d(TAG, "Target is: " + target);
+        Log.d(TAG, "Value is: " + value.toString());
+    }
+
+    @Override
+    public void retrieveUserFromCredentials(String uname, String pwd) {
+        getDatabase().getReference("users/").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    for(DataSnapshot child: task.getResult().getChildren()){
+                        if (child.child("username").getValue().toString().equals(uname) &&
+                                child.child("password").getValue().toString().equals(pwd)) {
+                            Log.d("firebase", "User "+uname+" was found!");
+                        }
+                        else {
+                            Log.d("firebase", "No user with username "+uname+" and password "+pwd+" was found...");
+                        }
+                    }
+                }
+            }
+        });
+
     }
 }

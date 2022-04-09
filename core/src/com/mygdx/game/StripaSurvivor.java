@@ -11,21 +11,25 @@ public class StripaSurvivor extends ApplicationAdapter {
 	public static final int HEIGHT = 700;
 	public static final String TITLE = "Stripa Survivor";
 	private ControllerManager controllerManager;
-	FireBaseInterface _FBIC;
+	static FireBaseInterface _FBIC;
 
 	public StripaSurvivor(FireBaseInterface FBIC)
 	{
 		_FBIC = FBIC;
 	};
 
+	public static FireBaseInterface getFirebaseInterface () {
+		return _FBIC;
+	}
+
 	@Override
 	public void create () {
 		controllerManager = ControllerManager.getInstance();
-		MainMenuController mainMenu = MainMenuController.getInstance(controllerManager);
-		LoginController login = LoginController.getInstance(controllerManager);
+		MainMenuController mainMenu = MainMenuController.getInstance();
+		LoginController login = LoginController.getInstance();
 		controllerManager.push(login);
 		_FBIC.SetOnValueChangedListener("message");
-		_FBIC.SetValueInDBb("message", "TDT4240 er keeeegt");
+		_FBIC.SetValueInDBb("message","TDT4240 er keeeegt");
 	}
 
 	@Override

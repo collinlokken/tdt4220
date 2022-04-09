@@ -7,13 +7,13 @@ public class MainMenuController extends Controller<MainMenuView>{
 
     private static MainMenuController instance = null;
 
-    private MainMenuController(ControllerManager controllerManager) {
-        super(controllerManager, MainMenuView.getInstance());
+    private MainMenuController() {
+        super(MainMenuView.getInstance());
     }
 
-    public static final MainMenuController getInstance(ControllerManager controllerManager){
+    public static final MainMenuController getInstance(){
         if (instance == null){
-            instance = new MainMenuController(controllerManager);
+            instance = new MainMenuController();
         }
         return instance;
     }

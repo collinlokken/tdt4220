@@ -24,7 +24,7 @@ public class GameView extends View<GameController> {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(MainMenuController.getInstance(ControllerManager.getInstance()));
+                ControllerManager.getInstance().set(MainMenuController.getInstance());
             }
         });
         this.addActor(background);

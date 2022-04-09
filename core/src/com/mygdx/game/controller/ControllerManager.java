@@ -2,12 +2,12 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.FireBaseInterface;
 
 import java.util.Stack;
 
 public class ControllerManager {
     private Stack<Controller> controllers;
-
     private static ControllerManager instance = null;
 
     private ControllerManager(){
@@ -44,5 +44,4 @@ public class ControllerManager {
     public void update(float dt){
         controllers.peek().update(dt);
     }
-
 }

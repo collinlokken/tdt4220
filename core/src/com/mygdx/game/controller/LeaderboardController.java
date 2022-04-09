@@ -6,13 +6,13 @@ import com.mygdx.game.view.leaderboard.LeaderboardView;
 public class LeaderboardController extends Controller<LeaderboardView>{
     private static LeaderboardController instance = null;
 
-    private LeaderboardController(ControllerManager controllerManager){
-        super(controllerManager, LeaderboardView.getInstance());
+    private LeaderboardController(){
+        super(LeaderboardView.getInstance());
     }
 
-    public static final LeaderboardController getInstance(ControllerManager controllerManager){
+    public static final LeaderboardController getInstance(){
         if (instance == null){
-            instance = new LeaderboardController(controllerManager);
+            instance = new LeaderboardController();
         }
         return instance;
     }
