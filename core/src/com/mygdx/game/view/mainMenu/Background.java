@@ -10,6 +10,6 @@ public class Background extends Actor
     @Override
     public  void draw(Batch batch, float parentAlpha)
     {
-        batch.draw(texture, 0,0, StripaSurvivor.WIDTH, StripaSurvivor.HEIGHT);
+        batch.draw(texture, 0,0);
     }
 }

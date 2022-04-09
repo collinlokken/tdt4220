@@ -7,8 +7,8 @@ import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
 
 public class StripaSurvivor extends ApplicationAdapter {
-	public static final int WIDTH = 1120;
-	public static final int HEIGHT = 700;
+	public static final int WIDTH = 1110;
+	public static final int HEIGHT = 540;
 	public static final String TITLE = "Stripa Survivor";
 	private ControllerManager controllerManager;
 	static FireBaseInterface _FBIC;
