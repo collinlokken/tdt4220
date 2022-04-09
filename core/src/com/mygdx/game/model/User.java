@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class User extends Model{
+public class User {
     String username;
     String password;
     UUID uuid;
