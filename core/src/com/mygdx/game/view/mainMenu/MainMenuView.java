@@ -82,6 +82,7 @@ public class MainMenuView extends View<MainMenuController> {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                LoginController.getInstance().logOutUser();
                 ControllerManager.getInstance().set(LoginController.getInstance());
             }
         });

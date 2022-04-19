@@ -26,7 +26,6 @@ public class UserSession {
 
     public boolean isLoggedIn(){
         if(getUser() != null){
-            System.out.println(getUser().getUsername()+" ---- "+getUser().getPassword());
             return true;
         }
         return false;

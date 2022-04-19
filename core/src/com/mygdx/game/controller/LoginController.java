@@ -31,7 +31,7 @@ public class LoginController extends Controller<LoginView>{
 
     }
 
-    public void logOut(){
+    public void logOutUser(){
         getUserSession().setToNull();
     }
 
