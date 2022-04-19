@@ -6,18 +6,6 @@ androidx/lifecycle/livedata/core/R.java
  androidx.lifecycle.livedata.core.R
 androidx/lifecycle/viewmodel/R.java
  androidx.lifecycle.viewmodel.R
-androidx/coordinatorlayout/R.java
- androidx.coordinatorlayout.R
- androidx.coordinatorlayout.R$attr
- androidx.coordinatorlayout.R$color
- androidx.coordinatorlayout.R$dimen
- androidx.coordinatorlayout.R$drawable
- androidx.coordinatorlayout.R$id
- androidx.coordinatorlayout.R$integer
- androidx.coordinatorlayout.R$layout
- androidx.coordinatorlayout.R$string
- androidx.coordinatorlayout.R$style
- androidx.coordinatorlayout.R$styleable
 androidx/swiperefreshlayout/R.java
  androidx.swiperefreshlayout.R
  androidx.swiperefreshlayout.R$attr
@@ -30,10 +18,24 @@ androidx/swiperefreshlayout/R.java
  androidx.swiperefreshlayout.R$string
  androidx.swiperefreshlayout.R$style
  androidx.swiperefreshlayout.R$styleable
+androidx/coordinatorlayout/R.java
+ androidx.coordinatorlayout.R
+ androidx.coordinatorlayout.R$attr
+ androidx.coordinatorlayout.R$color
+ androidx.coordinatorlayout.R$dimen
+ androidx.coordinatorlayout.R$drawable
+ androidx.coordinatorlayout.R$id
+ androidx.coordinatorlayout.R$integer
+ androidx.coordinatorlayout.R$layout
+ androidx.coordinatorlayout.R$string
+ androidx.coordinatorlayout.R$style
+ androidx.coordinatorlayout.R$styleable
 com/mygdx/game/BuildConfig.java
  com.mygdx.game.BuildConfig
 androidx/lifecycle/livedata/R.java
  androidx.lifecycle.livedata.R
+androidx/lifecycle/R.java
+ androidx.lifecycle.R
 androidx/legacy/coreui/R.java
  androidx.legacy.coreui.R
  androidx.legacy.coreui.R$attr
@@ -46,12 +48,10 @@ androidx/legacy/coreui/R.java
  androidx.legacy.coreui.R$string
  androidx.legacy.coreui.R$style
  androidx.legacy.coreui.R$styleable
-androidx/lifecycle/R.java
- androidx.lifecycle.R
-androidx/arch/core/R.java
- androidx.arch.core.R
 androidx/documentfile/R.java
  androidx.documentfile.R
+androidx/arch/core/R.java
+ androidx.arch.core.R
 androidx/fragment/R.java
  androidx.fragment.R
  androidx.fragment.R$attr
@@ -167,6 +167,7 @@ androidx/core/R.java
 com/mygdx/game/AndroidInterfaceClass.java
  com.mygdx.game.AndroidInterfaceClass
  com.mygdx.game.AndroidInterfaceClass$1
+ com.mygdx.game.AndroidInterfaceClass$2
 com/google/android/gms/common/R.java
  com.google.android.gms.common.R
  com.google.android.gms.common.R$integer
