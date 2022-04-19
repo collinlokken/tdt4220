@@ -1,6 +1,7 @@
 package com.mygdx.game.view.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -10,11 +11,16 @@ import com.mygdx.game.StripaSurvivor;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.model.Obstacle;
 import com.mygdx.game.view.View;
+import com.mygdx.game.view.game.spriteActors.ObstacleActor;
 import com.mygdx.game.view.help.HelpView;
+
+import java.util.ArrayList;
 
 public class GameView extends View<GameController> {
     private static GameView instance = null;
+    private ArrayList<ObstacleActor> obstacles;
 
     private GameView(){
         Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("game_eksempel.png"))));
@@ -29,6 +35,7 @@ public class GameView extends View<GameController> {
         });
         this.addActor(background);
 
+        obstacles = new ArrayList<>();
     }
 
     public static final GameView getInstance(){
@@ -37,4 +44,5 @@ public class GameView extends View<GameController> {
         }
         return instance;
     }
+
 }

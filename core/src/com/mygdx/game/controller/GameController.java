@@ -2,6 +2,7 @@ package com.mygdx.game.controller;
 
 import com.mygdx.game.model.Model;
 import com.mygdx.game.model.PlayerModel;
+import com.mygdx.game.model.Stand;
 import com.mygdx.game.view.game.GameView;
 import com.mygdx.game.view.leaderboard.LeaderboardView;
 
@@ -16,6 +17,8 @@ public class GameController extends Controller<GameView>{
         super(GameView.getInstance());
         models = new ArrayList<>();
         playerModel = PlayerModel.getInstance();
+        models.add(new Stand(3000,0,3000,500));
+
     }
 
     public static final GameController getInstance(){
@@ -31,10 +34,10 @@ public class GameController extends Controller<GameView>{
         for (Model model : models){
             model.update(dt);
             if(playerModel.collides(model.getCollisionBox())){
+                System.out.println("KOLLISJONQ!!");
                 model.interact(playerModel);
             }
         }
-        //render
 
     }
 }
