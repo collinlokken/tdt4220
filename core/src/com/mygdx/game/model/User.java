@@ -12,9 +12,15 @@ public class User {
     public User(){}
 
     public User(String uname, String pwd) {
-        username = uname;
-        password = pwd;
-        uuid = UUID.randomUUID();
+        this.username = uname;
+        this.password = pwd;
+        this.uuid = UUID.randomUUID();
+    }
+
+    public User(String uname, String pwd, String uuid) {
+        this.username = uname;
+        this.password = pwd;
+        this.uuid = UUID.fromString(uuid);
     }
 
     public String getUsername() {

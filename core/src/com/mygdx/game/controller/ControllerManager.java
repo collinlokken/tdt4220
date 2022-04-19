@@ -28,6 +28,7 @@ public class ControllerManager {
 
     public void pop(){
         controllers.pop();
+        Gdx.input.setInputProcessor(controllers.peek().getView());
     }
 
     public void set(Controller state){

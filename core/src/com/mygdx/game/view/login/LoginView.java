@@ -1,7 +1,6 @@
 package com.mygdx.game.view.login;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.loaders.AssetLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,18 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.game.StripaSurvivor;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.controller.RegisterController;
-import com.mygdx.game.view.RegisterView;
+import com.mygdx.game.controller.modal.ModalController;
 import com.mygdx.game.view.View;
-import com.mygdx.game.view.mainMenu.Background;
-
-import jdk.tools.jmod.Main;
 
 public class LoginView extends View {
     private static LoginView instance = null;
@@ -34,6 +28,7 @@ public class LoginView extends View {
         bg.setPosition(0, 0);
         bg.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         this.addActor(bg);
+
 
         final TextField usernameField = new TextField("", skin);
         usernameField.setPosition((float) (getCamera().viewportWidth*0.20),(float) (getCamera().viewportHeight*0.335));
@@ -47,6 +42,8 @@ public class LoginView extends View {
         passwordField.setPasswordMode(true);
         passwordField.setMessageText("Password");
 
+
+
         ImageButton loginButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("login.png"))));
         loginButton.setPosition((float) (getCamera().viewportWidth*0.7),(float) (getCamera().viewportHeight*0.322));
         loginButton.setSize((float) (getCamera().viewportWidth*0.08), (float) (getCamera().viewportHeight*0.08));
@@ -54,10 +51,12 @@ public class LoginView extends View {
             @Override //TODO Send username + pass to database to authenticate
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                LoginController.getInstance().LoginWithCredentials(usernameField.getText(), passwordField.getText());
-                System.out.println("username = " + usernameField.getText());
-                System.out.println("password = " + passwordField.getText());
-                ControllerManager.getInstance().set(MainMenuController.getInstance()); //I View??
+                LoginController.getInstance().loginWithCredentials(usernameField.getText(), passwordField.getText());
+                if (LoginController.getInstance().getUserSession().isLoggedIn()) {
+                    ControllerManager.getInstance().set(MainMenuController.getInstance()); //I View??
+                } else {
+                    ControllerManager.getInstance().push(ModalController.getInstance());
+                }
             }
         });
 
