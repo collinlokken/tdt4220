@@ -4,12 +4,10 @@ import com.mygdx.game.view.View;
 
 public abstract class Controller<T extends View> {
     protected T view;
-    protected ControllerManager controllerManager;
 
-    protected Controller(ControllerManager controllerManager, T view){
+    protected Controller( T view){
         this.view = view;
         this.view.setController(this);
-        this.controllerManager = controllerManager;
     }
 
     public View getView(){

@@ -6,13 +6,13 @@ import com.mygdx.game.view.login.LoginView;
 public class HelpController extends Controller<HelpView>{
     private static HelpController instance = null;
 
-    private HelpController(ControllerManager controllerManager){
-        super(controllerManager, HelpView.getInstance());
+    private HelpController(){
+        super(HelpView.getInstance());
     }
 
-    public static final HelpController getInstance(ControllerManager controllerManager){
+    public static final HelpController getInstance(){
         if (instance == null){
-            instance = new HelpController(controllerManager);
+            instance = new HelpController();
         }
         return instance;
     }

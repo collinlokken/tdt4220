@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.StripaSurvivor;
 import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.controller.RegisterController;
 import com.mygdx.game.view.mainMenu.Background;
@@ -65,10 +66,11 @@ public class RegisterView extends View<RegisterController> {
             @Override //TODO add user in database
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
+                LoginController.getInstance().RegisterUserInDB(usernameField.getText(),passwordField.getText());
                 usernameField.setMessageText("Username");
                 passwordField.setMessageText("Password");
                 confirmPasswordField.setMessageText("Confirm password");
-                ControllerManager.getInstance().set(MainMenuController.getInstance(ControllerManager.getInstance())); //I View??
+                ControllerManager.getInstance().set(MainMenuController.getInstance()); //I View??
             }
         });
 

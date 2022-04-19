@@ -5,13 +5,13 @@ import com.mygdx.game.view.RegisterView;
 public class RegisterController extends Controller<RegisterView>{
     private static RegisterController instance = null;
 
-    private RegisterController(ControllerManager controllerManager){
-        super(controllerManager, RegisterView.getInstance());
+    private RegisterController(){
+        super(RegisterView.getInstance());
     }
 
-    public static final RegisterController getInstance(ControllerManager controllerManager){
+    public static final RegisterController getInstance(){
         if (instance == null){
-            instance = new RegisterController(controllerManager);
+            instance = new RegisterController();
         }
         return instance;
     }

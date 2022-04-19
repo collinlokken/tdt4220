@@ -10,7 +10,12 @@ public class DesktopInterfaceClass implements FireBaseInterface {
     }
 
     @Override
-    public void SetValueInDBb(String target, String value) {
+    public void SetValueInDBb(String target, Object value) {
+
+    }
+
+    @Override
+    public void retrieveUserFromCredentials(String uname, String pwd) {
 
     }
 }

@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.StripaSurvivor;
 import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.controller.RegisterController;
 import com.mygdx.game.view.RegisterView;
@@ -53,9 +54,10 @@ public class LoginView extends View {
             @Override //TODO Send username + pass to database to authenticate
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
+                LoginController.getInstance().LoginWithCredentials(usernameField.getText(), passwordField.getText());
                 System.out.println("username = " + usernameField.getText());
                 System.out.println("password = " + passwordField.getText());
-                ControllerManager.getInstance().set(MainMenuController.getInstance(ControllerManager.getInstance())); //I View??
+                ControllerManager.getInstance().set(MainMenuController.getInstance()); //I View??
             }
         });
 
@@ -75,7 +77,7 @@ public class LoginView extends View {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(RegisterController.getInstance(ControllerManager.getInstance()));
+                ControllerManager.getInstance().set(RegisterController.getInstance());
             }
         });
 

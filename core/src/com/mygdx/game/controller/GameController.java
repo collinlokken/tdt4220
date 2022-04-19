@@ -9,18 +9,17 @@ import java.util.ArrayList;
 
 public class GameController extends Controller<GameView>{
     private static GameController instance = null;
-
     private ArrayList<Model> models;
     private PlayerModel playerModel;
 
-    private GameController(ControllerManager controllerManager){
-        super(controllerManager, GameView.getInstance());
+    private GameController(){
+        super(GameView.getInstance());
         models = new ArrayList<>();
     }
 
-    public static final GameController getInstance(ControllerManager controllerManager){
+    public static final GameController getInstance(){
         if (instance == null){
-            instance = new GameController(controllerManager);
+            instance = new GameController();
         }
         return instance;
     }
