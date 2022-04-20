@@ -11,13 +11,16 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.view.game.GameView;
 import com.mygdx.game.view.game.PlayerActor;
-
 import java.awt.SystemColor;
 
-public class PlayerModel {
-    private static PlayerModel instance = null;
+import java.util.ArrayList;
 
+public class PlayerModel{
+    private static PlayerModel instance = null;
+    private int lifePoints;
+    private Rectangle collisionBox;
     private PlayerActor playerActor;
+    private float timeLeftCoffeePowerup;
 
 
     private static final int GRAVITY = -25;
@@ -32,6 +35,8 @@ public class PlayerModel {
 
     private PlayerModel(){
         super();
+        lifePoints = 3;
+        collisionBox = new Rectangle(0, 0, 10, 10);
         playerActor = PlayerActor.getInstance(new Texture(Gdx.files.internal("player.png")));
         GameView.getInstance().addActor(playerActor);
         velocity = new Vector2(0, 0);
@@ -86,6 +91,21 @@ public class PlayerModel {
 
         velocity.scl(1/dt);
 
+    }
+
+    public boolean collides(Rectangle rectangle){
+        return collisionBox.overlaps(rectangle);
+    }
+
+    public boolean hasCoffeePowerup(){
+        return timeLeftCoffeePowerup > 0;    }
+
+    public void setCoffeePowerup(float duration){
+        timeLeftCoffeePowerup += duration;
+    }
+
+    public void decreaseLifePoints(){
+        lifePoints -= 1;
     }
 
     public Vector2 getPosition() {
