@@ -11,13 +11,24 @@ public class Stand extends Obstacle{
     private float xRespawnPosition;
     private Rectangle collisionBox;
     private Texture texture;
+    private int width;
+    private int height;
 
-    public Stand(float xPos, float yPos, float xRespawn, float speed){
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Stand(float xPos, float yPos, float scale, float xRespawn, float speed){
         this.speed = speed;
         this.xRespawnPosition = xRespawn;
         texture = new Texture(Gdx.files.internal("stand.png"));
-        collisionBox= new Rectangle(xPos, yPos, texture.getWidth(), texture.getHeight());
-        GameView.getInstance().addActor(new ObstacleActor(this));
+        this.width = (int) (texture.getWidth()*scale);
+        this.height = (int) (texture.getHeight()*scale);
+        collisionBox= new Rectangle(xPos, yPos, width, height);
 
 
     }

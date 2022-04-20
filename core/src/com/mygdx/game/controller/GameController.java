@@ -1,24 +1,30 @@
 package com.mygdx.game.controller;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.model.Model;
+import com.mygdx.game.model.Obstacle;
 import com.mygdx.game.model.PlayerModel;
 import com.mygdx.game.model.Stand;
 import com.mygdx.game.view.game.GameView;
+import com.mygdx.game.view.game.spriteActors.ObstacleActor;
 import com.mygdx.game.view.leaderboard.LeaderboardView;
 
 import java.util.ArrayList;
 
 public class GameController extends Controller<GameView>{
     private static GameController instance = null;
-    private ArrayList<Model> models;
+    private ArrayList<GameControllerModelActorHelper> modelActors;
     private PlayerModel playerModel;
 
     private GameController(){
         super(GameView.getInstance());
-        models = new ArrayList<>();
+        modelActors = new ArrayList<>();
         playerModel = PlayerModel.getInstance();
 
-        models.add(new Stand(3000,0,3000,500));
+        Stand stand1Model = new Stand(3000,0, 0.5f,3000,500);
+        ObstacleActor stand1Actor = new ObstacleActor(stand1Model.getTexture(), stand1Model.getWidth(),stand1Model.getHeight());
+        modelActors.add(new GameControllerModelActorHelper(stand1Model, stand1Actor));
+        GameView.getInstance().addActor(stand1Actor);
 
     }
 
@@ -32,11 +38,12 @@ public class GameController extends Controller<GameView>{
     @Override
     public void update(float dt) {
         playerModel.update(dt);
-        for (Model model : models){
-            model.update(dt);
-            if(playerModel.collides(model.getCollisionBox())){
+        for (GameControllerModelActorHelper modelActor : modelActors){
+            modelActor.getModel().update(dt);
+            modelActor.getActor().setActorPosition((int) modelActor.getModel().getCollisionBox().getX(), (int) modelActor.getModel().getCollisionBox().getY());
+            if(playerModel.collides(modelActor.getModel().getCollisionBox())){
                 System.out.println("KOLLISJONQ!!");
-                model.interact(playerModel);
+                modelActor.getModel().interact(playerModel);
             }
         }
 

@@ -9,12 +9,13 @@ import com.mygdx.game.model.Obstacle;
 
 public class ObstacleActor extends Actor {
     private Sprite sprite;
-    private Obstacle obstacle;
+    private int posX;
+    private int posY;
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        sprite.setPosition(obstacle.getCollisionBox().getX(), obstacle.getCollisionBox().getY());
+        sprite.setPosition(posX, posY);
     }
 
     @Override
@@ -22,9 +23,12 @@ public class ObstacleActor extends Actor {
         sprite.draw(batch);
     }
 
-    public ObstacleActor(Obstacle obstacle){
-        sprite = new Sprite(obstacle.getTexture(), (int) obstacle.getCollisionBox().getWidth(), (int) obstacle.getCollisionBox().getHeight());
-        this.obstacle = obstacle;
-
+    public ObstacleActor(Texture texture, int width, int height){
+        sprite = new Sprite(texture);
+        sprite.setSize(width,height);
+    }
+    public void setActorPosition(int x, int y){
+        posX = x;
+        posY = y;
     }
 }
