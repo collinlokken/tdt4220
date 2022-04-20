@@ -8,44 +8,49 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.mygdx.game.controller.GameController;
 import com.mygdx.game.view.game.GameView;
+import com.mygdx.game.view.game.PlayerActor;
 
 import java.awt.SystemColor;
 
-public class PlayerModel extends Actor {
+public class PlayerModel {
     private static PlayerModel instance = null;
-    private Sprite sprite = new Sprite(new Texture(Gdx.files.internal("player.png")));
+
+    private PlayerActor playerActor;
+
 
     private static final int GRAVITY = -25;
     private Vector2 velocity;
     private Vector2 position;
+    private int width;
+    private int height;
     private boolean movingUp = false;
     private boolean lowerEdge = false;
     private boolean upperEdge = false;
 
 
-
-    private float timeLeftFacemaskPowerup;
-    private float timeLeftCoffeePowerup;
-    private float timeLeftCookbookPowerup;
-    private float timeLeftBongPowerup;
-
-    private Rectangle collisionBox;
-
     private PlayerModel(){
         super();
+        playerActor = PlayerActor.getInstance(new Texture(Gdx.files.internal("player.png")));
+        GameView.getInstance().addActor(playerActor);
         velocity = new Vector2(0, 0);
         position = new Vector2(0, 0);
-        setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
-
     }
 
+    public static final PlayerModel getInstance(){
+        if (instance == null){
+            instance = new PlayerModel();
+        }
+        return instance;
+    }
 
+    public void setPosition(float x, float y){
+        position.x = x;
+        position.y = y;
+    }
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        System.out.println(lowerEdge);
+    public void update(float dt) {
         if (lowerEdge){
             velocity.y = 0;
         }
@@ -57,62 +62,34 @@ public class PlayerModel extends Actor {
         if (movingUp){
             velocity.add(0, -(GRAVITY-10));
         }
+
         else {
             velocity.add(0, GRAVITY);
         }
 
-        velocity.scl(delta);
+        velocity.scl(dt);
 
-        sprite.setPosition(sprite.getX(), sprite.getY()+velocity.y);
+        this.setPosition(this.getPosition().x, this.getPosition().y + velocity.y);
 
-        if (sprite.getY() <= 0){
+        if (this.getPosition().y <= 0){
             lowerEdge = true;
-            sprite.setPosition(sprite.getX(), 0);
+            this.setPosition(this.getPosition().x, 0);
         }
-        else if (sprite.getY() >= GameView.getInstance().getCamera().viewportHeight-sprite.getHeight()){
+        else if (this.getPosition().y >= GameView.getInstance().getCamera().viewportHeight - this.getHeight()){
             upperEdge = true;
-            sprite.setPosition(sprite.getX(), GameView.getInstance().getCamera().viewportHeight-sprite.getHeight());
+            this.setPosition(this.getPosition().x, GameView.getInstance().getCamera().viewportHeight - this.getHeight());
         }
         else {
             upperEdge = false;
             lowerEdge = false;
         }
 
-
-
-        velocity.scl(1/delta);
-        this.setWidth(0);
-        this.setHeight(0);
+        velocity.scl(1/dt);
 
     }
 
-    public Sprite getSprite(){
-        return sprite;
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        sprite.draw(batch);
-    }
-
-    public static final PlayerModel getInstance(){
-        if (instance == null){
-            instance = new PlayerModel();
-        }
-        return instance;
-    }
-
-
-
-    public void update(float dt) {
-        timeLeftFacemaskPowerup-=dt;
-        if (timeLeftFacemaskPowerup > 0){
-            //view should render a facemask
-        }
-    }
-
-    public boolean collides(Rectangle rectangle){
-        return collisionBox.overlaps(rectangle);
+    public Vector2 getPosition() {
+        return position;
     }
 
     public void moveUp() {
@@ -122,6 +99,23 @@ public class PlayerModel extends Actor {
 
     public void moveDown() {
         movingUp = false;
-
     }
+
+    public void setWidth(int w){
+        width = w;
+    }
+
+    public void setHeight(int h){
+        height = h;
+    }
+
+    public int getHeight(){
+        return height;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+
 }

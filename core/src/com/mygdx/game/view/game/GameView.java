@@ -1,5 +1,6 @@
 package com.mygdx.game.view.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -17,8 +18,7 @@ import com.mygdx.game.view.help.HelpView;
 
 public class GameView extends View<GameController> {
     private static GameView instance = null;
-    private PlayerModel player = PlayerModel.getInstance();
-    private int i = 0;
+    private PlayerActor playerActor = PlayerActor.getInstance(new Texture(Gdx.files.internal("player.png")));
 
     private GameView(){
         Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("test_background.png"))));
@@ -27,24 +27,22 @@ public class GameView extends View<GameController> {
         background.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-
                 GameController.getInstance().touchedDown(true);
                 return true;
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button){
                 GameController.getInstance().touchedDown(false);
-
             }
         });
 
-        player.getSprite().setPosition(150, getCamera().viewportHeight - 150);
-        player.getSprite().setSize(150, 150);
         this.addActor(background);
-        this.addActor(player);
+        this.addActor(playerActor);
 
+    }
 
-
+    public PlayerActor getPlayerActor() {
+        return playerActor;
     }
 
     public static final GameView getInstance(){
@@ -53,4 +51,5 @@ public class GameView extends View<GameController> {
         }
         return instance;
     }
+
 }
