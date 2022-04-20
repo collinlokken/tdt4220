@@ -17,6 +17,7 @@ public class GameController extends Controller<GameView>{
         super(GameView.getInstance());
         models = new ArrayList<>();
         playerModel = PlayerModel.getInstance();
+
         models.add(new Stand(3000,0,3000,500));
 
     }

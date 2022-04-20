@@ -15,7 +15,7 @@ public class Stand extends Obstacle{
     public Stand(float xPos, float yPos, float xRespawn, float speed){
         this.speed = speed;
         this.xRespawnPosition = xRespawn;
-        texture = new Texture(Gdx.files.internal("stand.jfif"));
+        texture = new Texture(Gdx.files.internal("stand.png"));
         collisionBox= new Rectangle(xPos, yPos, texture.getWidth(), texture.getHeight());
         GameView.getInstance().addActor(new ObstacleActor(this));
 
