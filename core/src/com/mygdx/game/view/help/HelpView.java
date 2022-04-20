@@ -18,7 +18,7 @@ public class HelpView extends View<HelpController> {
     private static HelpView instance = null;
 
     private HelpView(){
-        Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("help_eksempel.png"))));
+        Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("matm.mp4"))));
         background.setPosition(0, 0);
         background.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         background.addListener(new ClickListener(){

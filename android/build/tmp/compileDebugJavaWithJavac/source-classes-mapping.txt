@@ -164,9 +164,8 @@ androidx/core/R.java
  androidx.core.R$string
  androidx.core.R$style
  androidx.core.R$styleable
-com/mygdx/game/AndroidInterfaceClass.java
- com.mygdx.game.AndroidInterfaceClass
- com.mygdx.game.AndroidInterfaceClass$1
+com/google/firebase/auth/internal/R.java
+ com.google.firebase.auth.internal.R
 com/google/android/gms/common/R.java
  com.google.android.gms.common.R
  com.google.android.gms.common.R$integer
@@ -245,7 +244,9 @@ com/google/firebase/database/R.java
  com.google.firebase.database.R$styleable
 com/google/android/gms/tasks/R.java
  com.google.android.gms.tasks.R
-com/google/firebase/auth/internal/R.java
- com.google.firebase.auth.internal.R
+com/mygdx/game/AndroidInterfaceClass.java
+ com.mygdx.game.AndroidInterfaceClass
+ com.mygdx.game.AndroidInterfaceClass$1
+ com.mygdx.game.AndroidInterfaceClass$2
 com/mygdx/game/AndroidLauncher.java
  com.mygdx.game.AndroidLauncher
