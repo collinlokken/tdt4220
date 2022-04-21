@@ -8,28 +8,15 @@ import com.mygdx.game.view.game.GameView;
 import com.mygdx.game.view.game.spriteActors.ObstacleActor;
 
 public class Stand extends Model{
-    private float xRespawnPosition;
     private Rectangle collisionBox;
     private Texture texture;
-    private int width;
-    private int height;
     private String powerupId = "stand";
+    private float speed;
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public Stand(float xPos, float yPos, float scale, float xRespawn, float speed){
+    public Stand(float xPos, float scale, float speed){
         this.speed = speed;
-        this.xRespawnPosition = xRespawn;
         texture = new Texture(Gdx.files.internal("stand.png"));
-        this.width = (int) (texture.getWidth()*scale);
-        this.height = (int) (texture.getHeight()*scale);
-        collisionBox= new Rectangle(xPos, yPos, width, height);
+        collisionBox= new Rectangle(xPos, 0, texture.getWidth()*scale, texture.getHeight()*scale);
 
 
     }
@@ -45,11 +32,13 @@ public class Stand extends Model{
     public void update(float dt) {
         //System.out.println(collisionBox);
         if (collisionBox.getX() + collisionBox.width < 0){
-            collisionBox.setX(xRespawnPosition);
+            reset();
             return;
         }
 
         collisionBox.setX(collisionBox.getX()-speed*dt);
+
+        speed += 5*dt;
     }
 
     @Override
@@ -59,5 +48,9 @@ public class Stand extends Model{
 
     public Texture getTexture(){
         return texture;
+    }
+
+    public void reset(){
+        getCollisionBox().setX((float) (Gdx.graphics.getWidth()*1.5));
     }
 }

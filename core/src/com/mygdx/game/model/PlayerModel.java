@@ -119,6 +119,7 @@ public class PlayerModel extends Model{
             activePowerupTimers.set(i, activePowerupTimers.get(i)-dt);
             //System.out.println(activePowerupTimers.get(i));
             if (activePowerupTimers.get(i) < 0){
+                System.out.println("remove powerup: "+ activePowerupIds.get(i));
                 activePowerupIds.remove(i);
                 activePowerupTimers.remove(i);
             }
@@ -146,6 +147,7 @@ public class PlayerModel extends Model{
     }
 
     public void addPowerup(String powerupId, float powerupDuration){
+        System.out.println("Add powerup: "+ powerupId);
         for (String id : activePowerupIds){
             if (id.equals(powerupId)){
                 activePowerupTimers.set(activePowerupIds.indexOf(id),powerupDuration);
@@ -167,12 +169,16 @@ public class PlayerModel extends Model{
         }
         return false;
     }
+    public void increaseLifepoints(){
+        lifePoints += 1;
+        System.out.println("lifepoints: " + lifePoints);
+    }
 
     public void decreaseLifePoints(){
-        System.out.println("lifepoints: " + lifePoints);
         if (!hasPowerup("justlostlife")) {
             lifePoints -= 1;
             addPowerup("justlostlife", 2f);
+            System.out.println("lifepoints: " + lifePoints);
         }
     }
     public int getLifePoints(){
@@ -210,6 +216,8 @@ public class PlayerModel extends Model{
 
     public void reset(){
         lifePoints = 3;
+        activePowerupTimers.clear();
+        activePowerupIds.clear();
     }
 
 
