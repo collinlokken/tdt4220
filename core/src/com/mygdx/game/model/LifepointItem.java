@@ -6,27 +6,22 @@ import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
 
-public class CoffeeStandShield extends Model{
-    private Rectangle collisionBox;
-    private float duration;
-    private String powerupId = "stand";
-    private Texture texture;
+public class LifepointItem extends Model{
     private float speed;
+    private Texture texture;
+    private Rectangle collisionBox;
     private Random rand;
 
-    public CoffeeStandShield( float scale, float speed, float duration) {
+    public LifepointItem( float scale, float speed) {
         this.speed = speed;
-        this.duration = duration;
         rand = new Random();
-        texture = new Texture(Gdx.files.internal("coffee.png"));
+        texture = new Texture(Gdx.files.internal("heart.png"));
         collisionBox = new Rectangle((float) (rand.nextFloat()*(Gdx.graphics.getWidth() * 4.55)), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scale), texture.getWidth() * scale, texture.getHeight() * scale);
-
-
     }
 
     @Override
     public void interact(PlayerModel playerModel) {
-        playerModel.addPowerup(powerupId,duration);
+        playerModel.increaseLifepoints();
         reset();
     }
 
@@ -42,6 +37,12 @@ public class CoffeeStandShield extends Model{
     }
 
     @Override
+    public void reset() {
+        collisionBox.setX((float) (Gdx.graphics.getWidth() + rand.nextFloat()*(Gdx.graphics.getWidth() * 15)));
+        collisionBox.setY(rand.nextFloat()*(Gdx.graphics.getHeight()-getCollisionBox().getHeight()));
+    }
+
+    @Override
     public Rectangle getCollisionBox() {
         return collisionBox;
     }
@@ -49,10 +50,5 @@ public class CoffeeStandShield extends Model{
     @Override
     public Texture getTexture() {
         return texture;
-    }
-
-    public void reset(){
-        collisionBox.setX((float) (Gdx.graphics.getWidth() + rand.nextFloat()*(Gdx.graphics.getWidth() * 15)));
-        collisionBox.setY(rand.nextFloat()*(Gdx.graphics.getHeight()-getCollisionBox().getHeight()));
     }
 }

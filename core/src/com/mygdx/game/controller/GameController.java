@@ -2,11 +2,16 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
+import com.mygdx.game.model.CoffeeStandShield;
+import com.mygdx.game.model.CoronaVirusObstacle;
+import com.mygdx.game.model.CoronaVirusShield;
 import com.mygdx.game.model.Items;
+import com.mygdx.game.model.LifepointItem;
 import com.mygdx.game.model.Model;
 import com.mygdx.game.model.Obstacle;
 import com.mygdx.game.model.PlayerModel;
 import com.mygdx.game.model.Stand;
+
 import com.mygdx.game.view.game.GameView;
 import com.mygdx.game.view.game.PlayerActor;
 import com.mygdx.game.view.game.spriteActors.ObstacleActor;
@@ -27,11 +32,33 @@ public class GameController extends Controller<GameView>{
         playerModel = PlayerModel.getInstance();
         playerActor = GameView.getInstance().getPlayerActor();
 
-
-        Stand stand1Model = new Stand(3000, 0, 0.4f, 3000, 500);
-        ObstacleActor stand1Actor = new ObstacleActor(stand1Model.getTexture(), (int)stand1Model.getCollisionBox().x, (int)stand1Model.getCollisionBox().y, stand1Model.getWidth(), stand1Model.getHeight());
+        //Init obstacles and items
+        Stand stand1Model = new Stand(3000, 0.4f, 500);
+        ObstacleActor stand1Actor = new ObstacleActor(stand1Model.getTexture(), (int)stand1Model.getCollisionBox().x, (int)stand1Model.getCollisionBox().y,(int) stand1Model.getCollisionBox().getWidth(),(int) stand1Model.getCollisionBox().getHeight());
         modelActors.add(new GameControllerModelActorHelper(stand1Model, stand1Actor));
         GameView.getInstance().addActor(stand1Actor);
+
+        CoffeeStandShield coffee1Model = new CoffeeStandShield(0.3f,500,5);
+        ObstacleActor coffie1Actor = new ObstacleActor(coffee1Model.getTexture(), (int) coffee1Model.getCollisionBox().x, (int) coffee1Model.getCollisionBox().y, (int)coffee1Model.getCollisionBox().getWidth(), (int)coffee1Model.getCollisionBox().getHeight());
+        modelActors.add(new GameControllerModelActorHelper(coffee1Model,coffie1Actor));
+        GameView.getInstance().addActor(coffie1Actor);
+
+        LifepointItem lifepoint1Model = new LifepointItem(0.075f,500);
+        ObstacleActor lifepoint1Actor = new ObstacleActor(lifepoint1Model.getTexture(),(int) lifepoint1Model.getCollisionBox().x, (int) lifepoint1Model.getCollisionBox().y, (int)lifepoint1Model.getCollisionBox().getWidth(), (int)lifepoint1Model.getCollisionBox().getHeight());
+        modelActors.add(new GameControllerModelActorHelper(lifepoint1Model, lifepoint1Actor));
+        GameView.getInstance().addActor(lifepoint1Actor);
+
+        for (int i = 0; i < 3; i++) {
+            CoronaVirusObstacle virus1Model = new CoronaVirusObstacle(0.1f,500);
+            ObstacleActor virus1Actor = new ObstacleActor(virus1Model.getTexture(),(int) virus1Model.getCollisionBox().x, (int) virus1Model.getCollisionBox().y, (int)virus1Model.getCollisionBox().getWidth(), (int)virus1Model.getCollisionBox().getHeight());
+            modelActors.add(new GameControllerModelActorHelper(virus1Model, virus1Actor));
+            GameView.getInstance().addActor(virus1Actor);
+        }
+
+        CoronaVirusShield maskModel = new CoronaVirusShield(0.05f,500,5);
+        ObstacleActor maskActor = new ObstacleActor(maskModel.getTexture(),(int) maskModel.getCollisionBox().x, (int) maskModel.getCollisionBox().y, (int)maskModel.getCollisionBox().getWidth(), (int)maskModel.getCollisionBox().getHeight());
+        modelActors.add(new GameControllerModelActorHelper(maskModel, maskActor));
+        GameView.getInstance().addActor(maskActor);
 
         /*playerActor.getSprite().setPosition(150, GameView.getInstance().getCamera().viewportHeight - 150);
         playerActor.getSprite().setSize(150, 150);*/
@@ -73,6 +100,7 @@ public class GameController extends Controller<GameView>{
         }
         if (playerModel.getLifePoints() < 1){
             //TODO game over screen
+            System.out.println("Game Over");
             playerModel.reset();
             ControllerManager.getInstance().set(MainMenuController.getInstance());
         }

@@ -6,19 +6,19 @@ import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
 
-public class CoffeeStandShield extends Model{
+public class CoronaVirusShield extends Model{
     private Rectangle collisionBox;
     private float duration;
-    private String powerupId = "stand";
+    private String powerupId = "virus";
     private Texture texture;
     private float speed;
     private Random rand;
 
-    public CoffeeStandShield( float scale, float speed, float duration) {
+    public CoronaVirusShield( float scale, float speed, float duration) {
         this.speed = speed;
         this.duration = duration;
         rand = new Random();
-        texture = new Texture(Gdx.files.internal("coffee.png"));
+        texture = new Texture(Gdx.files.internal("facemask.png"));
         collisionBox = new Rectangle((float) (rand.nextFloat()*(Gdx.graphics.getWidth() * 4.55)), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scale), texture.getWidth() * scale, texture.getHeight() * scale);
 
 
