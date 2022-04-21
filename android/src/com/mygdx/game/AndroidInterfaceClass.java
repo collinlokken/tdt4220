@@ -8,6 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.model.User;
 
 import static android.content.ContentValues.TAG;
@@ -15,6 +16,7 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class AndroidInterfaceClass implements FireBaseInterface{
 
@@ -70,12 +72,15 @@ public class AndroidInterfaceClass implements FireBaseInterface{
                         if (child.child("username").getValue().toString().equals(uname) &&
                                 child.child("password").getValue().toString().equals(pwd)) {
                             Log.d("firebase", "User " + uname + " was found!");
-                            return;
+                            User usr = new User(uname, pwd, child.getKey());
+                            LoginController.getInstance().getUserSession().setUser(usr);
+                            break;
                         }
                     }
                     // should only reach here if no user is found
                     Log.d("firebase", "No user with username "+uname+" and password "+pwd+" was found...");
                 }
+                LoginController.getInstance().loginCallback();
             }
         });
 
