@@ -26,10 +26,10 @@ public class StripaSurvivor extends ApplicationAdapter {
 	@Override
 	public void create () {
 		controllerManager = ControllerManager.getInstance();
-		MainMenuController mainMenu = MainMenuController.getInstance();
+		//MainMenuController mainMenu = MainMenuController.getInstance();
 		LoginController login = LoginController.getInstance();
-		GameController game = GameController.getInstance();
-		controllerManager.push(game);
+		//GameController game = GameController.getInstance();
+		controllerManager.push(login);
 		_FBIC.SetOnValueChangedListener("message");
 		_FBIC.SetValueInDBb("message","TDT4240 er keeeegt");
 	}

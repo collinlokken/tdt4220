@@ -74,12 +74,13 @@ public class AndroidInterfaceClass implements FireBaseInterface{
                             Log.d("firebase", "User " + uname + " was found!");
                             User usr = new User(uname, pwd, child.getKey());
                             LoginController.getInstance().getUserSession().setUser(usr);
-                            return;
+                            break;
                         }
                     }
                     // should only reach here if no user is found
                     Log.d("firebase", "No user with username "+uname+" and password "+pwd+" was found...");
                 }
+                LoginController.getInstance().loginCallback();
             }
         });
 
