@@ -23,10 +23,13 @@ import java.util.ArrayList;
 
 public class GameView extends View<GameController> {
     private static GameView instance = null;
-    private Texture playerTexture = new Texture(Gdx.files.internal("player.png"));
+    private Texture playerTexture1 = new Texture(Gdx.files.internal("player1.png"));
+    private Texture playerTexture2 = new Texture(Gdx.files.internal("player2.png"));
+    private Texture playerTexture3 = new Texture(Gdx.files.internal("player3.png"));
+    private Texture playerTexture4 = new Texture(Gdx.files.internal("player4.png"));
     private int playerWidth = 150;
     private int playerHeight = 150;
-    private PlayerActor playerActor = PlayerActor.getInstance(playerTexture, 250, (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight);
+    private PlayerActor playerActor = PlayerActor.getInstance(250, (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight, playerTexture1, playerTexture2, playerTexture3, playerTexture4);
 
 
     private GameView(){
