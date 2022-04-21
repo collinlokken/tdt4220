@@ -11,11 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.view.game.GameView;
 import com.mygdx.game.view.game.PlayerActor;
-import java.awt.SystemColor;
+import com.badlogic.gdx.math.Rectangle;
 
-import java.util.ArrayList;
-
-public class PlayerModel{
+public class PlayerModel extends Model{
     private static PlayerModel instance = null;
     private int lifePoints;
     private Rectangle collisionBox;
@@ -36,11 +34,12 @@ public class PlayerModel{
     private PlayerModel(){
         super();
         lifePoints = 3;
-        collisionBox = new Rectangle(0, 0, 10, 10);
-        playerActor = PlayerActor.getInstance(new Texture(Gdx.files.internal("player.png")));
-        GameView.getInstance().addActor(playerActor);
         velocity = new Vector2(0, 0);
         position = new Vector2(0, 0);
+    }
+
+    public void setCollisionBox(float x, float y){
+        collisionBox.setPosition(x, y);
     }
 
     public static final PlayerModel getInstance(){
@@ -53,6 +52,12 @@ public class PlayerModel{
     public void setPosition(float x, float y){
         position.x = x;
         position.y = y;
+        this.setCollisionBox(x, y);
+    }
+
+    @Override
+    public void interact(PlayerModel player) {
+
     }
 
     public void update(float dt) {
@@ -91,6 +96,18 @@ public class PlayerModel{
 
         velocity.scl(1/dt);
 
+        this.setCollisionBox(this.getPosition().x, this.getPosition().y);
+
+    }
+
+    @Override
+    public Rectangle getCollisionBox() {
+        return collisionBox;
+    }
+
+    @Override
+    public Texture getTexture() {
+        return null;
     }
 
     public boolean collides(Rectangle rectangle){
