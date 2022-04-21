@@ -7,28 +7,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.model.Obstacle;
 
-public class ObstacleActor extends Actor {
-    private Sprite sprite;
-    private int posX;
-    private int posY;
+public class ObstacleActor extends StripaSurvivorActor {
 
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        sprite.setPosition(posX, posY);
+    public ObstacleActor(Texture texture, int x, int y, int width, int height){
+        super(texture, x, y, width, height);
+
     }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        sprite.draw(batch);
-    }
-
-    public ObstacleActor(Texture texture, int width, int height){
-        sprite = new Sprite(texture);
-        sprite.setSize(width,height);
-    }
-    public void setActorPosition(int x, int y){
-        posX = x;
-        posY = y;
-    }
 }

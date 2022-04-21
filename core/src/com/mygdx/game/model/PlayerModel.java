@@ -11,17 +11,18 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.view.game.GameView;
 import com.mygdx.game.view.game.PlayerActor;
-import java.awt.SystemColor;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
 
-public class PlayerModel{
+public class PlayerModel extends Model{
     private static PlayerModel instance = null;
     private int lifePoints;
     private Rectangle collisionBox;
     private PlayerActor playerActor;
-    private float timeLeftCoffeePowerup;
 
+    private ArrayList<String> activePowerupIds;
+    private ArrayList<Float> activePowerupTimers;
 
     private static final int GRAVITY = -25;
     private Vector2 velocity;
@@ -33,14 +34,23 @@ public class PlayerModel{
     private boolean upperEdge = false;
 
 
+
     private PlayerModel(){
         super();
         lifePoints = 3;
+        activePowerupIds = new ArrayList<>();
+        activePowerupTimers = new ArrayList<>();
         collisionBox = new Rectangle(0, 0, 10, 10);
-        playerActor = PlayerActor.getInstance(new Texture(Gdx.files.internal("player.png")));
-        GameView.getInstance().addActor(playerActor);
+
         velocity = new Vector2(0, 0);
         position = new Vector2(0, 0);
+        collisionBox = new Rectangle(0, 0, 0, 0);
+    }
+
+    public void setCollisionBox(float x, float y, float width, float height){
+        collisionBox.setPosition(x, y);
+        collisionBox.setWidth(width);
+        collisionBox.setHeight(height);
     }
 
     public static final PlayerModel getInstance(){
@@ -53,6 +63,11 @@ public class PlayerModel{
     public void setPosition(float x, float y){
         position.x = x;
         position.y = y;
+    }
+
+    @Override
+    public void interact(PlayerModel player) {
+
     }
 
     public void update(float dt) {
@@ -91,17 +106,55 @@ public class PlayerModel{
 
         velocity.scl(1/dt);
 
+
+        //Decrease powerup timers
+        for (Float powerupTimer : activePowerupTimers){
+            powerupTimer -= dt;
+            if (powerupTimer < 0){
+                activePowerupIds.remove(activePowerupTimers.indexOf(powerupTimer));
+                activePowerupTimers.remove(powerupTimer);
+            }
+        }
+
+
+        this.setCollisionBox(this.getPosition().x, this.getPosition().y, this.width, this.height);
+
+
+
+    }
+
+    @Override
+    public Rectangle getCollisionBox() {
+        return collisionBox;
+    }
+
+    @Override
+    public Texture getTexture() {
+        return null;
     }
 
     public boolean collides(Rectangle rectangle){
         return collisionBox.overlaps(rectangle);
     }
 
-    public boolean hasCoffeePowerup(){
-        return timeLeftCoffeePowerup > 0;    }
+    public void addPowerup(String powerupId, float powerupDuration){
+        for (String id : activePowerupIds){
+            if (id.equals(powerupId)){
+                activePowerupTimers.set(activePowerupIds.indexOf(id),powerupDuration);
+                return;
+            }
+        }
+        activePowerupIds.add(powerupId);
+        activePowerupTimers.add(powerupDuration);
 
-    public void setCoffeePowerup(float duration){
-        timeLeftCoffeePowerup += duration;
+    }
+    public boolean hasPowerup(String powerupId){
+        for (String id : activePowerupIds){
+            if (id.equals(powerupId)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void decreaseLifePoints(){
