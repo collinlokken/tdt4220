@@ -21,30 +21,5 @@ public class PlayerActor extends StripaSurvivorActor {
         }
         return instance;
     }
-/*
-    @Override
-    public void setActorPosition(float x, float y) {
-        System.out.println(x);
-        this.playerAnimation.setSpritePosition(x, y);
-        this.playerAnimation.setSpriteSize((int)this.playerAnimation.getSpriteFrame().getWidth(), (int)this.playerAnimation.getSpriteFrame().getWidth());
-    }
-
-    @Override
-    public Sprite getSprite() {
-        return this.playerAnimation.getSpriteFrame();
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        this.playerAnimation.getSpriteFrame().draw(batch);
-
-    }
-
-    @Override
-    public void act(float delta) {
-        this.playerAnimation.update(delta);
-        this.setWidth(0);
-        this.setHeight(0);
-    }*/
 
 }

@@ -1,6 +1,7 @@
 package com.mygdx.game.view.game;
 
 import com.badlogic.gdx.graphics.Texture;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -19,16 +20,11 @@ public class PlayerAnimation {
         for (Texture texture : textures){
             sprites.add(new Sprite(texture));
         }
-        /*
-        int frameWidth = region.getRegionWidth() / frameCount;
-        for(int i = 0; i < frameCount; i++){
-            frames.add(new TextureRegion(region, i*frameWidth, 0, frameWidth, region.getRegionHeight()));
-            sprites.add(new Sprite(frames.get(i)));
-        }*/
         this.frameCount = frameCount;
         maxFrameTime = cycleTime / frameCount;
         frame = 0;
     }
+
 
     public static final PlayerAnimation getInstance(int frameCount, float cycleTime, Texture... textures){
         if (instance == null){
@@ -62,7 +58,5 @@ public class PlayerAnimation {
             sprite.setPosition(x, y);
         }
     }
-
-
 
 }
