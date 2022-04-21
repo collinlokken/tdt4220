@@ -49,8 +49,7 @@ public class PlayerModel extends Model{
 
     public void setCollisionBox(float x, float y, float width, float height){
         collisionBox.setPosition(x, y);
-        collisionBox.setWidth(width);
-        collisionBox.setHeight(height);
+        collisionBox.setSize(width, height);
     }
 
     public static final PlayerModel getInstance(){

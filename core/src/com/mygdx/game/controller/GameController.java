@@ -38,6 +38,7 @@ public class GameController extends Controller<GameView>{
         modelActors.add(new GameControllerModelActorHelper(stand1Model, stand1Actor));
         GameView.getInstance().addActor(stand1Actor);
 
+
         CoffeeStandShield coffee1Model = new CoffeeStandShield(0.3f,500,5);
         ObstacleActor coffie1Actor = new ObstacleActor(coffee1Model.getTexture(), (int) coffee1Model.getCollisionBox().x, (int) coffee1Model.getCollisionBox().y, (int)coffee1Model.getCollisionBox().getWidth(), (int)coffee1Model.getCollisionBox().getHeight());
         modelActors.add(new GameControllerModelActorHelper(coffee1Model,coffie1Actor));
@@ -62,6 +63,7 @@ public class GameController extends Controller<GameView>{
 
         /*playerActor.getSprite().setPosition(150, GameView.getInstance().getCamera().viewportHeight - 150);
         playerActor.getSprite().setSize(150, 150);*/
+
         playerModel.setPosition(GameView.getInstance().getPlayerActor().getSprite().getX(), GameView.getInstance().getPlayerActor().getSprite().getY());
         playerModel.setCollisionBox(playerModel.getPosition().x, playerModel.getPosition().y, playerModel.getWidth(), playerModel.getHeight());
         playerModel.setWidth((int)GameView.getInstance().getPlayerActor().getSprite().getWidth());

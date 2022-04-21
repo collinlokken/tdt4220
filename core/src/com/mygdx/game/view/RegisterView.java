@@ -66,7 +66,7 @@ public class RegisterView extends View<RegisterController> {
             @Override //TODO add user in database
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                LoginController.getInstance().RegisterUserInDB(usernameField.getText(),passwordField.getText());
+                LoginController.getInstance().registerUserInDB(usernameField.getText(),passwordField.getText());
                 usernameField.setMessageText("Username");
                 passwordField.setMessageText("Password");
                 confirmPasswordField.setMessageText("Confirm password");
