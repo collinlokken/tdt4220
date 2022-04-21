@@ -108,11 +108,12 @@ public class PlayerModel extends Model{
 
 
         //Decrease powerup timers
-        for (Float powerupTimer : activePowerupTimers){
-            powerupTimer -= dt;
-            if (powerupTimer < 0){
-                activePowerupIds.remove(activePowerupTimers.indexOf(powerupTimer));
-                activePowerupTimers.remove(powerupTimer);
+        for (int i = 0; i < activePowerupTimers.size(); i++) {
+            activePowerupTimers.set(i, activePowerupTimers.get(i)-dt);
+            //System.out.println(activePowerupTimers.get(i));
+            if (activePowerupTimers.get(i) < 0){
+                activePowerupIds.remove(i);
+                activePowerupTimers.remove(i);
             }
         }
 
@@ -145,10 +146,13 @@ public class PlayerModel extends Model{
             }
         }
         activePowerupIds.add(powerupId);
+        //System.out.println(activePowerupIds);
         activePowerupTimers.add(powerupDuration);
+        //System.out.println(activePowerupTimers);
 
     }
     public boolean hasPowerup(String powerupId){
+        //System.out.println(activePowerupIds);
         for (String id : activePowerupIds){
             if (id.equals(powerupId)){
                 return true;
@@ -158,7 +162,14 @@ public class PlayerModel extends Model{
     }
 
     public void decreaseLifePoints(){
-        lifePoints -= 1;
+        System.out.println("lifepoints: " + lifePoints);
+        if (!hasPowerup("justlostlife")) {
+            lifePoints -= 1;
+            addPowerup("justlostlife", 2f);
+        }
+    }
+    public int getLifePoints(){
+        return lifePoints;
     }
 
     public Vector2 getPosition() {
@@ -188,6 +199,10 @@ public class PlayerModel extends Model{
 
     public int getWidth(){
         return width;
+    }
+
+    public void reset(){
+        lifePoints = 3;
     }
 
 
