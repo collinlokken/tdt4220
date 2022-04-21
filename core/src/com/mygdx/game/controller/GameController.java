@@ -1,9 +1,7 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.model.Model;
 import com.mygdx.game.model.Obstacle;
 import com.mygdx.game.model.PlayerModel;
@@ -21,7 +19,6 @@ public class GameController extends Controller<GameView>{
     private PlayerModel playerModel;
     private PlayerActor playerActor;
 
-    private ShapeRenderer shapeRenderer;
 
     private GameController() {
         super(GameView.getInstance());
@@ -38,6 +35,7 @@ public class GameController extends Controller<GameView>{
         /*playerActor.getSprite().setPosition(150, GameView.getInstance().getCamera().viewportHeight - 150);
         playerActor.getSprite().setSize(150, 150);*/
         playerModel.setPosition(GameView.getInstance().getPlayerActor().getSprite().getX(), GameView.getInstance().getPlayerActor().getSprite().getY());
+        playerModel.setCollisionBox(playerModel.getPosition().x, playerModel.getPosition().y, playerModel.getWidth(), playerModel.getHeight());
         playerModel.setWidth((int)GameView.getInstance().getPlayerActor().getSprite().getWidth());
         playerModel.setHeight((int)GameView.getInstance().getPlayerActor().getSprite().getHeight());
         modelActors.add(new GameControllerModelActorHelper(playerModel, playerActor));
@@ -63,10 +61,6 @@ public class GameController extends Controller<GameView>{
 
     @Override
     public void update(float dt) {
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(0, 0, 0, 1);
-        shapeRenderer.rect(playerModel.getPosition().x, playerModel.getPosition().y, playerActor.getSprite().getWidth(), playerActor.getSprite().getHeight());
-        shapeRenderer.end();
         for (GameControllerModelActorHelper modelActor : modelActors){
             modelActor.getModel().update(dt);
             modelActor.getActor().setActorPosition((int) modelActor.getModel().getCollisionBox().getX(), (int) modelActor.getModel().getCollisionBox().getY());

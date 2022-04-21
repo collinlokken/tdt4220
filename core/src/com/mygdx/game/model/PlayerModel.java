@@ -31,15 +31,19 @@ public class PlayerModel extends Model{
     private boolean upperEdge = false;
 
 
+
     private PlayerModel(){
         super();
         lifePoints = 3;
         velocity = new Vector2(0, 0);
         position = new Vector2(0, 0);
+        collisionBox = new Rectangle(0, 0, 0, 0);
     }
 
-    public void setCollisionBox(float x, float y){
+    public void setCollisionBox(float x, float y, float width, float height){
         collisionBox.setPosition(x, y);
+        collisionBox.setWidth(width);
+        collisionBox.setHeight(height);
     }
 
     public static final PlayerModel getInstance(){
@@ -52,7 +56,6 @@ public class PlayerModel extends Model{
     public void setPosition(float x, float y){
         position.x = x;
         position.y = y;
-        this.setCollisionBox(x, y);
     }
 
     @Override
@@ -96,7 +99,9 @@ public class PlayerModel extends Model{
 
         velocity.scl(1/dt);
 
-        this.setCollisionBox(this.getPosition().x, this.getPosition().y);
+        this.setCollisionBox(this.getPosition().x, this.getPosition().y, this.width, this.height);
+
+
 
     }
 

@@ -10,7 +10,7 @@ import com.mygdx.game.model.Obstacle;
 public class ObstacleActor extends StripaSurvivorActor {
 
     public ObstacleActor(Texture texture, int x, int y, int width, int height){
-        super(new Sprite(texture, x, y, width, height));
+        super(texture, x, y, width, height);
 
     }
 

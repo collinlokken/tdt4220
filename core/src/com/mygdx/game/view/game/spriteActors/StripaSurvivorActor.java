@@ -1,5 +1,6 @@
 package com.mygdx.game.view.game.spriteActors;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -10,10 +11,11 @@ public abstract class StripaSurvivorActor extends Actor {
     private Sprite sprite;
     private Vector2 position;
 
-    public StripaSurvivorActor(Sprite sprite){
-        this.sprite = sprite;
-        this.position.x = this.sprite.getX();
-        this.position.y = this.sprite.getY();
+    public StripaSurvivorActor(Texture texture, int x, int y, int width, int height){
+        this.sprite = new Sprite(texture);
+        this.sprite.setPosition((float)x, (float)y);
+        this.sprite.setSize((float)width, (float)width);
+        this.position = new Vector2(this.sprite.getX(), this.sprite.getY());
         setBounds(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
     }
 
