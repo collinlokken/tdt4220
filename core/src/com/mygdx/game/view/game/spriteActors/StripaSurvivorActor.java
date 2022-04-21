@@ -26,7 +26,7 @@ public abstract class StripaSurvivorActor extends Actor {
     }
 
     public void setActorPosition(float x, float y) {
-        System.out.println(x);
+        //System.out.println(x);
         this.playerAnimation.setSpritePosition(x, y);
         this.playerAnimation.setSpriteSize((int)this.playerAnimation.getSpriteFrame().getWidth(), (int)this.playerAnimation.getSpriteFrame().getWidth());
     }

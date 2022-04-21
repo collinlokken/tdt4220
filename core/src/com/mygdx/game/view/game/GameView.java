@@ -16,6 +16,7 @@ import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.model.Obstacle;
 import com.mygdx.game.model.PlayerModel;
 import com.mygdx.game.view.View;
+import com.mygdx.game.view.game.spriteActors.BackgroundActor;
 import com.mygdx.game.view.game.spriteActors.ObstacleActor;
 import com.mygdx.game.view.help.HelpView;
 
@@ -51,6 +52,10 @@ public class GameView extends View<GameController> {
         });
 
         this.addActor(background);
+
+        BackgroundActor ba = new BackgroundActor(400);
+        this.addActor(ba);
+
         this.addActor(playerActor);
 
     }
