@@ -37,7 +37,7 @@ public class PlayerModel{
         super();
         lifePoints = 3;
         collisionBox = new Rectangle(0, 0, 10, 10);
-        playerActor = PlayerActor.getInstance(new Texture(Gdx.files.internal("player.png")));
+        playerActor = PlayerActor.getInstance(new Texture(Gdx.files.internal("barrySprite.png")));
         GameView.getInstance().addActor(playerActor);
         velocity = new Vector2(0, 0);
         position = new Vector2(0, 0);
