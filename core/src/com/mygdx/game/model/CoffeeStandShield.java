@@ -3,9 +3,10 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
-public class CoffeeStandShield extends Items{
+public class CoffeeStandShield extends Model{
     private Rectangle collisionBox;
     private float duration;
+    private String powerupId = "stand";
 
     public CoffeeStandShield(float xPos, float yPos, float xWidth, float yWidth, float speed, float duration) {
         collisionBox = new Rectangle(xPos, yPos, xWidth, yWidth);
@@ -15,9 +16,8 @@ public class CoffeeStandShield extends Items{
     }
 
     @Override
-    public void interact(PlayerModel player) {
-        player.setCoffeePowerup(duration);
-
+    public void interact(PlayerModel playerModel) {
+        playerModel.addPowerup(powerupId,duration);
     }
 
     @Override

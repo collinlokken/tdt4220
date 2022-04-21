@@ -2,6 +2,7 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
+import com.mygdx.game.model.Items;
 import com.mygdx.game.model.Model;
 import com.mygdx.game.model.Obstacle;
 import com.mygdx.game.model.PlayerModel;
@@ -64,10 +65,16 @@ public class GameController extends Controller<GameView>{
         for (GameControllerModelActorHelper modelActor : modelActors){
             modelActor.getModel().update(dt);
             modelActor.getActor().setActorPosition((int) modelActor.getModel().getCollisionBox().getX(), (int) modelActor.getModel().getCollisionBox().getY());
+
             if((playerModel != modelActor.getModel()) && playerModel.collides(modelActor.getModel().getCollisionBox())){
-                System.out.println("KOLLISJONQ!!");
                 modelActor.getModel().interact(playerModel);
+
             }
+        }
+        if (playerModel.getLifePoints() < 1){
+            //TODO game over screen
+            playerModel.reset();
+            ControllerManager.getInstance().set(MainMenuController.getInstance());
         }
     }
 }

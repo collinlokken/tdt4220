@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 public abstract class Model {
     protected float speed;
 
-    public abstract void interact(PlayerModel player);
+    public abstract void interact(PlayerModel playerModel);
 
     public abstract void update(float dt);
 
