@@ -9,6 +9,7 @@ import com.mygdx.game.model.Stand;
 import com.mygdx.game.view.game.GameView;
 import com.mygdx.game.view.game.PlayerActor;
 import com.mygdx.game.view.game.spriteActors.ObstacleActor;
+import com.mygdx.game.view.game.spriteActors.StripaSurvivorActor;
 import com.mygdx.game.view.leaderboard.LeaderboardView;
 
 import java.util.ArrayList;
@@ -45,8 +46,9 @@ public class GameController extends Controller<GameView>{
         if (direction) {
             playerModel.moveUp();
         }
-        else {playerModel.moveDown();}
-
+        else {
+            playerModel.moveDown();
+        }
         playerActor.setActorPosition((int) playerModel.getPosition().x, (int) playerModel.getPosition().y);
 
     }
@@ -60,6 +62,15 @@ public class GameController extends Controller<GameView>{
 
     @Override
     public void update(float dt) {
+        if (playerModel.getBottom()){
+            playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.RUNNING);
+        }
+        else if (playerModel.getDirection()){
+            playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.UP);
+        }
+        else{
+            playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.DOWN);
+        }
         for (GameControllerModelActorHelper modelActor : modelActors){
             modelActor.getModel().update(dt);
             modelActor.getActor().setActorPosition((int) modelActor.getModel().getCollisionBox().getX(), (int) modelActor.getModel().getCollisionBox().getY());

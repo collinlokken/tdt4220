@@ -52,6 +52,14 @@ public class PlayerModel extends Model{
         collisionBox.setSize(width, height);
     }
 
+    public boolean getBottom(){
+        return this.lowerEdge;
+    }
+
+    public boolean getDirection(){
+        return this.movingUp;
+    }
+
     public static final PlayerModel getInstance(){
         if (instance == null){
             instance = new PlayerModel();

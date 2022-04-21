@@ -6,31 +6,47 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.view.game.PlayerActor;
 import com.mygdx.game.view.game.PlayerAnimation;
+import java.util.Arrays;
 
 public abstract class StripaSurvivorActor extends Actor {
 
     private Sprite sprite;
     private Vector2 position;
     private boolean isPlayer;
+    private PlayerAnimation playerAnimation;
+    protected Array<PlayerAnimation> playerAnimations;
+    protected ANIMATION_TYPES activeAnimation; //3 er at den faller, 2 er at den løper, 1 er at den kjører oppover
 
-    protected PlayerAnimation playerAnimation;
+    public enum ANIMATION_TYPES{
+        RUNNING,
+        DOWN,
+        UP
+    }
 
-    public StripaSurvivorActor(int x, int y, int width, int height, Texture... textures){
-        this.playerAnimation = playerAnimation.getInstance(textures.length, 0.1f, textures);
-        this.playerAnimation.getSpriteFrame().setPosition((float)x, (float)y);
-        this.playerAnimation.getSpriteFrame().setSize((float)width, (float)width);
-        this.position = new Vector2(this.playerAnimation.getSpriteFrame().getX(), this.playerAnimation.getSpriteFrame().getY());
-        setBounds(playerAnimation.getSpriteFrame().getX(), playerAnimation.getSpriteFrame().getY(), playerAnimation.getSpriteFrame().getWidth(), playerAnimation.getSpriteFrame().getHeight());
+    public StripaSurvivorActor(int x, int y, int width, int height, int numberOfAnimations, Texture... textures){
+        this.playerAnimations = new Array<PlayerAnimation>();
+        for (int i=0; i < numberOfAnimations; i++){
+
+
+            this.playerAnimation = playerAnimation.getInstance(textures.length/numberOfAnimations, 0.1f, Arrays.copyOfRange(textures, i*textures.length/numberOfAnimations, i*textures.length/numberOfAnimations+textures.length/numberOfAnimations));
+            this.playerAnimation.getSpriteFrame().setPosition((float)x, (float)y);
+            this.playerAnimation.getSpriteFrame().setSize((float)width, (float)width);
+            this.position = new Vector2(this.playerAnimation.getSpriteFrame().getX(), this.playerAnimation.getSpriteFrame().getY());
+            this.playerAnimations.add(this.playerAnimation);
+        }
+        //setBounds(playerAnimation.getSpriteFrame().getX(), playerAnimation.getSpriteFrame().getY(), playerAnimation.getSpriteFrame().getWidth(), playerAnimation.getSpriteFrame().getHeight());
 
     }
 
     public void setActorPosition(float x, float y) {
-        System.out.println(x);
-        this.playerAnimation.setSpritePosition(x, y);
-        this.playerAnimation.setSpriteSize((int)this.playerAnimation.getSpriteFrame().getWidth(), (int)this.playerAnimation.getSpriteFrame().getWidth());
+        for (PlayerAnimation playerAnimation : this.playerAnimations){
+            playerAnimation.setSpritePosition(x, y);
+            playerAnimation.setSpriteSize((int)playerAnimation.getSpriteFrame().getWidth(), (int)playerAnimation.getSpriteFrame().getWidth());
+        }
     }
-
 
     public Sprite getSprite() {
         return this.playerAnimation.getSpriteFrame();
@@ -38,14 +54,34 @@ public abstract class StripaSurvivorActor extends Actor {
 
 
     public void draw(Batch batch, float parentAlpha) {
-        this.playerAnimation.getSpriteFrame().draw(batch);
-
+        if (activeAnimation == ANIMATION_TYPES.UP){
+            this.playerAnimations.get(1).getSpriteFrame().draw(batch);
+        }
+        else if (activeAnimation == ANIMATION_TYPES.DOWN){
+            this.playerAnimations.get(2).getSpriteFrame().draw(batch);
+        }
+        else{
+            this.playerAnimations.get(0).getSpriteFrame().draw(batch);
+        }
     }
 
 
     public void act(float delta) {
-        this.playerAnimation.update(delta);
+        if (activeAnimation == ANIMATION_TYPES.UP){
+            this.playerAnimations.get(1).update(delta);
+        }
+        else if (activeAnimation == ANIMATION_TYPES.DOWN){
+            this.playerAnimations.get(2).update(delta);
+        }
+        else{
+            this.playerAnimations.get(0).update(delta);
+        }
         this.setWidth(0);
         this.setHeight(0);
+    }
+
+    public void setActiveAnimation(ANIMATION_TYPES animationType){
+        System.out.println(animationType);
+        this.activeAnimation = animationType;
     }
 }
