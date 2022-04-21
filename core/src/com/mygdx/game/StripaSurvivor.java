@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
 
@@ -27,7 +28,8 @@ public class StripaSurvivor extends ApplicationAdapter {
 		controllerManager = ControllerManager.getInstance();
 		MainMenuController mainMenu = MainMenuController.getInstance();
 		LoginController login = LoginController.getInstance();
-		controllerManager.push(login);
+		GameController game = GameController.getInstance();
+		controllerManager.push(game);
 		_FBIC.SetOnValueChangedListener("message");
 		_FBIC.SetValueInDBb("message","TDT4240 er keeeegt");
 	}
