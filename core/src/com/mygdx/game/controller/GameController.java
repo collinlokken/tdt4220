@@ -67,9 +67,14 @@ public class GameController extends Controller<GameView>{
             modelActor.getActor().setActorPosition((int) modelActor.getModel().getCollisionBox().getX(), (int) modelActor.getModel().getCollisionBox().getY());
 
             if((playerModel != modelActor.getModel()) && playerModel.collides(modelActor.getModel().getCollisionBox())){
-                System.out.println("KOLLISJONQ!!");
                 modelActor.getModel().interact(playerModel);
+
             }
+        }
+        if (playerModel.getLifePoints() < 1){
+            //TODO game over screen
+            playerModel.reset();
+            ControllerManager.getInstance().set(MainMenuController.getInstance());
         }
     }
 }
