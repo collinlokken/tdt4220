@@ -36,10 +36,12 @@ public class PlayerModel extends Model{
         lifePoints = 3;
         velocity = new Vector2(0, 0);
         position = new Vector2(0, 0);
+        collisionBox = new Rectangle(0, 0, 0, 0);
     }
 
     public void setCollisionBox(float x, float y){
         collisionBox.setPosition(x, y);
+        collisionBox.setSize(this.width, this.height);
     }
 
     public static final PlayerModel getInstance(){

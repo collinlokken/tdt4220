@@ -13,7 +13,7 @@ public class PlayerActor extends StripaSurvivorActor {
     private Sprite sprite;
 
     private PlayerActor(Texture texture, int x, int y, int width, int height){
-        super(new Sprite(texture, x, y, width, height));
+        super(texture, x, y, width, height, true);
 
     }
 
