@@ -1,6 +1,7 @@
 package com.mygdx.game.view.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,16 +30,32 @@ public class GameView extends View<GameController> {
     private Texture playerTexture2 = new Texture(Gdx.files.internal("player2.png"));
     private Texture playerTexture3 = new Texture(Gdx.files.internal("player3.png"));
     private Texture playerTexture4 = new Texture(Gdx.files.internal("player4.png"));
+    private Texture playerTexture5 = new Texture(Gdx.files.internal("player_activeJetpack1.png"));
+    private Texture playerTexture6 = new Texture(Gdx.files.internal("player_activeJetpack2.png"));
+    private Texture playerTexture7 = new Texture(Gdx.files.internal("player_activeJetpack3.png"));
+    private Texture playerTexture8 = new Texture(Gdx.files.internal("player_activeJetpack3.png"));
+    private Texture playerTexture9 = new Texture(Gdx.files.internal("player_flying.png"));
+    private Texture playerTexture10 = new Texture(Gdx.files.internal("player_flying.png"));
+    private Texture playerTexture11 = new Texture(Gdx.files.internal("player_flying.png"));
+    private Texture playerTexture12 = new Texture(Gdx.files.internal("player_flying.png"));
 
     private int playerWidth = 150;
     private int playerHeight = 150;
-    private PlayerActor playerActor = PlayerActor.getInstance(250, (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight, playerTexture1, playerTexture2, playerTexture3, playerTexture4);
+    private PlayerActor playerActor = PlayerActor.getInstance(250, (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight, 3, playerTexture1, playerTexture2, playerTexture3, playerTexture4, playerTexture5, playerTexture6, playerTexture7, playerTexture8, playerTexture9, playerTexture10, playerTexture11, playerTexture12);
+
+    private Music music;
+
+
 
 
     private GameView(){
         Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("test_background.png"))));
         background.setPosition(0, 0);
         background.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
+        music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
+        music.setLooping(true);
+        music.setVolume(1f);
+        music.play();
         background.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){

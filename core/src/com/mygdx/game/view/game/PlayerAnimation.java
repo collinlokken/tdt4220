@@ -16,13 +16,13 @@ public class PlayerAnimation {
     private static PlayerAnimation instance = null;
 
     public PlayerAnimation(int frameCount, float cycleTime, Texture... textures){
-        sprites = new Array<Sprite>();
+        this.sprites = new Array<Sprite>();
         for (Texture texture : textures){
-            sprites.add(new Sprite(texture));
+            this.sprites.add(new Sprite(texture));
         }
         this.frameCount = frameCount;
-        maxFrameTime = cycleTime / frameCount;
-        frame = 0;
+        this.maxFrameTime = cycleTime / frameCount;
+        this.frame = 0;
     }
 
 
