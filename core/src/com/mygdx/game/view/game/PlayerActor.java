@@ -10,18 +10,16 @@ import com.mygdx.game.view.game.spriteActors.StripaSurvivorActor;
 
 public class PlayerActor extends StripaSurvivorActor {
     private static PlayerActor instance = null;
-    private Sprite sprite;
 
-    private PlayerActor(Texture texture, int x, int y, int width, int height){
-        super(texture, x, y, width, height);
+    private PlayerActor(int x, int y, int width, int height, Texture... textures){
+        super(x, y, width, height, textures);
     }
 
-    public static final PlayerActor getInstance(Texture texture, int x, int y, int width, int height){
+    public static final PlayerActor getInstance(int x, int y, int width, int height, Texture... textures){
         if (instance == null){
-            instance = new PlayerActor(texture, x, y, width, height);
+            instance = new PlayerActor(x, y, width, height, textures);
         }
         return instance;
     }
-
 
 }

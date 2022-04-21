@@ -2,7 +2,10 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
+<<<<<<< HEAD
 import com.mygdx.game.model.Items;
+=======
+>>>>>>> 35db2d056d75b5410125ed134d6470d79d01fe0d
 import com.mygdx.game.model.Model;
 import com.mygdx.game.model.Obstacle;
 import com.mygdx.game.model.PlayerModel;
@@ -33,8 +36,7 @@ public class GameController extends Controller<GameView>{
         modelActors.add(new GameControllerModelActorHelper(stand1Model, stand1Actor));
         GameView.getInstance().addActor(stand1Actor);
 
-        /*playerActor.getSprite().setPosition(150, GameView.getInstance().getCamera().viewportHeight - 150);
-        playerActor.getSprite().setSize(150, 150);*/
+
         playerModel.setPosition(GameView.getInstance().getPlayerActor().getSprite().getX(), GameView.getInstance().getPlayerActor().getSprite().getY());
         playerModel.setCollisionBox(playerModel.getPosition().x, playerModel.getPosition().y, playerModel.getWidth(), playerModel.getHeight());
         playerModel.setWidth((int)GameView.getInstance().getPlayerActor().getSprite().getWidth());
