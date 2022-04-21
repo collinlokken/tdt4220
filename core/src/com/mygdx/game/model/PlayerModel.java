@@ -20,8 +20,9 @@ public class PlayerModel{
     private int lifePoints;
     private Rectangle collisionBox;
     private PlayerActor playerActor;
-    private float timeLeftCoffeePowerup;
 
+    private ArrayList<String> activePowerupIds;
+    private ArrayList<Float> activePowerupTimers;
 
     private static final int GRAVITY = -25;
     private Vector2 velocity;
@@ -36,6 +37,8 @@ public class PlayerModel{
     private PlayerModel(){
         super();
         lifePoints = 3;
+        activePowerupIds = new ArrayList<>();
+        activePowerupTimers = new ArrayList<>();
         collisionBox = new Rectangle(0, 0, 10, 10);
         playerActor = PlayerActor.getInstance(new Texture(Gdx.files.internal("player.png")));
         GameView.getInstance().addActor(playerActor);
@@ -91,17 +94,39 @@ public class PlayerModel{
 
         velocity.scl(1/dt);
 
+        //Decrease powerup timers
+        for (Float powerupTimer : activePowerupTimers){
+            powerupTimer -= dt;
+            if (powerupTimer < 0){
+                activePowerupIds.remove(activePowerupTimers.indexOf(powerupTimer));
+                activePowerupTimers.remove(powerupTimer);
+            }
+        }
+
     }
 
     public boolean collides(Rectangle rectangle){
         return collisionBox.overlaps(rectangle);
     }
 
-    public boolean hasCoffeePowerup(){
-        return timeLeftCoffeePowerup > 0;    }
+    public void addPowerup(String powerupId, float powerupDuration){
+        for (String id : activePowerupIds){
+            if (id.equals(powerupId)){
+                activePowerupTimers.set(activePowerupIds.indexOf(id),powerupDuration);
+                return;
+            }
+        }
+        activePowerupIds.add(powerupId);
+        activePowerupTimers.add(powerupDuration);
 
-    public void setCoffeePowerup(float duration){
-        timeLeftCoffeePowerup += duration;
+    }
+    public boolean hasPowerup(String powerupId){
+        for (String id : activePowerupIds){
+            if (id.equals(powerupId)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void decreaseLifePoints(){
