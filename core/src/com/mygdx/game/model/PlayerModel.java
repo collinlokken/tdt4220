@@ -11,11 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.view.game.GameView;
 import com.mygdx.game.view.game.PlayerActor;
-import java.awt.SystemColor;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
 
-public class PlayerModel{
+public class PlayerModel extends Model{
     private static PlayerModel instance = null;
     private int lifePoints;
     private Rectangle collisionBox;
@@ -34,16 +34,23 @@ public class PlayerModel{
     private boolean upperEdge = false;
 
 
+
     private PlayerModel(){
         super();
         lifePoints = 3;
         activePowerupIds = new ArrayList<>();
         activePowerupTimers = new ArrayList<>();
         collisionBox = new Rectangle(0, 0, 10, 10);
-        playerActor = PlayerActor.getInstance(new Texture(Gdx.files.internal("player.png")));
-        GameView.getInstance().addActor(playerActor);
+
         velocity = new Vector2(0, 0);
         position = new Vector2(0, 0);
+        collisionBox = new Rectangle(0, 0, 0, 0);
+    }
+
+    public void setCollisionBox(float x, float y, float width, float height){
+        collisionBox.setPosition(x, y);
+        collisionBox.setWidth(width);
+        collisionBox.setHeight(height);
     }
 
     public static final PlayerModel getInstance(){
@@ -56,6 +63,11 @@ public class PlayerModel{
     public void setPosition(float x, float y){
         position.x = x;
         position.y = y;
+    }
+
+    @Override
+    public void interact(PlayerModel player) {
+
     }
 
     public void update(float dt) {
@@ -94,6 +106,7 @@ public class PlayerModel{
 
         velocity.scl(1/dt);
 
+
         //Decrease powerup timers
         for (Float powerupTimer : activePowerupTimers){
             powerupTimer -= dt;
@@ -103,6 +116,21 @@ public class PlayerModel{
             }
         }
 
+
+        this.setCollisionBox(this.getPosition().x, this.getPosition().y, this.width, this.height);
+
+
+
+    }
+
+    @Override
+    public Rectangle getCollisionBox() {
+        return collisionBox;
+    }
+
+    @Override
+    public Texture getTexture() {
+        return null;
     }
 
     public boolean collides(Rectangle rectangle){

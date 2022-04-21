@@ -8,6 +8,7 @@ import com.mygdx.game.model.Obstacle;
 import com.mygdx.game.model.PlayerModel;
 import com.mygdx.game.model.Stand;
 import com.mygdx.game.view.game.GameView;
+import com.mygdx.game.view.game.PlayerActor;
 import com.mygdx.game.view.game.spriteActors.ObstacleActor;
 import com.mygdx.game.view.leaderboard.LeaderboardView;
 
@@ -17,22 +18,29 @@ public class GameController extends Controller<GameView>{
     private static GameController instance = null;
     private ArrayList<GameControllerModelActorHelper> modelActors;
     private PlayerModel playerModel;
+    private PlayerActor playerActor;
+
 
     private GameController() {
         super(GameView.getInstance());
         modelActors = new ArrayList<>();
         playerModel = PlayerModel.getInstance();
+        playerActor = GameView.getInstance().getPlayerActor();
+
 
         Stand stand1Model = new Stand(3000, 0, 0.4f, 3000, 500);
-        ObstacleActor stand1Actor = new ObstacleActor(stand1Model.getTexture(), stand1Model.getWidth(), stand1Model.getHeight());
+        ObstacleActor stand1Actor = new ObstacleActor(stand1Model.getTexture(), (int)stand1Model.getCollisionBox().x, (int)stand1Model.getCollisionBox().y, stand1Model.getWidth(), stand1Model.getHeight());
         modelActors.add(new GameControllerModelActorHelper(stand1Model, stand1Actor));
         GameView.getInstance().addActor(stand1Actor);
 
-        GameView.getInstance().getPlayerActor().getSprite().setPosition(150, GameView.getInstance().getCamera().viewportHeight - 150);
-        GameView.getInstance().getPlayerActor().getSprite().setSize(150, 150);
-        playerModel.setPosition(150, GameView.getInstance().getCamera().viewportHeight - 150);
-        playerModel.setWidth(150);
-        playerModel.setHeight(150);
+        /*playerActor.getSprite().setPosition(150, GameView.getInstance().getCamera().viewportHeight - 150);
+        playerActor.getSprite().setSize(150, 150);*/
+        playerModel.setPosition(GameView.getInstance().getPlayerActor().getSprite().getX(), GameView.getInstance().getPlayerActor().getSprite().getY());
+        playerModel.setCollisionBox(playerModel.getPosition().x, playerModel.getPosition().y, playerModel.getWidth(), playerModel.getHeight());
+        playerModel.setWidth((int)GameView.getInstance().getPlayerActor().getSprite().getWidth());
+        playerModel.setHeight((int)GameView.getInstance().getPlayerActor().getSprite().getHeight());
+        modelActors.add(new GameControllerModelActorHelper(playerModel, playerActor));
+
     }
 
     public void touchedDown(boolean direction){
@@ -41,7 +49,7 @@ public class GameController extends Controller<GameView>{
         }
         else {playerModel.moveDown();}
 
-        GameView.getInstance().getPlayerActor().getSprite().setPosition(playerModel.getPosition().x, playerModel.getPosition().y);
+        playerActor.setActorPosition((int) playerModel.getPosition().x, (int) playerModel.getPosition().y);
 
     }
 
@@ -54,12 +62,12 @@ public class GameController extends Controller<GameView>{
 
     @Override
     public void update(float dt) {
-        playerModel.update(dt);
-        GameView.getInstance().getPlayerActor().getSprite().setPosition(playerModel.getPosition().x, playerModel.getPosition().y);
         for (GameControllerModelActorHelper modelActor : modelActors){
             modelActor.getModel().update(dt);
             modelActor.getActor().setActorPosition((int) modelActor.getModel().getCollisionBox().getX(), (int) modelActor.getModel().getCollisionBox().getY());
-            if(playerModel.collides(modelActor.getModel().getCollisionBox())){
+
+            if((playerModel != modelActor.getModel()) && playerModel.collides(modelActor.getModel().getCollisionBox())){
+                System.out.println("KOLLISJONQ!!");
                 modelActor.getModel().interact(playerModel);
             }
         }
