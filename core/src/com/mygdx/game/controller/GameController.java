@@ -2,10 +2,6 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
-<<<<<<< HEAD
-import com.mygdx.game.model.Items;
-=======
->>>>>>> 35db2d056d75b5410125ed134d6470d79d01fe0d
 import com.mygdx.game.model.Model;
 import com.mygdx.game.model.Obstacle;
 import com.mygdx.game.model.PlayerModel;
