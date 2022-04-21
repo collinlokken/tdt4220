@@ -7,12 +7,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.view.game.GameView;
 import com.mygdx.game.view.game.spriteActors.ObstacleActor;
 
-public class Stand extends Obstacle{
+public class Stand extends Model{
     private float xRespawnPosition;
     private Rectangle collisionBox;
     private Texture texture;
     private int width;
     private int height;
+    private String powerupId = "stand";
 
     public int getWidth() {
         return width;
@@ -34,9 +35,9 @@ public class Stand extends Obstacle{
     }
 
     @Override
-    public void interact(PlayerModel player) {
-        if (!(player.hasCoffeePowerup())){
-            player.decreaseLifePoints();
+    public void interact(PlayerModel playerModel) {
+        if (!(playerModel.hasPowerup(powerupId))){
+            playerModel.decreaseLifePoints();
         }
     }
 

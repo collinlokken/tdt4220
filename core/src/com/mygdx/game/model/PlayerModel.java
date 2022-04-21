@@ -13,13 +13,16 @@ import com.mygdx.game.view.game.GameView;
 import com.mygdx.game.view.game.PlayerActor;
 import com.badlogic.gdx.math.Rectangle;
 
+import java.util.ArrayList;
+
 public class PlayerModel extends Model{
     private static PlayerModel instance = null;
     private int lifePoints;
     private Rectangle collisionBox;
     private PlayerActor playerActor;
-    private float timeLeftCoffeePowerup;
 
+    private ArrayList<String> activePowerupIds;
+    private ArrayList<Float> activePowerupTimers;
 
     private static final int GRAVITY = -25;
     private Vector2 velocity;
@@ -35,6 +38,10 @@ public class PlayerModel extends Model{
     private PlayerModel(){
         super();
         lifePoints = 3;
+        activePowerupIds = new ArrayList<>();
+        activePowerupTimers = new ArrayList<>();
+        collisionBox = new Rectangle(0, 0, 10, 10);
+
         velocity = new Vector2(0, 0);
         position = new Vector2(0, 0);
         collisionBox = new Rectangle(0, 0, 0, 0);
@@ -42,8 +49,7 @@ public class PlayerModel extends Model{
 
     public void setCollisionBox(float x, float y, float width, float height){
         collisionBox.setPosition(x, y);
-        collisionBox.setWidth(width);
-        collisionBox.setHeight(height);
+        collisionBox.setSize(width, height);
     }
 
     public static final PlayerModel getInstance(){
@@ -99,6 +105,18 @@ public class PlayerModel extends Model{
 
         velocity.scl(1/dt);
 
+
+        //Decrease powerup timers
+        for (int i = 0; i < activePowerupTimers.size(); i++) {
+            activePowerupTimers.set(i, activePowerupTimers.get(i)-dt);
+            //System.out.println(activePowerupTimers.get(i));
+            if (activePowerupTimers.get(i) < 0){
+                activePowerupIds.remove(i);
+                activePowerupTimers.remove(i);
+            }
+        }
+
+
         this.setCollisionBox(this.getPosition().x, this.getPosition().y, this.width, this.height);
 
 
@@ -119,15 +137,38 @@ public class PlayerModel extends Model{
         return collisionBox.overlaps(rectangle);
     }
 
-    public boolean hasCoffeePowerup(){
-        return timeLeftCoffeePowerup > 0;    }
+    public void addPowerup(String powerupId, float powerupDuration){
+        for (String id : activePowerupIds){
+            if (id.equals(powerupId)){
+                activePowerupTimers.set(activePowerupIds.indexOf(id),powerupDuration);
+                return;
+            }
+        }
+        activePowerupIds.add(powerupId);
+        //System.out.println(activePowerupIds);
+        activePowerupTimers.add(powerupDuration);
+        //System.out.println(activePowerupTimers);
 
-    public void setCoffeePowerup(float duration){
-        timeLeftCoffeePowerup += duration;
+    }
+    public boolean hasPowerup(String powerupId){
+        //System.out.println(activePowerupIds);
+        for (String id : activePowerupIds){
+            if (id.equals(powerupId)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void decreaseLifePoints(){
-        lifePoints -= 1;
+        System.out.println("lifepoints: " + lifePoints);
+        if (!hasPowerup("justlostlife")) {
+            lifePoints -= 1;
+            addPowerup("justlostlife", 2f);
+        }
+    }
+    public int getLifePoints(){
+        return lifePoints;
     }
 
     public Vector2 getPosition() {
@@ -157,6 +198,10 @@ public class PlayerModel extends Model{
 
     public int getWidth(){
         return width;
+    }
+
+    public void reset(){
+        lifePoints = 3;
     }
 
 

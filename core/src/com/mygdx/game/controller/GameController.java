@@ -32,8 +32,7 @@ public class GameController extends Controller<GameView>{
         modelActors.add(new GameControllerModelActorHelper(stand1Model, stand1Actor));
         GameView.getInstance().addActor(stand1Actor);
 
-        /*playerActor.getSprite().setPosition(150, GameView.getInstance().getCamera().viewportHeight - 150);
-        playerActor.getSprite().setSize(150, 150);*/
+
         playerModel.setPosition(GameView.getInstance().getPlayerActor().getSprite().getX(), GameView.getInstance().getPlayerActor().getSprite().getY());
         playerModel.setCollisionBox(playerModel.getPosition().x, playerModel.getPosition().y, playerModel.getWidth(), playerModel.getHeight());
         playerModel.setWidth((int)GameView.getInstance().getPlayerActor().getSprite().getWidth());
@@ -64,10 +63,16 @@ public class GameController extends Controller<GameView>{
         for (GameControllerModelActorHelper modelActor : modelActors){
             modelActor.getModel().update(dt);
             modelActor.getActor().setActorPosition((int) modelActor.getModel().getCollisionBox().getX(), (int) modelActor.getModel().getCollisionBox().getY());
+
             if((playerModel != modelActor.getModel()) && playerModel.collides(modelActor.getModel().getCollisionBox())){
-                System.out.println("KOLLISJONQ!!");
                 modelActor.getModel().interact(playerModel);
+
             }
+        }
+        if (playerModel.getLifePoints() < 1){
+            //TODO game over screen
+            playerModel.reset();
+            ControllerManager.getInstance().set(MainMenuController.getInstance());
         }
     }
 }
