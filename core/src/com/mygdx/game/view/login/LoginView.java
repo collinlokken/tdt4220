@@ -3,6 +3,7 @@ package com.mygdx.game.view.login;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
@@ -21,8 +23,10 @@ import com.mygdx.game.view.View;
 
 public class LoginView extends View {
     private static LoginView instance = null;
-    private TextButton textButton;
-    private Image backGround;
+    private Skin glassySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
+    private Texture wrongLoginTexture = new Texture("wrong_login.png");
+    private Image backGroundActor;
+    private TextButton textButtonActor;
 
     private LoginView(){
         super();
@@ -88,19 +92,18 @@ public class LoginView extends View {
 
     }
 
-    public void addModal(String path){
-        final Skin mySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
+    public void addModal(){
 
-        Texture texture = new Texture(Gdx.files.internal(path));
-        Image bg = new Image(new TextureRegionDrawable(texture));
+        Image bg = new Image(new TextureRegionDrawable(wrongLoginTexture));
+        System.out.println(bg);
         bg.setSize((float) (getCamera().viewportWidth*0.4),(float) (getCamera().viewportHeight*0.4));
-        int modalWidth = texture.getWidth();
-        int modalHeight = texture.getHeight();
+        int modalWidth = wrongLoginTexture.getWidth();
+        int modalHeight = wrongLoginTexture.getHeight();
         float modalOriginX = (getCamera().viewportWidth-modalWidth)/2;
         float modalOriginY = (getCamera().viewportHeight-modalHeight)/2;
         bg.setPosition(modalOriginX, modalOriginY);
 
-        TextButton textButton = new TextButton("OK", mySkin);
+        TextButton textButton = new TextButton("OK", glassySkin);
         textButton.setPosition(modalOriginX+(modalWidth-textButton.getWidth())/2, modalOriginY+(modalHeight-textButton.getWidth())/2);
         textButton.addListener(new ClickListener(){
             @Override
@@ -109,16 +112,17 @@ public class LoginView extends View {
             }
         });
 
-        this.addActor(bg);
-        this.addActor(textButton);
 
-        this.textButton = textButton;
-        this.backGround = bg;
+        addActor(bg);
+        addActor(textButton);
+
+        this.backGroundActor = bg;
+        this.textButtonActor = textButton;
     }
 
     public void removeModal(){
-        this.textButton.remove();
-        this.backGround.remove();
+        this.backGroundActor.remove();
+        this.textButtonActor.remove();
     }
 
     public static final LoginView getInstance(){

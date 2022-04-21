@@ -40,7 +40,7 @@ public class LoginController extends Controller<LoginView>{
         if(userSession.isLoggedIn()){
             ControllerManager.getInstance().set(MainMenuController.getInstance());
         } else {
-            LoginView.getInstance().addModal("wrong_login.png");
+            LoginView.getInstance().addModal();
         }
     }
 
