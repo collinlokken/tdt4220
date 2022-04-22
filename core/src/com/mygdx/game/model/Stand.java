@@ -11,12 +11,11 @@ public class Stand extends Model{
     private Rectangle collisionBox;
     private Texture texture;
     private String powerupId = "stand";
-    private float speed;
 
-    public Stand(float xPos, float scale, float speed){
-        this.speed = speed;
+    public Stand(float scale){
         texture = new Texture(Gdx.files.internal("stand.png"));
-        collisionBox= new Rectangle(xPos, 0, texture.getWidth()*scale, texture.getHeight()*scale);
+        float scaleMultiplyer = scale*Gdx.graphics.getHeight()/(texture.getHeight());
+        collisionBox= new Rectangle(1.5f*Gdx.graphics.getWidth(), 0, texture.getWidth()*scaleMultiplyer, texture.getHeight()*scaleMultiplyer);
 
 
     }
@@ -36,9 +35,7 @@ public class Stand extends Model{
             return;
         }
 
-        collisionBox.setX(collisionBox.getX()-speed*dt);
-
-        speed += 5*dt;
+        collisionBox.setX(collisionBox.getX()-gameSpeed*dt);
     }
 
     @Override

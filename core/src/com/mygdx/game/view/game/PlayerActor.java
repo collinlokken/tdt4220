@@ -27,6 +27,15 @@ public class PlayerActor extends StripaSurvivorActor {
         return instance;
     }
 
+    public void setShield(boolean shield){
+        if (shield){
+            this.shield = true;
+        }
+        else{
+            this.shield = false;
+        }
+    }
+
 
 
 

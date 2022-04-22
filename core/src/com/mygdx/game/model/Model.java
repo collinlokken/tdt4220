@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Model {
+    protected static float gameSpeed;
 
     public abstract void interact(PlayerModel playerModel);
 

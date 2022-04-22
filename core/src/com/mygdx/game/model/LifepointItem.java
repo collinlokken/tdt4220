@@ -7,16 +7,15 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.Random;
 
 public class LifepointItem extends Model{
-    private float speed;
     private Texture texture;
     private Rectangle collisionBox;
     private Random rand;
 
-    public LifepointItem( float scale, float speed) {
-        this.speed = speed;
+    public LifepointItem( float scale) {
         rand = new Random();
         texture = new Texture(Gdx.files.internal("heart.png"));
-        collisionBox = new Rectangle((float) (rand.nextFloat()*(Gdx.graphics.getWidth() * 4.55)), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scale), texture.getWidth() * scale, texture.getHeight() * scale);
+        float scaleMultiplyer = scale*Gdx.graphics.getHeight()/(texture.getHeight());
+        collisionBox = new Rectangle((float) (rand.nextFloat()*(Gdx.graphics.getWidth() * 4.55)), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scaleMultiplyer), texture.getWidth() * scaleMultiplyer, texture.getHeight() * scaleMultiplyer);
     }
 
     @Override
@@ -31,14 +30,12 @@ public class LifepointItem extends Model{
             reset();
             return;
         }
-        collisionBox.setX(collisionBox.getX()-speed*dt);
-
-        speed += 5*dt;
+        collisionBox.setX(collisionBox.getX()-gameSpeed*dt);
     }
 
     @Override
     public void reset() {
-        collisionBox.setX((float) (Gdx.graphics.getWidth() + rand.nextFloat()*(Gdx.graphics.getWidth() * 15)));
+        collisionBox.setX((Gdx.graphics.getWidth() + rand.nextFloat()*(Gdx.graphics.getWidth() * 15)));
         collisionBox.setY(rand.nextFloat()*(Gdx.graphics.getHeight()-getCollisionBox().getHeight()));
     }
 

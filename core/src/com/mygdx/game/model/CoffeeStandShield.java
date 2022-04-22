@@ -11,15 +11,14 @@ public class CoffeeStandShield extends Model{
     private float duration;
     private String powerupId = "stand";
     private Texture texture;
-    private float speed;
     private Random rand;
 
-    public CoffeeStandShield( float scale, float speed, float duration) {
-        this.speed = speed;
+    public CoffeeStandShield( float scale, float duration) {
         this.duration = duration;
         rand = new Random();
         texture = new Texture(Gdx.files.internal("coffee.png"));
-        collisionBox = new Rectangle((float) (rand.nextFloat()*(Gdx.graphics.getWidth() * 4.55)), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scale), texture.getWidth() * scale, texture.getHeight() * scale);
+        float scaleMultiplyer = scale*Gdx.graphics.getHeight()/(texture.getHeight());
+        collisionBox = new Rectangle((float) (rand.nextFloat()*(Gdx.graphics.getWidth() * 4.55)), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scaleMultiplyer), texture.getWidth() * scaleMultiplyer, texture.getHeight() * scaleMultiplyer);
 
 
     }
@@ -36,9 +35,7 @@ public class CoffeeStandShield extends Model{
             reset();
             return;
         }
-        collisionBox.setX(collisionBox.getX()-speed*dt);
-
-        speed += 5*dt;
+        collisionBox.setX(collisionBox.getX()-gameSpeed*dt);
     }
 
     @Override
