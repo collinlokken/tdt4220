@@ -5,16 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.game.view.game.GameView;
 import com.mygdx.game.view.mainMenu.Background;
 
 public class BackgroundActor extends Actor {
-
-    private float speed;
     private Sprite background1;
     private Sprite background2;
 
-    public BackgroundActor(float speed){
-        this.speed = speed;
+    public BackgroundActor(){
         Texture texture1 = new Texture(Gdx.files.internal("background1.png"));
         background1 = new Sprite(texture1);
         background1.setPosition(0,0);
@@ -36,8 +34,8 @@ public class BackgroundActor extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        background1.setX(background1.getX()-delta*speed);
-        background2.setX(background2.getX()-delta*speed);
+        background1.setX(background1.getX()-delta* GameView.getInstance().getSpeed());
+        background2.setX(background2.getX()-delta*GameView.getInstance().getSpeed());
 
         if (background1.getWidth()+background1.getX() < 0){
             background1.setX(background2.getX()+background2.getWidth());
@@ -46,6 +44,5 @@ public class BackgroundActor extends Actor {
             background2.setX(background1.getX()+background1.getWidth());
         }
 
-        speed += 5*delta;
     }
 }

@@ -10,14 +10,13 @@ public class CoronaVirusObstacle extends Model{
     private Rectangle collisionBox;
     private Texture texture;
     private String powerupId = "virus";
-    private float speed;
     private Random rand;
 
-    public CoronaVirusObstacle(float scale, float speed) {
-        this.speed = speed;
+    public CoronaVirusObstacle(float scale) {
         rand = new Random();
         texture = new Texture(Gdx.files.internal("virus.png"));
-        collisionBox = new Rectangle(rand.nextFloat()*2*Gdx.graphics.getWidth(), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scale), texture.getWidth() * scale, texture.getHeight() * scale);
+        float scaleMultiplyer = scale*Gdx.graphics.getHeight()/(texture.getHeight());
+        collisionBox = new Rectangle(rand.nextFloat()*2*Gdx.graphics.getWidth(), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scaleMultiplyer), texture.getWidth() * scaleMultiplyer, texture.getHeight() * scaleMultiplyer);
 
     }
 
@@ -35,9 +34,8 @@ public class CoronaVirusObstacle extends Model{
             reset();
             return;
         }
-        collisionBox.setX(collisionBox.getX()-speed*dt);
+        collisionBox.setX(collisionBox.getX()-gameSpeed*dt);
 
-        speed += 5*dt;
     }
 
     @Override
