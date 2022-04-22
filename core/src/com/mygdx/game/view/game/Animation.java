@@ -6,16 +6,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
-public class PlayerAnimation {
+import java.util.ArrayList;
+
+public class Animation {
     private Array<TextureRegion> frames;
     private float maxFrameTime;
     private float currentFrameTime;
     private int frameCount;
     private int frame;
     private Array<Sprite> sprites;
-    private static PlayerAnimation instance = null;
 
-    public PlayerAnimation(int frameCount, float cycleTime, Texture... textures){
+
+    public Animation(int frameCount, float cycleTime, ArrayList<Texture> textures){
         this.sprites = new Array<Sprite>();
         for (Texture texture : textures){
             this.sprites.add(new Sprite(texture));
@@ -23,14 +25,6 @@ public class PlayerAnimation {
         this.frameCount = frameCount;
         this.maxFrameTime = cycleTime / frameCount;
         this.frame = 0;
-    }
-
-
-    public static final PlayerAnimation getInstance(int frameCount, float cycleTime, Texture... textures){
-        if (instance == null){
-            return new PlayerAnimation(frameCount, cycleTime, textures);
-        }
-        return instance;
     }
 
     public void update(float dt){
@@ -51,6 +45,10 @@ public class PlayerAnimation {
         for (Sprite sprite : sprites){
             sprite.setSize(width, height);
         }
+    }
+
+    public int getFrame(){
+        return this.frame;
     }
 
     public void setSpritePosition(float x, float y){

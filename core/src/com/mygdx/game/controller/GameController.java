@@ -95,6 +95,7 @@ public class GameController extends Controller<GameView>{
             playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.RUNNING);
         }
         else if (playerModel.getDirection()){
+
             playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.UP);
         }
         else{
