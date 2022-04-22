@@ -134,8 +134,6 @@ public class PlayerModel extends Model{
 
         this.setCollisionBox(this.getPosition().x, this.getPosition().y, this.width, this.height);
 
-
-
     }
 
     @Override
@@ -175,6 +173,11 @@ public class PlayerModel extends Model{
         }
         return false;
     }
+
+    public ArrayList<String> getActivePowerupIds(){
+        return this.activePowerupIds;
+    }
+
     public void increaseLifepoints(){
         if (lifePoints < 3){
             lifePoints += 1;
