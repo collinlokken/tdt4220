@@ -62,8 +62,6 @@ public class GameController extends Controller<GameView>{
         modelActors.add(new GameControllerModelActorHelper(maskModel, maskActor));
         GameView.getInstance().addActor(maskActor);
 
-        /*playerActor.getSprite().setPosition(150, GameView.getInstance().getCamera().viewportHeight - 150);
-        playerActor.getSprite().setSize(150, 150);*/
 
         playerModel.setPosition(GameView.getInstance().getPlayerActor().getSprite().getX(), GameView.getInstance().getPlayerActor().getSprite().getY());
         playerModel.setCollisionBox(playerModel.getPosition().x, playerModel.getPosition().y, playerModel.getWidth(), playerModel.getHeight());
@@ -111,11 +109,19 @@ public class GameController extends Controller<GameView>{
 
             }
         }
+
+        GameView.getInstance().setScore(playerModel.getScore());
+        GameView.getInstance().setLifePoints(playerModel.getLifePoints());
+
+
         if (playerModel.getLifePoints() < 1){
             //TODO game over screen
             System.out.println("Game Over");
             playerModel.reset();
-            ControllerManager.getInstance().set(MainMenuController.getInstance());
+            //SPILL AV ANIMASJON DER SPILLEREN HOPPER TILBAKE OG UT AV BANEN
+            //SPILL AV GAME-OVER LYD
+            //BYTT TIL GAME-OVER VIEW
+
         }
     }
 }

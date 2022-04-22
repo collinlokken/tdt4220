@@ -8,8 +8,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.StripaSurvivor;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.GameController;
@@ -21,6 +24,7 @@ import com.mygdx.game.view.game.spriteActors.BackgroundActor;
 import com.mygdx.game.view.game.spriteActors.ObstacleActor;
 import com.mygdx.game.view.help.HelpView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class GameView extends View<GameController> {
@@ -39,24 +43,29 @@ public class GameView extends View<GameController> {
     private Texture playerTexture11 = new Texture(Gdx.files.internal("player_flying.png"));
     private Texture playerTexture12 = new Texture(Gdx.files.internal("player_flying.png"));
 
+
+
+
     private int playerWidth = 150;
     private int playerHeight = 150;
     private PlayerActor playerActor = PlayerActor.getInstance(250, (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight, 3, playerTexture1, playerTexture2, playerTexture3, playerTexture4, playerTexture5, playerTexture6, playerTexture7, playerTexture8, playerTexture9, playerTexture10, playerTexture11, playerTexture12);
 
-    private Music music;
-
-
-
+    private Label scoreText;
+    private static  final DecimalFormat df = new DecimalFormat("0.0");
+    private Array<Image> lifePointImages;
 
     private GameView(){
-        Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("test_background.png"))));
-        background.setPosition(0, 0);
-        background.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
-        music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
+        this.lifePointImages = new Array<Image>();
+
+        Music music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
         music.setLooping(true);
         music.setVolume(1f);
         music.play();
-        background.addListener(new ClickListener(){
+
+        BackgroundActor ba = new BackgroundActor(400);
+        ba.setPosition(0, 0);
+        ba.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
+        ba.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
                 GameController.getInstance().touchedDown(true);
@@ -68,12 +77,25 @@ public class GameView extends View<GameController> {
             }
         });
 
-        this.addActor(background);
+        Skin skin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
+        this.scoreText = new Label("", skin, "font", "black");
+        this.scoreText.setPosition((float) (getCamera().viewportWidth-200),(float) (getCamera().viewportHeight-20));
+        this.scoreText.setFontScale(getCamera().viewportHeight/350);
 
-        BackgroundActor ba = new BackgroundActor(400);
+        Image life1 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
+        Image life2 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
+        Image life3 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
+        this.lifePointImages.add(life1, life2, life3);
+
         this.addActor(ba);
-
-        this.addActor(playerActor);
+        for (int i=0; i<this.lifePointImages.size; i++){
+            Image image = this.lifePointImages.get(i);
+            image.setSize(25, 25);
+            image.setPosition((i*(image.getWidth()+10))+5, getCamera().viewportHeight-image.getHeight()-5);
+            this.addActor(image);
+        }
+        this.addActor(this.playerActor);
+        this.addActor(this.scoreText);
 
     }
 
@@ -86,6 +108,20 @@ public class GameView extends View<GameController> {
             instance = new GameView();
         }
         return instance;
+    }
+
+    public void setLifePoints(int lifePoints){
+        //HENT UT ALLE ACTORS I RIKTIG I REKKEFØLGE, OG LEGG ANTALLET INN IGJEN BASERT PÅ HVOR MANGE LIFEPOINTS DET ER
+        for (Image image : this.lifePointImages){
+            image.remove();
+        }
+        for (int i=0; i<lifePoints; i++){
+            this.addActor(this.lifePointImages.get(i));
+        }
+    }
+
+    public void setScore(float s){
+        this.scoreText.setText("Score: "+df.format(s));
     }
 
 }
