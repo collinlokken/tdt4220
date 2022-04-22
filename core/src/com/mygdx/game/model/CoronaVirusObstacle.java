@@ -17,7 +17,8 @@ public class CoronaVirusObstacle extends Model{
         this.speed = speed;
         rand = new Random();
         texture = new Texture(Gdx.files.internal("virus.png"));
-        collisionBox = new Rectangle(rand.nextFloat()*2*Gdx.graphics.getWidth(), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scale), texture.getWidth() * scale, texture.getHeight() * scale);
+        float scaleMultiplyer = scale*Gdx.graphics.getHeight()/(texture.getHeight());
+        collisionBox = new Rectangle(rand.nextFloat()*2*Gdx.graphics.getWidth(), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scaleMultiplyer), texture.getWidth() * scaleMultiplyer, texture.getHeight() * scaleMultiplyer);
 
     }
 

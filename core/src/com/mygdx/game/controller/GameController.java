@@ -35,37 +35,37 @@ public class GameController extends Controller<GameView>{
         playerActor = GameView.getInstance().getPlayerActor();
 
         //Init obstacles and items
-        Stand stand1Model = new Stand(3000, 0.4f, 500);
+        Stand stand1Model = new Stand( 0.4f, 500);
         ObstacleActor stand1Actor = new ObstacleActor(stand1Model.getTexture(), (int)stand1Model.getCollisionBox().x, (int)stand1Model.getCollisionBox().y,(int) stand1Model.getCollisionBox().getWidth(),(int) stand1Model.getCollisionBox().getHeight());
         modelActors.add(new GameControllerModelActorHelper(stand1Model, stand1Actor));
         GameView.getInstance().addActor(stand1Actor);
 
 
-        CoffeeStandShield coffee1Model = new CoffeeStandShield(0.3f,500,5);
+        CoffeeStandShield coffee1Model = new CoffeeStandShield(0.2f,500,5);
         ObstacleActor coffie1Actor = new ObstacleActor(coffee1Model.getTexture(), (int) coffee1Model.getCollisionBox().x, (int) coffee1Model.getCollisionBox().y, (int)coffee1Model.getCollisionBox().getWidth(), (int)coffee1Model.getCollisionBox().getHeight());
         modelActors.add(new GameControllerModelActorHelper(coffee1Model,coffie1Actor));
         GameView.getInstance().addActor(coffie1Actor);
 
-        LifepointItem lifepoint1Model = new LifepointItem(0.05f,500);
+        LifepointItem lifepoint1Model = new LifepointItem(0.125f,500);
         ObstacleActor lifepoint1Actor = new ObstacleActor(lifepoint1Model.getTexture(),(int) lifepoint1Model.getCollisionBox().x, (int) lifepoint1Model.getCollisionBox().y, (int)lifepoint1Model.getCollisionBox().getWidth(), (int)lifepoint1Model.getCollisionBox().getHeight());
         modelActors.add(new GameControllerModelActorHelper(lifepoint1Model, lifepoint1Actor));
         GameView.getInstance().addActor(lifepoint1Actor);
 
         for (int i = 0; i < 3; i++) {
-            CoronaVirusObstacle virus1Model = new CoronaVirusObstacle(0.075f,500);
+            CoronaVirusObstacle virus1Model = new CoronaVirusObstacle(0.2f,500);
             ObstacleActor virus1Actor = new ObstacleActor(virus1Model.getTexture(),(int) virus1Model.getCollisionBox().x, (int) virus1Model.getCollisionBox().y, (int)virus1Model.getCollisionBox().getWidth(), (int)virus1Model.getCollisionBox().getHeight());
             modelActors.add(new GameControllerModelActorHelper(virus1Model, virus1Actor));
             GameView.getInstance().addActor(virus1Actor);
         }
 
 
-        CoronaVirusShield maskModel = new CoronaVirusShield(0.05f,500,5);
+        CoronaVirusShield maskModel = new CoronaVirusShield(0.125f,500,5);
         ObstacleActor maskActor = new ObstacleActor(maskModel.getTexture(),(int) maskModel.getCollisionBox().x, (int) maskModel.getCollisionBox().y, (int)maskModel.getCollisionBox().getWidth(), (int)maskModel.getCollisionBox().getHeight());
         modelActors.add(new GameControllerModelActorHelper(maskModel, maskActor));
         GameView.getInstance().addActor(maskActor);
 
         for (int i = 0; i < 5; i++) {
-            CoinItem coinModel = new CoinItem(0.15f, 500, i);
+            CoinItem coinModel = new CoinItem(0.125f, 500, i);
             ObstacleActor coinActor = new ObstacleActor(coinModel.getTexture(), (int) coinModel.getCollisionBox().x, (int) coinModel.getCollisionBox().y, (int) coinModel.getCollisionBox().getWidth(), (int) coinModel.getCollisionBox().getHeight());
             modelActors.add(new GameControllerModelActorHelper(coinModel, coinActor));
             GameView.getInstance().addActor(coinActor);

@@ -16,7 +16,8 @@ public class LifepointItem extends Model{
         this.speed = speed;
         rand = new Random();
         texture = new Texture(Gdx.files.internal("heart.png"));
-        collisionBox = new Rectangle((float) (rand.nextFloat()*(Gdx.graphics.getWidth() * 4.55)), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scale), texture.getWidth() * scale, texture.getHeight() * scale);
+        float scaleMultiplyer = scale*Gdx.graphics.getHeight()/(texture.getHeight());
+        collisionBox = new Rectangle((float) (rand.nextFloat()*(Gdx.graphics.getWidth() * 4.55)), rand.nextFloat()*(Gdx.graphics.getHeight()-texture.getHeight() * scaleMultiplyer), texture.getWidth() * scaleMultiplyer, texture.getHeight() * scaleMultiplyer);
     }
 
     @Override

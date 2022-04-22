@@ -21,11 +21,14 @@ public class CoinItem extends Model{
         this.coinNumber = coinNumber;
         rand = new Random();
         texture = new Texture(Gdx.files.internal("dogecoin.png"));
+
+        float scaleMultiplyer = scale*Gdx.graphics.getHeight()/(texture.getHeight());
+
         if (coinNumber == 0) {
             nextStartPositionX = (float) (rand.nextFloat() * (Gdx.graphics.getWidth() * 4.55));
-            nextStartPositionY = rand.nextFloat() * (Gdx.graphics.getHeight() - texture.getHeight() * scale);
+            nextStartPositionY = rand.nextFloat() * (Gdx.graphics.getHeight() - texture.getHeight() * scaleMultiplyer);
         }
-        collisionBox = new Rectangle(nextStartPositionX + 1.5f*coinNumber*(texture.getWidth()*scale), nextStartPositionY, texture.getWidth() * scale, texture.getHeight() * scale);
+        collisionBox = new Rectangle(nextStartPositionX + 1.5f*coinNumber*(texture.getWidth()*scaleMultiplyer), nextStartPositionY, texture.getWidth() * scaleMultiplyer, texture.getHeight() * scaleMultiplyer);
 
     }
 
