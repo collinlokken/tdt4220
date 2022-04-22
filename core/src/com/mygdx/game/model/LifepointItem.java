@@ -38,7 +38,7 @@ public class LifepointItem extends Model{
 
     @Override
     public void reset() {
-        collisionBox.setX((float) (Gdx.graphics.getWidth() + rand.nextFloat()*(Gdx.graphics.getWidth() * 15)));
+        collisionBox.setX((Gdx.graphics.getWidth() + rand.nextFloat()*(Gdx.graphics.getWidth() * 15)));
         collisionBox.setY(rand.nextFloat()*(Gdx.graphics.getHeight()-getCollisionBox().getHeight()));
     }
 

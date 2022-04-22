@@ -81,6 +81,10 @@ public class PlayerModel extends Model{
         return this.score;
     }
 
+    public void addScore(float score){
+        this.score += score;
+    }
+
     public void update(float dt) {
         score += dt*11;
 

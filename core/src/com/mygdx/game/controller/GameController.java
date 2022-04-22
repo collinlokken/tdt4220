@@ -3,6 +3,7 @@ package com.mygdx.game.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
 import com.mygdx.game.model.CoffeeStandShield;
+import com.mygdx.game.model.CoinItem;
 import com.mygdx.game.model.CoronaVirusObstacle;
 import com.mygdx.game.model.CoronaVirusShield;
 import com.mygdx.game.model.Items;
@@ -45,23 +46,30 @@ public class GameController extends Controller<GameView>{
         modelActors.add(new GameControllerModelActorHelper(coffee1Model,coffie1Actor));
         GameView.getInstance().addActor(coffie1Actor);
 
-        LifepointItem lifepoint1Model = new LifepointItem(0.075f,500);
+        LifepointItem lifepoint1Model = new LifepointItem(0.05f,500);
         ObstacleActor lifepoint1Actor = new ObstacleActor(lifepoint1Model.getTexture(),(int) lifepoint1Model.getCollisionBox().x, (int) lifepoint1Model.getCollisionBox().y, (int)lifepoint1Model.getCollisionBox().getWidth(), (int)lifepoint1Model.getCollisionBox().getHeight());
         modelActors.add(new GameControllerModelActorHelper(lifepoint1Model, lifepoint1Actor));
         GameView.getInstance().addActor(lifepoint1Actor);
 
         for (int i = 0; i < 3; i++) {
-            CoronaVirusObstacle virus1Model = new CoronaVirusObstacle(0.1f,500);
+            CoronaVirusObstacle virus1Model = new CoronaVirusObstacle(0.075f,500);
             ObstacleActor virus1Actor = new ObstacleActor(virus1Model.getTexture(),(int) virus1Model.getCollisionBox().x, (int) virus1Model.getCollisionBox().y, (int)virus1Model.getCollisionBox().getWidth(), (int)virus1Model.getCollisionBox().getHeight());
             modelActors.add(new GameControllerModelActorHelper(virus1Model, virus1Actor));
             GameView.getInstance().addActor(virus1Actor);
         }
+
 
         CoronaVirusShield maskModel = new CoronaVirusShield(0.05f,500,5);
         ObstacleActor maskActor = new ObstacleActor(maskModel.getTexture(),(int) maskModel.getCollisionBox().x, (int) maskModel.getCollisionBox().y, (int)maskModel.getCollisionBox().getWidth(), (int)maskModel.getCollisionBox().getHeight());
         modelActors.add(new GameControllerModelActorHelper(maskModel, maskActor));
         GameView.getInstance().addActor(maskActor);
 
+        for (int i = 0; i < 5; i++) {
+            CoinItem coinModel = new CoinItem(0.15f, 500, i);
+            ObstacleActor coinActor = new ObstacleActor(coinModel.getTexture(), (int) coinModel.getCollisionBox().x, (int) coinModel.getCollisionBox().y, (int) coinModel.getCollisionBox().getWidth(), (int) coinModel.getCollisionBox().getHeight());
+            modelActors.add(new GameControllerModelActorHelper(coinModel, coinActor));
+            GameView.getInstance().addActor(coinActor);
+        }
 
         playerModel.setPosition(GameView.getInstance().getPlayerActor().getSprite().getX(), GameView.getInstance().getPlayerActor().getSprite().getY());
         playerModel.setCollisionBox(playerModel.getPosition().x, playerModel.getPosition().y, playerModel.getWidth(), playerModel.getHeight());
