@@ -11,11 +11,9 @@ public class CoronaVirusShield extends Model{
     private float duration;
     private String powerupId = "virus";
     private Texture texture;
-    private float speed;
     private Random rand;
 
-    public CoronaVirusShield( float scale, float speed, float duration) {
-        this.speed = speed;
+    public CoronaVirusShield( float scale, float duration) {
         this.duration = duration;
         rand = new Random();
         texture = new Texture(Gdx.files.internal("facemask.png"));
@@ -37,9 +35,7 @@ public class CoronaVirusShield extends Model{
             reset();
             return;
         }
-        collisionBox.setX(collisionBox.getX()-speed*dt);
-
-        speed += 5*dt;
+        collisionBox.setX(collisionBox.getX()-gameSpeed*dt);
     }
 
     @Override

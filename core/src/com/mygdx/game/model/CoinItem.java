@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.Random;
 
 public class CoinItem extends Model{
-    private float speed;
     private Texture texture;
     private Rectangle collisionBox;
     private Random rand;
@@ -16,8 +15,7 @@ public class CoinItem extends Model{
     private static float nextStartPositionX;
     private static float nextStartPositionY;
 
-    public CoinItem( float scale, float speed, int coinNumber) {
-        this.speed = speed;
+    public CoinItem( float scale, int coinNumber) {
         this.coinNumber = coinNumber;
         rand = new Random();
         texture = new Texture(Gdx.files.internal("dogecoin.png"));
@@ -44,12 +42,10 @@ public class CoinItem extends Model{
             reset();
             return;
         }
-        collisionBox.setX(collisionBox.getX()-speed*dt);
+        collisionBox.setX(collisionBox.getX()-gameSpeed*dt);
         if (coinNumber == 0){
-            nextStartPositionX -= speed*dt;
+            nextStartPositionX -= gameSpeed*dt;
         }
-
-        speed += 5*dt;
     }
 
     @Override

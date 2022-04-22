@@ -44,7 +44,7 @@ public class GameView extends View<GameController> {
     private Texture playerTexture12 = new Texture(Gdx.files.internal("player_flying.png"));
 
 
-
+    private float speed;
 
     private int playerWidth = 150;
     private int playerHeight = 150;
@@ -62,7 +62,7 @@ public class GameView extends View<GameController> {
         music.setVolume(1f);
         music.play();
 
-        BackgroundActor ba = new BackgroundActor(400);
+        BackgroundActor ba = new BackgroundActor();
         ba.setPosition(0, 0);
         ba.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         ba.addListener(new ClickListener(){
@@ -123,5 +123,10 @@ public class GameView extends View<GameController> {
     public void setScore(float s){
         this.scoreText.setText("Score: "+df.format(s));
     }
+
+    public void setSpeed(float speed){
+        this.speed = speed;
+    }
+    public float getSpeed(){return speed;}
 
 }

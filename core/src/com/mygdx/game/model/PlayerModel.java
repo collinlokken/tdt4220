@@ -32,6 +32,7 @@ public class PlayerModel extends Model{
     private boolean lowerEdge = false;
     private boolean upperEdge = false;
     private float score = 0;
+    private float startSpeed = 500;
 
 
 
@@ -45,6 +46,7 @@ public class PlayerModel extends Model{
         velocity = new Vector2(0, 0);
         position = new Vector2(0, 0);
         collisionBox = new Rectangle(0, 0, 0, 0);
+        gameSpeed = startSpeed;
     }
 
     public void setCollisionBox(float x, float y, float width, float height){
@@ -122,6 +124,7 @@ public class PlayerModel extends Model{
         }
 
         velocity.scl(1/dt);
+        gameSpeed += 5*dt;
 
 
         //Decrease powerup timers
@@ -226,8 +229,12 @@ public class PlayerModel extends Model{
         return width;
     }
 
+    public float getSpeed(){ return gameSpeed; }
+
     public void reset(){
         lifePoints = 3;
+        score = 0;
+        gameSpeed = startSpeed;
         activePowerupTimers.clear();
         activePowerupIds.clear();
     }

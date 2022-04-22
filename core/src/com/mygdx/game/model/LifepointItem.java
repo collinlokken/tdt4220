@@ -7,13 +7,11 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.Random;
 
 public class LifepointItem extends Model{
-    private float speed;
     private Texture texture;
     private Rectangle collisionBox;
     private Random rand;
 
-    public LifepointItem( float scale, float speed) {
-        this.speed = speed;
+    public LifepointItem( float scale) {
         rand = new Random();
         texture = new Texture(Gdx.files.internal("heart.png"));
         float scaleMultiplyer = scale*Gdx.graphics.getHeight()/(texture.getHeight());
@@ -32,9 +30,7 @@ public class LifepointItem extends Model{
             reset();
             return;
         }
-        collisionBox.setX(collisionBox.getX()-speed*dt);
-
-        speed += 5*dt;
+        collisionBox.setX(collisionBox.getX()-gameSpeed*dt);
     }
 
     @Override
