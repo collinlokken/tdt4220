@@ -126,7 +126,10 @@ public class GameController extends Controller<GameView>{
         if (playerModel.getLifePoints() < 1){
             //TODO game over screen
             System.out.println("Game Over");
-            playerModel.reset();
+
+            for (GameControllerModelActorHelper modelActor : modelActors) {
+                modelActor.getModel().reset();
+            }
 
             //SPILL AV ANIMASJON DER SPILLEREN HOPPER TILBAKE OG UT AV BANEN
             //SPILL AV GAME-OVER LYD
