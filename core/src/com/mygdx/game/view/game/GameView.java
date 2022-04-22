@@ -80,7 +80,7 @@ public class GameView extends View<GameController> {
 
         died = Gdx.audio.newSound(Gdx.files.internal("aghh.ogg"));
 
-        BackgroundActor ba = new BackgroundActor(400);
+        BackgroundActor ba = new BackgroundActor();
         ba.setPosition(0, 0);
         ba.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         ba.addListener(new ClickListener(){
