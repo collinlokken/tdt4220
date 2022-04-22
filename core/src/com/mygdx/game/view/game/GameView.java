@@ -79,7 +79,7 @@ public class GameView extends View<GameController> {
 
         Skin skin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
         this.scoreText = new Label("", skin, "font", "black");
-        this.scoreText.setPosition((float) (getCamera().viewportWidth-200),(float) (getCamera().viewportHeight-20));
+        this.scoreText.setPosition((float) (getCamera().viewportWidth/2-scoreText.getWidth()),(float) (getCamera().viewportHeight-20));
         this.scoreText.setFontScale(getCamera().viewportHeight/350);
 
         Image life1 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
