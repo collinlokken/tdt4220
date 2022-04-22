@@ -2,6 +2,7 @@ package com.mygdx.game.view.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -61,13 +62,18 @@ public class GameView extends View<GameController> {
     private static  final DecimalFormat df = new DecimalFormat("0.0");
     private Array<Image> lifePointImages;
 
+    private Sound died;
+    private Music music;
+
     private GameView(){
         this.lifePointImages = new Array<Image>();
 
-        Music music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
         music.setLooping(true);
         music.setVolume(1f);
         music.play();
+
+        died = Gdx.audio.newSound(Gdx.files.internal("aghh.ogg"));
 
         BackgroundActor ba = new BackgroundActor(400);
         ba.setPosition(0, 0);
@@ -129,6 +135,11 @@ public class GameView extends View<GameController> {
 
     public void setScore(float s){
         this.scoreText.setText("Score: "+df.format(s));
+    }
+
+    public void playSound(){
+        this.music.stop();
+        this.died.play(0.5f);
     }
 
 }

@@ -119,6 +119,7 @@ public class GameController extends Controller<GameView>{
             //TODO game over screen
             System.out.println("Game Over");
             playerModel.reset();
+            GameView.getInstance().playSound();
             //SPILL AV ANIMASJON DER SPILLEREN HOPPER TILBAKE OG UT AV BANEN
             //SPILL AV GAME-OVER LYD
             //BYTT TIL GAME-OVER VIEW
