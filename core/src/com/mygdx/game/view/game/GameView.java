@@ -47,6 +47,7 @@ public class GameView extends View<GameController> {
             new Texture(Gdx.files.internal("player_flying.png"))
     ));
 
+
     PlayerItem shield = new PlayerItem(-25, -25, playerWidth+50, playerHeight+50, 1, new ArrayList<Texture>(Arrays.asList(new Texture(Gdx.files.internal("shield.png")))));
     Texture flame1 = new Texture(Gdx.files.internal("flame1.png"));
     Texture flame2 = new Texture(Gdx.files.internal("flame2.png"));
@@ -54,6 +55,9 @@ public class GameView extends View<GameController> {
     PlayerItem flames = new PlayerItem(-playerWidth/3, -playerHeight+3, playerWidth, playerHeight*5, 1, new ArrayList<Texture>(Arrays.asList(flame1, flame2, flame3)));
 
     private ArrayList<PlayerItem> playerItems = new ArrayList<PlayerItem>(Arrays.asList(shield, flames));
+
+    private float speed;
+
 
     private PlayerActor playerActor = PlayerActor.getInstance(250, (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight, 2, playerItems, textures);
 
@@ -69,7 +73,7 @@ public class GameView extends View<GameController> {
         music.setVolume(1f);
         music.play();
 
-        BackgroundActor ba = new BackgroundActor(400);
+        BackgroundActor ba = new BackgroundActor();
         ba.setPosition(0, 0);
         ba.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         ba.addListener(new ClickListener(){
@@ -130,5 +134,10 @@ public class GameView extends View<GameController> {
     public void setScore(float s){
         this.scoreText.setText("Score: "+df.format(s));
     }
+
+    public void setSpeed(float speed){
+        this.speed = speed;
+    }
+    public float getSpeed(){return speed;}
 
 }
