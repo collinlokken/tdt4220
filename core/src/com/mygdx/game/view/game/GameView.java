@@ -24,31 +24,42 @@ import com.mygdx.game.view.game.spriteActors.BackgroundActor;
 import com.mygdx.game.view.game.spriteActors.ObstacleActor;
 import com.mygdx.game.view.help.HelpView;
 
+
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GameView extends View<GameController> {
     private static GameView instance = null;
+    private int playerWidth = 150;
+    private int playerHeight = 150;
 
-    private Texture playerTexture1 = new Texture(Gdx.files.internal("player1.png"));
-    private Texture playerTexture2 = new Texture(Gdx.files.internal("player2.png"));
-    private Texture playerTexture3 = new Texture(Gdx.files.internal("player3.png"));
-    private Texture playerTexture4 = new Texture(Gdx.files.internal("player4.png"));
-    private Texture playerTexture5 = new Texture(Gdx.files.internal("player_activeJetpack1.png"));
-    private Texture playerTexture6 = new Texture(Gdx.files.internal("player_activeJetpack2.png"));
-    private Texture playerTexture7 = new Texture(Gdx.files.internal("player_activeJetpack3.png"));
-    private Texture playerTexture8 = new Texture(Gdx.files.internal("player_activeJetpack3.png"));
-    private Texture playerTexture9 = new Texture(Gdx.files.internal("player_flying.png"));
-    private Texture playerTexture10 = new Texture(Gdx.files.internal("player_flying.png"));
-    private Texture playerTexture11 = new Texture(Gdx.files.internal("player_flying.png"));
-    private Texture playerTexture12 = new Texture(Gdx.files.internal("player_flying.png"));
 
+    private ArrayList<Texture> textures = new ArrayList<Texture>(Arrays.asList(
+            new Texture(Gdx.files.internal("player1.png")),
+            new Texture(Gdx.files.internal("player2.png")),
+            new Texture(Gdx.files.internal("player3.png")),
+            new Texture(Gdx.files.internal("player4.png")),
+            new Texture(Gdx.files.internal("player_flying.png")),
+            new Texture(Gdx.files.internal("player_flying.png")),
+            new Texture(Gdx.files.internal("player_flying.png")),
+            new Texture(Gdx.files.internal("player_flying.png"))
+    ));
+
+
+    PlayerItem shield = new PlayerItem(-25, -25, playerWidth+50, playerHeight+50, 1, new ArrayList<Texture>(Arrays.asList(new Texture(Gdx.files.internal("shield.png")))));
+    Texture flame1 = new Texture(Gdx.files.internal("flame1.png"));
+    Texture flame2 = new Texture(Gdx.files.internal("flame2.png"));
+    Texture flame3 = new Texture(Gdx.files.internal("flame3.png"));
+    PlayerItem flames = new PlayerItem(-playerWidth/3, -playerHeight+3, playerWidth, playerHeight*5, 1, new ArrayList<Texture>(Arrays.asList(flame1, flame2, flame3)));
+
+    private ArrayList<PlayerItem> playerItems = new ArrayList<PlayerItem>(Arrays.asList(shield, flames));
 
     private float speed;
 
-    private int playerWidth = 150;
-    private int playerHeight = 150;
-    private PlayerActor playerActor = PlayerActor.getInstance(250, (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight, 3, playerTexture1, playerTexture2, playerTexture3, playerTexture4, playerTexture5, playerTexture6, playerTexture7, playerTexture8, playerTexture9, playerTexture10, playerTexture11, playerTexture12);
+
+    private PlayerActor playerActor = PlayerActor.getInstance(250, (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight, 2, playerItems, textures);
 
     private Label scoreText;
     private static  final DecimalFormat df = new DecimalFormat("0.0");

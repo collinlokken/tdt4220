@@ -97,8 +97,20 @@ public class GameController extends Controller<GameView>{
         return instance;
     }
 
+    public void updateShield(){
+        for (String id : playerModel.getActivePowerupIds()){
+            if (id.equals("virus") || id.equals("stand")){
+                GameView.getInstance().getPlayerActor().setShield(true);
+            }
+            else{
+                GameView.getInstance().getPlayerActor().setShield(false);
+            }
+        }
+    }
+
     @Override
     public void update(float dt) {
+        this.updateShield();
         if (playerModel.getBottom()){
             playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.RUNNING);
         }
@@ -114,7 +126,6 @@ public class GameController extends Controller<GameView>{
 
             if((playerModel != modelActor.getModel()) && playerModel.collides(modelActor.getModel().getCollisionBox())){
                 modelActor.getModel().interact(playerModel);
-
             }
         }
 
@@ -127,14 +138,15 @@ public class GameController extends Controller<GameView>{
             //TODO game over screen
             System.out.println("Game Over");
 
+         
+            ControllerManager.getInstance().push(GameOverController.getInstance());
+
+
             for (GameControllerModelActorHelper modelActor : modelActors) {
                 modelActor.getModel().reset();
             }
 
-            //SPILL AV ANIMASJON DER SPILLEREN HOPPER TILBAKE OG UT AV BANEN
-            //SPILL AV GAME-OVER LYD
-            //BYTT TIL GAME-OVER VIEW
-
+          
         }
     }
 }
