@@ -18,7 +18,7 @@ public abstract class StripaSurvivorActor extends Actor {
     private boolean isPlayer;
     private PlayerAnimation playerAnimation;
     protected Array<PlayerAnimation> playerAnimations;
-    protected ANIMATION_TYPES activeAnimation; //3 er at den faller, 2 er at den løper, 1 er at den kjører oppover
+    protected ANIMATION_TYPES activeAnimation;
 
     public enum ANIMATION_TYPES{
         RUNNING,
@@ -29,21 +29,17 @@ public abstract class StripaSurvivorActor extends Actor {
     public StripaSurvivorActor(int x, int y, int width, int height, int numberOfAnimations, Texture... textures){
         this.playerAnimations = new Array<PlayerAnimation>();
         for (int i=0; i < numberOfAnimations; i++){
-
-
             this.playerAnimation = playerAnimation.getInstance(textures.length/numberOfAnimations, 0.1f, Arrays.copyOfRange(textures, i*textures.length/numberOfAnimations, i*textures.length/numberOfAnimations+textures.length/numberOfAnimations));
             this.playerAnimation.getSpriteFrame().setPosition((float)x, (float)y);
-            this.playerAnimation.getSpriteFrame().setSize((float)width, (float)width);
+            this.playerAnimation.getSpriteFrame().setSize((float)width, (float)height);
             this.position = new Vector2(this.playerAnimation.getSpriteFrame().getX(), this.playerAnimation.getSpriteFrame().getY());
             this.playerAnimations.add(this.playerAnimation);
         }
-        //setBounds(playerAnimation.getSpriteFrame().getX(), playerAnimation.getSpriteFrame().getY(), playerAnimation.getSpriteFrame().getWidth(), playerAnimation.getSpriteFrame().getHeight());
 
     }
 
     public void setActorPosition(float x, float y) {
 
-        //System.out.println(x);
         for (PlayerAnimation playerAnimation : this.playerAnimations){
             playerAnimation.setSpritePosition(x, y);
             playerAnimation.setSpriteSize((int)playerAnimation.getSpriteFrame().getWidth(), (int)playerAnimation.getSpriteFrame().getWidth());
@@ -84,7 +80,6 @@ public abstract class StripaSurvivorActor extends Actor {
     }
 
     public void setActiveAnimation(ANIMATION_TYPES animationType){
-        System.out.println(animationType);
         this.activeAnimation = animationType;
     }
 }

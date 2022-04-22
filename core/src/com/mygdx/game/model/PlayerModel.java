@@ -19,7 +19,6 @@ public class PlayerModel extends Model{
     private static PlayerModel instance = null;
     private int lifePoints;
     private Rectangle collisionBox;
-    private PlayerActor playerActor;
 
     private ArrayList<String> activePowerupIds;
     private ArrayList<Float> activePowerupTimers;
@@ -32,6 +31,7 @@ public class PlayerModel extends Model{
     private boolean movingUp = false;
     private boolean lowerEdge = false;
     private boolean upperEdge = false;
+    private float score = 0;
 
 
 
@@ -73,11 +73,17 @@ public class PlayerModel extends Model{
     }
 
     @Override
-    public void interact(PlayerModel player) {
+    public void interact(PlayerModel playerModel) {
 
     }
 
+    public float getScore(){
+        return this.score;
+    }
+
     public void update(float dt) {
+        score += dt*11;
+
         if (lowerEdge){
             velocity.y = 0;
         }
@@ -170,7 +176,9 @@ public class PlayerModel extends Model{
         return false;
     }
     public void increaseLifepoints(){
-        lifePoints += 1;
+        if (lifePoints < 3){
+            lifePoints += 1;
+        }
         System.out.println("lifepoints: " + lifePoints);
     }
 
