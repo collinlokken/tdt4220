@@ -75,7 +75,7 @@ public abstract class StripaSurvivorActor extends Actor {
             this.playerAnimations.get(0).getSpriteFrame().draw(batch);
         }
         for (PlayerItem playerItem : this.playerItems){
-            System.out.println(playerItem.getAnimations().get(0).getSpriteFrame().getTexture().toString());
+            //System.out.println(playerItem.getAnimations().get(0).getSpriteFrame().getTexture().toString());
             if (playerItem.getAnimations().get(0).getSpriteFrame().getTexture().toString().equals("shield.png")){
                 if (this.shield){
                     playerItem.getAnimations().get(0).getSpriteFrame().draw(batch);
