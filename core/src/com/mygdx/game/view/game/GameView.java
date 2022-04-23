@@ -34,6 +34,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import jdk.nashorn.api.tree.ConditionalExpressionTree;
+
 public class GameView extends View<GameController> {
     private static GameView instance = null;
     private int playerWidth = (int) (getCamera().viewportHeight*0.125);
@@ -76,6 +78,8 @@ public class GameView extends View<GameController> {
     private Array<Image> lifePointImages = new Array<>();
     private Array<Image> powerupImages = new Array<>();
 
+    ImageButton pauseButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("pause.png"))));;
+
     private Sound died = Gdx.audio.newSound(Gdx.files.internal("aghh.ogg"));
     private Music music;
 
@@ -101,7 +105,6 @@ public class GameView extends View<GameController> {
         });
 
         //PAUSE BUTTON
-        ImageButton pauseButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("pause.png"))));
         pauseButton.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
         pauseButton.setPosition(0, getCamera().viewportHeight-pauseButton.getHeight());
         pauseButton.addListener(new ClickListener(){
@@ -109,7 +112,7 @@ public class GameView extends View<GameController> {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 System.out.println("PAUSE");
-                ControllerManager.getInstance().push(PauseController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
+                GameController.getInstance().pushState(PauseController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
             }
         });
 
@@ -150,6 +153,19 @@ public class GameView extends View<GameController> {
         miniVirus.setPosition((float)(getCamera().viewportWidth*0.88+miniStand.getWidth()),(float)(getCamera().viewportHeight*0.9));
         this.powerupImages.add(miniStand, miniVirus);
 
+    }
+
+    public Music getMusic(){
+        return this.music;
+    }
+
+    public void startMusic(){
+
+    }
+
+    public void removePauseButton(){
+        this.pauseButton.remove();
+        this.draw();
     }
 
     public PlayerActor getPlayerActor() {

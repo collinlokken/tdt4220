@@ -24,4 +24,8 @@ public abstract class Controller<T extends View> {
         ControllerManager.getInstance().pop();
     }
 
+    public void pushState(Controller c){
+        ControllerManager.getInstance().push(c);
+    }
+
 }

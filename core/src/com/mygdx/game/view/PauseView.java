@@ -49,9 +49,10 @@ public class PauseView extends View<PauseController>{
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
                 bg.remove();
-                GameController.getInstance().reset();
+
+                PauseController.getInstance().resetGameController();
                 ControllerManager.getInstance().pop();
-                ControllerManager.getInstance().set(MainMenuController.getInstance());
+                PauseController.getInstance().switchState(MainMenuController.getInstance());
             }
         });
         this.addActor(quit);

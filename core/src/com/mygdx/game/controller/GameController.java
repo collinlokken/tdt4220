@@ -155,10 +155,10 @@ public class GameController extends Controller<GameView>{
 
 
         if (playerModel.getLifePoints() < 1){
-            reset();
+            this.reset();
             GameView.getInstance().playSound();
+            this.pushState(GameOverController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
 
-            ControllerManager.getInstance().set(GameOverController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
         }
     }
     public void reset(){
@@ -166,4 +166,6 @@ public class GameController extends Controller<GameView>{
             modelActor.getModel().reset();
         }
     }
+
+
 }

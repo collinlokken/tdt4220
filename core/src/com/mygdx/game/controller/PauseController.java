@@ -20,6 +20,19 @@ public class PauseController extends Controller<PauseView>{
         return instance;
     }
 
+    public static final PauseController getInstance(){
+        if (instance == null){
+            instance = new PauseController();
+        }
+        return instance;
+    }
+
+
+
+    public void resetGameController(){
+        GameController.getInstance().reset();
+    }
+
 
     @Override
     public void update(float dt) {

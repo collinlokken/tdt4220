@@ -13,6 +13,7 @@ public class GameOverController extends Controller<GameOverView>{
         gameOverView = (GameOverView) getView();
     }
 
+
     public static final GameOverController getInstance(Image image){
         if (instance == null){
             instance = new GameOverController();
