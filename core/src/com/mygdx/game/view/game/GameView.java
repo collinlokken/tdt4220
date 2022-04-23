@@ -68,7 +68,7 @@ public class GameView extends View<GameController> {
 
     private float speed;
 
-    private PlayerActor playerActor = PlayerActor.getInstance((int)(getCamera().viewportHeight/3), 0, playerWidth, playerHeight, 2, playerItems, textures);
+    private PlayerActor playerActor = PlayerActor.getInstance((int)(getCamera().viewportHeight/4), 0, playerWidth, playerHeight, 2, playerItems, textures);
 
     private Label scoreText;
     private Label activePowerups;
@@ -103,7 +103,7 @@ public class GameView extends View<GameController> {
         //PAUSE BUTTON
         ImageButton pauseButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("pause.png"))));
         pauseButton.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
-        pauseButton.setPosition(0, (float) (getCamera().viewportHeight)-pauseButton.getHeight());
+        pauseButton.setPosition(0, getCamera().viewportHeight-pauseButton.getHeight());
         pauseButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -127,7 +127,7 @@ public class GameView extends View<GameController> {
         for (int i=0; i<this.lifePointImages.size; i++){
             Image image = this.lifePointImages.get(i);
             image.setSize((int)(getCamera().viewportHeight*0.1), (int)(getCamera().viewportHeight*0.1));
-            image.setPosition((i*(image.getWidth()+10))+2*pauseButton.getWidth(), getCamera().viewportHeight-image.getHeight()-5);
+            image.setPosition((i*(image.getWidth()+10))+pauseButton.getWidth(), getCamera().viewportHeight-image.getHeight()-5);
             this.addActor(image);
         }
         this.addActor(this.playerActor);
@@ -137,16 +137,16 @@ public class GameView extends View<GameController> {
 
         this.addActor(pauseButton);
         this.activePowerups = new Label("Protection against:", skin, "font", "black");
-        this.activePowerups.setPosition((float)(getCamera().viewportWidth*0.65),(float)(getCamera().viewportHeight*0.93));
+        this.activePowerups.setPosition((float)(getCamera().viewportWidth*0.63),(float)(getCamera().viewportHeight*0.93));
         this.activePowerups.setFontScale(getCamera().viewportHeight/350);
 
         this.addActor(this.activePowerups);
 
         Image miniStand = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("stand.png"))));
-        miniStand.setSize((int)(getCamera().viewportHeight*0.1), (int)(getCamera().viewportHeight*0.1));
+        miniStand.setSize((int)(getCamera().viewportHeight*0.08), (int)(getCamera().viewportHeight*0.08));
         miniStand.setPosition((float)(getCamera().viewportWidth*0.88),(float)(getCamera().viewportHeight*0.9));
         Image miniVirus = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("virus.png"))));
-        miniVirus.setSize((int)(getCamera().viewportHeight*0.1), (int)(getCamera().viewportHeight*0.1));
+        miniVirus.setSize((int)(getCamera().viewportHeight*0.08), (int)(getCamera().viewportHeight*0.08));
         miniVirus.setPosition((float)(getCamera().viewportWidth*0.88+miniStand.getWidth()),(float)(getCamera().viewportHeight*0.9));
         this.powerupImages.add(miniStand, miniVirus);
 
