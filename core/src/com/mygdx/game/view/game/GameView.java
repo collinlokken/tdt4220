@@ -33,8 +33,8 @@ import java.util.Arrays;
 
 public class GameView extends View<GameController> {
     private static GameView instance = null;
-    private int playerWidth = 150;
-    private int playerHeight = 150;
+    private int playerWidth = (int) (getCamera().viewportHeight*0.125);
+    private int playerHeight = (int) (getCamera().viewportHeight*0.13);
 
 
     private ArrayList<Texture> textures = new ArrayList<Texture>(Arrays.asList(
@@ -129,7 +129,6 @@ public class GameView extends View<GameController> {
     }
 
     public void setLifePoints(int lifePoints){
-        //HENT UT ALLE ACTORS I RIKTIG I REKKEFØLGE, OG LEGG ANTALLET INN IGJEN BASERT PÅ HVOR MANGE LIFEPOINTS DET ER
         for (Image image : this.lifePointImages){
             image.remove();
         }

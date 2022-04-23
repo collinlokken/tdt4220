@@ -12,7 +12,7 @@ public class PlayerItem extends StripaSurvivorActor {
     private Vector2 position;
 
     public PlayerItem(int x, int y, int width, int height, int numberOfAnimations, ArrayList<Texture> textures){
-        super(x, y, width, height, numberOfAnimations, new ArrayList<PlayerItem>(), textures);
+        super(x, y, width, height, numberOfAnimations, textures);
         this.position = new Vector2(x, y);
 
     }
