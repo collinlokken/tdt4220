@@ -22,13 +22,13 @@ public class PauseView extends View<PauseController>{
         super();
         //BACKGROUND IMAGE
         Image board = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("pausebg.png"))));
-        board.setSize(this.getCamera().viewportWidth/2f, board.getWidth()/this.getCamera().viewportWidth*board.getHeight());
-        board.setPosition(0.25f*this.getCamera().viewportWidth, this.getCamera().viewportHeight/2- board.getHeight()/2);
+        board.setSize(this.getCamera().viewportWidth/2f, this.getCamera().viewportHeight/2);
+        board.setPosition(0.25f*this.getCamera().viewportWidth, 0.25f*this.getCamera().viewportHeight);
         this.addActor(board);
 
         //RESUME BUTTON
         Image resume = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("resume.png"))));
-        resume.setSize(this.getCamera().viewportWidth/5f, this.getCamera().viewportHeight/5f);
+        resume.setSize(this.getCamera().viewportWidth/7f, this.getCamera().viewportHeight/7f);
         resume.setPosition(0.5f*this.getCamera().viewportWidth-1.1f*resume.getWidth(), this.getCamera().viewportHeight/2- resume.getHeight());
         resume.addListener(new ClickListener(){
             @Override
@@ -42,7 +42,7 @@ public class PauseView extends View<PauseController>{
 
         //QUIT BUTTON
         Image quit = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("quit.png"))));
-        quit.setSize(this.getCamera().viewportWidth/5f, this.getCamera().viewportHeight/5f);
+        quit.setSize(this.getCamera().viewportWidth/7f, this.getCamera().viewportHeight/7f);
         quit.setPosition(0.5f*this.getCamera().viewportWidth, this.getCamera().viewportHeight/2- quit.getHeight());
         quit.addListener(new ClickListener(){
             @Override
