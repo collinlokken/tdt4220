@@ -124,7 +124,7 @@ public class PlayerModel extends Model{
         }
 
         velocity.scl(1/dt);
-        gameSpeed += 5*dt;
+        gameSpeed += 0.5*dt;
 
         if (justLostLifeTimer > 0) {
             justLostLifeTimer -= dt;
@@ -245,6 +245,8 @@ public class PlayerModel extends Model{
         score = 0;
         gameSpeed = startSpeed;
         activePowerupIds.clear();
+        this.position.x = Gdx.graphics.getWidth()/3;
+        this.position.y = Gdx.graphics.getHeight()-this.getHeight();
     }
 
 
