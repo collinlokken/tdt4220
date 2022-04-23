@@ -16,7 +16,7 @@ public abstract class StripaSurvivorActor extends Actor {
         this.playerAnimations = new ArrayList<>();
 
         for (int i=0; i < numberOfAnimations; i++){
-            this.animation = new Animation(textures.size()/numberOfAnimations, 0.1f, new ArrayList<>(textures.subList(i*textures.size()/numberOfAnimations, i*textures.size()/numberOfAnimations+textures.size()/numberOfAnimations)));
+            this.animation = new Animation(textures.size()/numberOfAnimations, 0.3f, new ArrayList<>(textures.subList(i*textures.size()/numberOfAnimations, i*textures.size()/numberOfAnimations+textures.size()/numberOfAnimations)));
             this.animation.getSpriteFrame().setPosition((float)x, (float)y);
             this.animation.getSpriteFrame().setSize((float)width, (float)height);
             this.playerAnimations.add(this.animation);
