@@ -67,11 +67,11 @@ public class LoginView extends View {
         Label startText = new Label("Don't have an account? Click", mySkin, "font", "black");
         Label text = new Label("here", mySkin, "font", "dark-cyan");
         Label endText = new Label("to register!", mySkin, "font", "black");
-        startText.setPosition((float) (getCamera().viewportWidth*0.25),(float) (getCamera().viewportHeight*0.18));
+        startText.setPosition((float) (getCamera().viewportWidth*0.28),(float) (getCamera().viewportHeight*0.18));
         startText.setFontScale(getCamera().viewportHeight/550);
-        text.setPosition((float) (getCamera().viewportWidth*0.53),(float) (getCamera().viewportHeight*0.18));
+        text.setPosition((float) (getCamera().viewportWidth*0.60),(float) (getCamera().viewportHeight*0.18));
         text.setFontScale(getCamera().viewportHeight/550);
-        endText.setPosition((float) (getCamera().viewportWidth*0.65),(float) (getCamera().viewportHeight*0.18));
+        endText.setPosition((float) (getCamera().viewportWidth*0.62),(float) (getCamera().viewportHeight*0.18));
         endText.setFontScale(getCamera().viewportHeight/550);
 
         text.addListener(new ClickListener(){
