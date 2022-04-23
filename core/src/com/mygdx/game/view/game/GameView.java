@@ -65,7 +65,7 @@ public class GameView extends View<GameController> {
 
     private float speed;
 
-    private PlayerActor playerActor = PlayerActor.getInstance((int)(getCamera().viewportHeight/3), (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight, 2, playerItems, textures);
+    private PlayerActor playerActor = PlayerActor.getInstance((int)(getCamera().viewportHeight/3), 0, playerWidth, playerHeight, 2, playerItems, textures);
 
     private Label scoreText;
     private Label activePowerups;
@@ -148,8 +148,12 @@ public class GameView extends View<GameController> {
         for (Image image : this.lifePointImages){
             image.remove();
         }
+        if (lifePoints == 0){
+            this.draw();
+        }
         for (int i=0; i<lifePoints; i++){
             this.addActor(this.lifePointImages.get(i));
+
         }
     }
 

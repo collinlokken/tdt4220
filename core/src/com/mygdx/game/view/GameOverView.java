@@ -31,7 +31,7 @@ public class GameOverView extends View<GameOverController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(MainMenuController.getInstance());
+                GameOverController.getInstance().switchState(MainMenuController.getInstance());
             }
         });
 
@@ -42,7 +42,7 @@ public class GameOverView extends View<GameOverController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(GameController.getInstance());
+                GameOverController.getInstance().switchState(GameController.getInstance());
             }
         });
 
@@ -53,7 +53,7 @@ public class GameOverView extends View<GameOverController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(LeaderboardController.getInstance());
+                GameOverController.getInstance().switchState(LeaderboardController.getInstance());
             }
         });
 

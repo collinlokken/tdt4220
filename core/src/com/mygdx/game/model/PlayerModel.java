@@ -246,7 +246,7 @@ public class PlayerModel extends Model{
         gameSpeed = startSpeed;
         activePowerupIds.clear();
         this.position.x = Gdx.graphics.getWidth()/3;
-        this.position.y = Gdx.graphics.getHeight()-this.getHeight();
+        this.position.y = 0;
     }
 
 

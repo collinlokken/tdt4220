@@ -66,7 +66,7 @@ public class RegisterView extends View<RegisterController> {
                 usernameField.setMessageText("Username");
                 passwordField.setMessageText("Password");
                 confirmPasswordField.setMessageText("Confirm password");
-                ControllerManager.getInstance().set(MainMenuController.getInstance()); //I View??
+                LoginController.getInstance().switchState(MainMenuController.getInstance());
             }
         });
 

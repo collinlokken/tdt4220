@@ -38,7 +38,7 @@ public class LoginController extends Controller<LoginView>{
 
     public void loginCallback(){
         if(userSession.isLoggedIn()){
-            ControllerManager.getInstance().set(MainMenuController.getInstance());
+            this.switchState(MainMenuController.getInstance());
         } else {
             LoginView.getInstance().addModal();
         }
