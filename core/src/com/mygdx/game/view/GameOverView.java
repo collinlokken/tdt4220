@@ -14,11 +14,16 @@ import com.mygdx.game.controller.MainMenuController;
 
 public class GameOverView extends View<GameOverController>{
     private static GameOverView instance = null;
+    private Image pausedBackground;
 
     private float finalScore;
 
     private GameOverView(){
         super();
+
+        this.pausedBackground.setPosition(0, 0);
+        this.pausedBackground.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
+        this.addActor(this.pausedBackground);
 
         Image bg = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("blackboard.png"))));
         bg.setPosition(getCamera().viewportWidth/3, getCamera().viewportHeight/3);
@@ -69,5 +74,13 @@ public class GameOverView extends View<GameOverController>{
             return new GameOverView();
         }
         return instance;
+    }
+
+    public void setPausedBackground(Image bg){
+        this.pausedBackground.remove();
+        bg.setPosition(0, 0);
+        bg.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
+        bg.setZIndex(0);
+        this.addActor(bg);
     }
 }

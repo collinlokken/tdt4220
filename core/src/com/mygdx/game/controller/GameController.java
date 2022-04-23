@@ -2,6 +2,8 @@ package com.mygdx.game.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.model.CoffeeStandShield;
 import com.mygdx.game.model.CoinItem;
 import com.mygdx.game.model.CoronaVirusObstacle;
@@ -153,7 +155,7 @@ public class GameController extends Controller<GameView>{
                 modelActor.getModel().reset();
             }
             System.out.println("GAME OVER");
-            ControllerManager.getInstance().push(GameOverController.getInstance());
+            ControllerManager.getInstance().set(GameOverController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
         }
     }
 }
