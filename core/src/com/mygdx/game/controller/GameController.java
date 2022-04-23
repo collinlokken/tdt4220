@@ -96,6 +96,7 @@ public class GameController extends Controller<GameView>{
             instance = new GameController();
         }
         return instance;
+
     }
 
     public void updatePowerup(){
@@ -146,14 +147,15 @@ public class GameController extends Controller<GameView>{
 
 
         if (playerModel.getLifePoints() < 1){
-            playerModel.reset();
+            reset();
             GameView.getInstance().playSound();
-
-            for (GameControllerModelActorHelper modelActor : modelActors) {
-                modelActor.getModel().reset();
-            }
             System.out.println("GAME OVER");
             ControllerManager.getInstance().push(GameOverController.getInstance());
+        }
+    }
+    public void reset(){
+        for (GameControllerModelActorHelper modelActor : modelActors) {
+            modelActor.getModel().reset();
         }
     }
 }

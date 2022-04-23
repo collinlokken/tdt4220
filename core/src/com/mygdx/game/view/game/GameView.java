@@ -9,15 +9,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.StripaSurvivor;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.PauseController;
 import com.mygdx.game.model.Obstacle;
 import com.mygdx.game.model.PlayerModel;
 import com.mygdx.game.view.View;
@@ -114,6 +117,20 @@ public class GameView extends View<GameController> {
         }
         this.addActor(this.playerActor);
         this.addActor(this.scoreText);
+
+        //PAUSE BUTTON
+        ImageButton pauseButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("pause.png"))));
+        pauseButton.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
+        pauseButton.setPosition(0, (float) (getCamera().viewportHeight)-pauseButton.getHeight());
+        pauseButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                System.out.println("PAUSE");
+                ControllerManager.getInstance().push(PauseController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
+            }
+        });
+        this.addActor(pauseButton);
 
     }
 
