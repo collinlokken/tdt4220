@@ -9,15 +9,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.StripaSurvivor;
 import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.controller.PauseController;
 import com.mygdx.game.model.Obstacle;
 import com.mygdx.game.model.PlayerModel;
 import com.mygdx.game.view.View;
@@ -97,6 +100,19 @@ public class GameView extends View<GameController> {
             }
         });
 
+        //PAUSE BUTTON
+        ImageButton pauseButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("pause.png"))));
+        pauseButton.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
+        pauseButton.setPosition(0, (float) (getCamera().viewportHeight)-pauseButton.getHeight());
+        pauseButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                System.out.println("PAUSE");
+                ControllerManager.getInstance().push(PauseController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
+            }
+        });
+
         Skin skin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
         this.scoreText = new Label("", skin, "font", "black");
         this.scoreText.setPosition(getCamera().viewportWidth/3,(float)(getCamera().viewportHeight*0.95));
@@ -111,12 +127,15 @@ public class GameView extends View<GameController> {
         for (int i=0; i<this.lifePointImages.size; i++){
             Image image = this.lifePointImages.get(i);
             image.setSize((int)(getCamera().viewportHeight*0.1), (int)(getCamera().viewportHeight*0.1));
-            image.setPosition((i*(image.getWidth()+10))+5, getCamera().viewportHeight-image.getHeight()-5);
+            image.setPosition((i*(image.getWidth()+10))+2*pauseButton.getWidth(), getCamera().viewportHeight-image.getHeight()-5);
             this.addActor(image);
         }
         this.addActor(this.playerActor);
         this.addActor(this.scoreText);
 
+
+
+        this.addActor(pauseButton);
         this.activePowerups = new Label("Protection against:", skin, "font", "black");
         this.activePowerups.setPosition((float)(getCamera().viewportWidth*0.65),(float)(getCamera().viewportHeight*0.93));
         this.activePowerups.setFontScale(getCamera().viewportHeight/350);
