@@ -103,17 +103,14 @@ public class GameController extends Controller<GameView>{
 
     public void updatePowerup(){
         if (playerModel.getActivePowerupIds().contains("virus") && playerModel.getActivePowerupIds().contains("stand")){
-            System.out.println("BOTH POWERUPS ACTIVE!");
             GameView.getInstance().setActivePowerups("virus", "stand");
             GameView.getInstance().getPlayerActor().setShield(true);
         }
         else if (playerModel.getActivePowerupIds().contains("virus")){
-            System.out.println("VIRUS");
             GameView.getInstance().getPlayerActor().setShield(true);
             GameView.getInstance().setActivePowerups("virus");
         }
         else if (playerModel.getActivePowerupIds().contains("stand")){
-            System.out.println("Stand");
             GameView.getInstance().getPlayerActor().setShield(true);
             GameView.getInstance().setActivePowerups("stand");
         }
@@ -160,8 +157,8 @@ public class GameController extends Controller<GameView>{
         if (playerModel.getLifePoints() < 1){
             reset();
             GameView.getInstance().playSound();
-            System.out.println("GAME OVER");
-            ControllerManager.getInstance().push(GameOverController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
+
+            ControllerManager.getInstance().set(GameOverController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
         }
     }
     public void reset(){

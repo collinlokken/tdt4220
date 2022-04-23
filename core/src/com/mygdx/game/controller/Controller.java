@@ -16,4 +16,12 @@ public abstract class Controller<T extends View> {
 
     public abstract void update(float dt);
 
+    public void switchState(Controller c){
+        ControllerManager.getInstance().set(c);
+    }
+
+    public void popState(){
+        ControllerManager.getInstance().pop();
+    }
+
 }

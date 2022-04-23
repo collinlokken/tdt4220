@@ -43,7 +43,7 @@ public class MainMenuView extends View<MainMenuController> {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(GameController.getInstance());
+                MainMenuController.getInstance().switchState(GameController.getInstance());
             }
         });
         this.addActor(playButton);
@@ -56,7 +56,7 @@ public class MainMenuView extends View<MainMenuController> {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(HelpController.getInstance());
+                MainMenuController.getInstance().switchState(HelpController.getInstance());
             }
         });
         this.addActor(helpButton);
@@ -69,7 +69,7 @@ public class MainMenuView extends View<MainMenuController> {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(LeaderboardController.getInstance());
+                MainMenuController.getInstance().switchState(LeaderboardController.getInstance());
             }
         });
         this.addActor(leaderboardButton);
@@ -83,7 +83,7 @@ public class MainMenuView extends View<MainMenuController> {
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
                 LoginController.getInstance().logOutUser();
-                ControllerManager.getInstance().set(LoginController.getInstance());
+                MainMenuController.getInstance().switchState(LoginController.getInstance());
             }
         });
         this.addActor(logoutButton);

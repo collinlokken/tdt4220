@@ -21,6 +21,13 @@ public class GameOverController extends Controller<GameOverView>{
         return instance;
     }
 
+    public static final GameOverController getInstance(){
+        if (instance == null){
+            instance = new GameOverController();
+        }
+        return instance;
+    }
+
     @Override
     public void update(float dt) {
 
