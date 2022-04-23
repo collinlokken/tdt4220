@@ -38,7 +38,7 @@ public class MainMenuView extends View<MainMenuController> {
         // PLAYBUTTON
         ImageButton playButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("play.png"))));
         playButton.setSize(64, 64);
-        playButton.setPosition((float) (getCamera().viewportWidth*0.5-playButton.getWidth()/2), (float) (getCamera().viewportHeight*0.25));
+        playButton.setPosition((float) (getCamera().viewportWidth*0.5-playButton.getWidth()/2), (float) (getCamera().viewportHeight*0.27));
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -51,7 +51,7 @@ public class MainMenuView extends View<MainMenuController> {
         // HELP BUTTON
         Button helpButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("help_button.png"))));
         helpButton.setSize(64, 64);
-        helpButton.setPosition((float) (getCamera().viewportWidth*0.75-64/2), (float) (getCamera().viewportHeight*0.25));
+        helpButton.setPosition((float) (getCamera().viewportWidth*0.75-64/2), (float) (getCamera().viewportHeight*0.27));
         helpButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -64,7 +64,7 @@ public class MainMenuView extends View<MainMenuController> {
         // LEADERBOARD BUTTON
         Button leaderboardButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("leaderboard.png"))));
         leaderboardButton.setSize(64, 64);
-        leaderboardButton.setPosition((float) (getCamera().viewportWidth*0.25-64/2), (float) (getCamera().viewportHeight*0.25));
+        leaderboardButton.setPosition((float) (getCamera().viewportWidth*0.25-64/2), (float) (getCamera().viewportHeight*0.27));
         leaderboardButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -77,7 +77,7 @@ public class MainMenuView extends View<MainMenuController> {
         // LOGOUT BUTTON
         Button logoutButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("logout.png"))));
         logoutButton.setSize(64, 64);
-        logoutButton.setPosition((float) (getCamera().viewportWidth-67), (float) (getCamera().viewportHeight-73));
+        logoutButton.setPosition((float) (getCamera().viewportWidth*0.95), (float) (getCamera().viewportHeight*0.90));
         logoutButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

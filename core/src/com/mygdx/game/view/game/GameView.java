@@ -52,36 +52,38 @@ public class GameView extends View<GameController> {
     ));
 
 
-    PlayerItem shield = new PlayerItem(-25, -25, playerWidth+50, playerHeight+50, 1, new ArrayList<Texture>(Arrays.asList(new Texture(Gdx.files.internal("shield.png")))));
-    Texture flame1 = new Texture(Gdx.files.internal("flame1.png"));
-    Texture flame2 = new Texture(Gdx.files.internal("flame2.png"));
-    Texture flame3 = new Texture(Gdx.files.internal("flame3.png"));
-    PlayerItem flames = new PlayerItem(-playerWidth/3, -playerHeight+3, playerWidth, playerHeight*5, 1, new ArrayList<Texture>(Arrays.asList(flame1, flame2, flame3)));
+    protected Texture shieldTexture = new Texture(Gdx.files.internal("shield.png"));
+    PlayerItem shield = new PlayerItem(-playerWidth/4, -playerWidth/4, (int)(playerWidth*1.5), (int)(playerWidth*1.5), 1, new ArrayList<>(Arrays.asList(shieldTexture)));
+    protected Texture flame1 = new Texture(Gdx.files.internal("flame1.png"));
+    protected Texture flame2 = new Texture(Gdx.files.internal("flame2.png"));
+    protected Texture flame3 = new Texture(Gdx.files.internal("flame3.png"));
+    PlayerItem flames = new PlayerItem(-playerWidth/3, -playerHeight+3, playerWidth, playerHeight*5, 1, new ArrayList<>(Arrays.asList(flame1, flame2, flame3)));
+    protected Texture star1 = new Texture(Gdx.files.internal("star1.png"));
+    protected Texture star2 = new Texture(Gdx.files.internal("star2.png"));
+    protected Texture star3 = new Texture(Gdx.files.internal("star3.png"));
+    protected Texture star4 = new Texture(Gdx.files.internal("star4.png"));
+    PlayerItem stars = new PlayerItem((int)(playerWidth*0.1), (int)(playerHeight*0.9), (int)(playerHeight*0.8), (int)(playerHeight*0.2), 1, new ArrayList<>(Arrays.asList(star1, star2, star3, star4)));
 
-    private ArrayList<PlayerItem> playerItems = new ArrayList<PlayerItem>(Arrays.asList(shield, flames));
+    private ArrayList<PlayerItem> playerItems = new ArrayList<PlayerItem>(Arrays.asList(shield, flames, stars));
 
     private float speed;
 
-
-    private PlayerActor playerActor = PlayerActor.getInstance(250, (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight, 2, playerItems, textures);
+    private PlayerActor playerActor = PlayerActor.getInstance((int)(getCamera().viewportHeight/3), (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight, 2, playerItems, textures);
 
     private Label scoreText;
+    private Label activePowerups;
     private static  final DecimalFormat df = new DecimalFormat("0.0");
-    private Array<Image> lifePointImages;
+    private Array<Image> lifePointImages = new Array<>();
+    private Array<Image> powerupImages = new Array<>();
 
-    private Sound died;
+    private Sound died = Gdx.audio.newSound(Gdx.files.internal("aghh.ogg"));
     private Music music;
 
     private GameView(){
-        this.lifePointImages = new Array<Image>();
-
         music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
         music.setLooping(true);
         music.setVolume(1f);
-        //music.play();
-
-
-        died = Gdx.audio.newSound(Gdx.files.internal("aghh.ogg"));
+        music.play();
 
         BackgroundActor ba = new BackgroundActor();
         ba.setPosition(0, 0);
@@ -98,26 +100,6 @@ public class GameView extends View<GameController> {
             }
         });
 
-        Skin skin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
-        this.scoreText = new Label("", skin, "font", "black");
-        this.scoreText.setPosition((float) (getCamera().viewportWidth/2-scoreText.getWidth()),(float) (getCamera().viewportHeight-20));
-        this.scoreText.setFontScale(getCamera().viewportHeight/350);
-
-        Image life1 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
-        Image life2 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
-        Image life3 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
-        this.lifePointImages.add(life1, life2, life3);
-
-        this.addActor(ba);
-        for (int i=0; i<this.lifePointImages.size; i++){
-            Image image = this.lifePointImages.get(i);
-            image.setSize(25, 25);
-            image.setPosition((i*(image.getWidth()+10))+5, getCamera().viewportHeight-image.getHeight()-5);
-            this.addActor(image);
-        }
-        this.addActor(this.playerActor);
-        this.addActor(this.scoreText);
-
         //PAUSE BUTTON
         ImageButton pauseButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("pause.png"))));
         pauseButton.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
@@ -130,7 +112,43 @@ public class GameView extends View<GameController> {
                 ControllerManager.getInstance().push(PauseController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
             }
         });
+
+        Skin skin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
+        this.scoreText = new Label("", skin, "font", "black");
+        this.scoreText.setPosition(getCamera().viewportWidth/3,(float)(getCamera().viewportHeight*0.95));
+        this.scoreText.setFontScale(getCamera().viewportHeight/300);
+
+        Image life1 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
+        Image life2 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
+        Image life3 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
+        this.lifePointImages.add(life1, life2, life3);
+
+        this.addActor(ba);
+        for (int i=0; i<this.lifePointImages.size; i++){
+            Image image = this.lifePointImages.get(i);
+            image.setSize((int)(getCamera().viewportHeight*0.1), (int)(getCamera().viewportHeight*0.1));
+            image.setPosition((i*(image.getWidth()+10))+2*pauseButton.getWidth(), getCamera().viewportHeight-image.getHeight()-5);
+            this.addActor(image);
+        }
+        this.addActor(this.playerActor);
+        this.addActor(this.scoreText);
+
+
+
         this.addActor(pauseButton);
+        this.activePowerups = new Label("Protection against:", skin, "font", "black");
+        this.activePowerups.setPosition((float)(getCamera().viewportWidth*0.65),(float)(getCamera().viewportHeight*0.93));
+        this.activePowerups.setFontScale(getCamera().viewportHeight/350);
+
+        this.addActor(this.activePowerups);
+
+        Image miniStand = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("stand.png"))));
+        miniStand.setSize((int)(getCamera().viewportHeight*0.1), (int)(getCamera().viewportHeight*0.1));
+        miniStand.setPosition((float)(getCamera().viewportWidth*0.88),(float)(getCamera().viewportHeight*0.9));
+        Image miniVirus = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("virus.png"))));
+        miniVirus.setSize((int)(getCamera().viewportHeight*0.1), (int)(getCamera().viewportHeight*0.1));
+        miniVirus.setPosition((float)(getCamera().viewportWidth*0.88+miniStand.getWidth()),(float)(getCamera().viewportHeight*0.9));
+        this.powerupImages.add(miniStand, miniVirus);
 
     }
 
@@ -151,6 +169,20 @@ public class GameView extends View<GameController> {
         }
         for (int i=0; i<lifePoints; i++){
             this.addActor(this.lifePointImages.get(i));
+        }
+    }
+
+    public void setActivePowerups(String... ids){
+        for (Image image : this.powerupImages){
+            image.remove();
+        }
+        for (String id : ids){
+            if (id.equals("virus")){
+                this.addActor(this.powerupImages.get(1));
+            }
+            else if(id.equals("stand")){
+                this.addActor(this.powerupImages.get(0));
+            }
         }
     }
 

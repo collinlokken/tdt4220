@@ -46,16 +46,22 @@ public class PlayerActor extends StripaSurvivorActor {
             this.playerAnimations.get(0).getSpriteFrame().draw(batch);
         }
         for (PlayerItem playerItem : this.playerItems){
-            if (playerItem.getAnimations().get(0).getSpriteFrame().getTexture().toString().equals("shield.png")){
+            if (playerItem.getTextures().contains(GameView.getInstance().shieldTexture)){
                 if (this.shield){
                     playerItem.getAnimations().get(0).getSpriteFrame().draw(batch);
                 }
             }
-            else{
+            else if (playerItem.getTextures().contains(GameView.getInstance().flame1)){
                 if (this.flames){
                     playerItem.getAnimations().get(0).getSpriteFrame().draw(batch);
                 }
             }
+            else {
+                if (this.blinking) {
+                    playerItem.getAnimations().get(0).getSpriteFrame().draw(batch);
+                }
+            }
+
         }
     }
 

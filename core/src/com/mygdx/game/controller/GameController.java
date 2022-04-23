@@ -100,21 +100,30 @@ public class GameController extends Controller<GameView>{
     }
 
     public void updatePowerup(){
-        for (String id : playerModel.getActivePowerupIds()){
-            if (id.equals("virus")){
-                System.out.println("FACEMASK ACTIVATED");
-                GameView.getInstance().getPlayerActor().setShield(true);
-            }
-            else if (id.equals("stand")){
-                System.out.println("COFFEE ACTIVATED");
-                GameView.getInstance().getPlayerActor().setShield(true);
-            }
-            else if (id.equals("justlostlife")){
-                GameView.getInstance().getPlayerActor().blinking(true);
-            }
-            else{
-                GameView.getInstance().getPlayerActor().setShield(false);
-            }
+        if (playerModel.getActivePowerupIds().contains("virus") && playerModel.getActivePowerupIds().contains("stand")){
+            System.out.println("BOTH POWERUPS ACTIVE!");
+            GameView.getInstance().setActivePowerups("virus", "stand");
+            GameView.getInstance().getPlayerActor().setShield(true);
+        }
+        else if (playerModel.getActivePowerupIds().contains("virus")){
+            System.out.println("VIRUS");
+            GameView.getInstance().getPlayerActor().setShield(true);
+            GameView.getInstance().setActivePowerups("virus");
+        }
+        else if (playerModel.getActivePowerupIds().contains("stand")){
+            System.out.println("Stand");
+            GameView.getInstance().getPlayerActor().setShield(true);
+            GameView.getInstance().setActivePowerups("stand");
+        }
+        else {
+            GameView.getInstance().getPlayerActor().setShield(false);
+            GameView.getInstance().setActivePowerups("notAPowerupID");
+        }
+        if (playerModel.getActivePowerupIds().contains("justlostlife")){
+            GameView.getInstance().getPlayerActor().blinking(true);
+        }
+        else{
+            GameView.getInstance().getPlayerActor().blinking(false);
         }
     }
 
