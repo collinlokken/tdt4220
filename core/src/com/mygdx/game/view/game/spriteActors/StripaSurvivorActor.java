@@ -22,6 +22,7 @@ public abstract class StripaSurvivorActor extends Actor {
     protected ANIMATION_TYPES activeAnimation;
     private ArrayList<PlayerItem> playerItems;
     protected boolean shield = false;
+    protected boolean flames = false;
 
     public enum ANIMATION_TYPES{
         RUNNING,
@@ -76,13 +77,14 @@ public abstract class StripaSurvivorActor extends Actor {
         for (PlayerItem playerItem : this.playerItems){
             System.out.println(playerItem.getAnimations().get(0).getSpriteFrame().getTexture().toString());
             if (playerItem.getAnimations().get(0).getSpriteFrame().getTexture().toString().equals("shield.png")){
-                System.out.println(this.shield);
                 if (this.shield){
                     playerItem.getAnimations().get(0).getSpriteFrame().draw(batch);
                 }
             }
             else{
-                playerItem.getAnimations().get(0).getSpriteFrame().draw(batch);
+                if (this.flames){
+                    playerItem.getAnimations().get(0).getSpriteFrame().draw(batch);
+                }
             }
         }
     }

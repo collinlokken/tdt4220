@@ -75,7 +75,7 @@ public class GameView extends View<GameController> {
         music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
         music.setLooping(true);
         music.setVolume(1f);
-        music.play();
+        //music.play();
 
 
         died = Gdx.audio.newSound(Gdx.files.internal("aghh.ogg"));

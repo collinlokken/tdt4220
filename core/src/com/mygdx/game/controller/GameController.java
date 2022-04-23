@@ -116,9 +116,11 @@ public class GameController extends Controller<GameView>{
         }
         else if (playerModel.getDirection()){
             playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.UP);
+            //SI IFRA TIL GAMEVIEW OM Å TEGNE FLAMMENE
         }
         else{
             playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.DOWN);
+            //SI IFRA TIL GAMEVIEW OM Å SKRU AV FLAMMENE??
         }
         for (GameControllerModelActorHelper modelActor : modelActors){
             modelActor.getModel().update(dt);
@@ -140,9 +142,6 @@ public class GameController extends Controller<GameView>{
 
             playerModel.reset();
             GameView.getInstance().playSound();
-            //SPILL AV ANIMASJON DER SPILLEREN HOPPER TILBAKE OG UT AV BANEN
-            //SPILL AV GAME-OVER LYD
-            //BYTT TIL GAME-OVER VIEW
          
             ControllerManager.getInstance().push(GameOverController.getInstance());
 
