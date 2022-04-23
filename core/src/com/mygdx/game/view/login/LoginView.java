@@ -69,7 +69,7 @@ public class LoginView extends View {
         Label endText = new Label("to register!", mySkin, "font", "black");
         startText.setPosition((float) (getCamera().viewportWidth*0.28),(float) (getCamera().viewportHeight*0.18));
         startText.setFontScale(getCamera().viewportHeight/550);
-        text.setPosition((float) (getCamera().viewportWidth*0.60),(float) (getCamera().viewportHeight*0.18));
+        text.setPosition((float) (getCamera().viewportWidth*0.57),(float) (getCamera().viewportHeight*0.18));
         text.setFontScale(getCamera().viewportHeight/550);
         endText.setPosition((float) (getCamera().viewportWidth*0.62),(float) (getCamera().viewportHeight*0.18));
         endText.setFontScale(getCamera().viewportHeight/550);
