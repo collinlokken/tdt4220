@@ -57,12 +57,11 @@ public class PauseView extends View<PauseController>{
         this.addActor(quit);
     }
 
-    public static final PauseView getInstance(Image image) {
+    public static final PauseView getInstance() {
         System.out.println("getInstance");
         if (instance == null) {
             instance = new PauseView();
         }
-        instance.setBackground(image);
         return instance;
     }
     public void setBackground(Image bg){

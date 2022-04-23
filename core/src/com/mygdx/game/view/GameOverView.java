@@ -16,6 +16,7 @@ public class GameOverView extends View<GameOverController>{
     private static GameOverView instance = null;
 
     private float finalScore;
+    private Image screenshotBg;
 
     private GameOverView(){
         super();
@@ -31,6 +32,7 @@ public class GameOverView extends View<GameOverController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
+                screenshotBg.remove();
                 ControllerManager.getInstance().set(MainMenuController.getInstance());
             }
         });
@@ -42,6 +44,7 @@ public class GameOverView extends View<GameOverController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
+                screenshotBg.remove();
                 ControllerManager.getInstance().set(GameController.getInstance());
             }
         });
@@ -53,6 +56,7 @@ public class GameOverView extends View<GameOverController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
+                screenshotBg.remove();
                 ControllerManager.getInstance().set(LeaderboardController.getInstance());
             }
         });
@@ -66,8 +70,16 @@ public class GameOverView extends View<GameOverController>{
 
     public static final GameOverView getInstance(){
         if (instance == null){
-            return new GameOverView();
+            instance =  new GameOverView();
         }
         return instance;
     }
+
+    public void setBackground(Image image){
+        this.screenshotBg = image;
+        screenshotBg.setPosition(0,0);
+        this.addActor(screenshotBg);
+        screenshotBg.toBack();
+    }
+
 }
