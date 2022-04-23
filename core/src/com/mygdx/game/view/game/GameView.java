@@ -196,7 +196,7 @@ public class GameView extends View<GameController> {
 
 
     public void playSound(){
-        this.music.stop();
+        //this.music.stop();
         this.died.play(0.5f);
     }
 
