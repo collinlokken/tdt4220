@@ -117,10 +117,12 @@ public class GameController extends Controller<GameView>{
         else if (playerModel.getDirection()){
             playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.UP);
             //SI IFRA TIL GAMEVIEW OM Å TEGNE FLAMMENE
+            playerActor.setFlames(true);
         }
         else{
             playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.DOWN);
             //SI IFRA TIL GAMEVIEW OM Å SKRU AV FLAMMENE??
+            playerActor.setFlames(false);
         }
         for (GameControllerModelActorHelper modelActor : modelActors){
             modelActor.getModel().update(dt);
