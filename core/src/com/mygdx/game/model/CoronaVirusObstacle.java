@@ -22,9 +22,13 @@ public class CoronaVirusObstacle extends Model{
 
     @Override
     public void interact(PlayerModel playerModel) {
+        reset();
         if (!(playerModel.hasPowerup(powerupId))){
             playerModel.decreaseLifePoints();
-            reset();
+
+        }
+        else{
+            playerModel.removePowerup(powerupId);
         }
     }
 

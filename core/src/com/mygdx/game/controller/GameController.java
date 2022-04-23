@@ -34,6 +34,7 @@ public class GameController extends Controller<GameView>{
         playerModel = PlayerModel.getInstance();
         playerActor = GameView.getInstance().getPlayerActor();
 
+
         //Init obstacles and items
         Stand stand1Model = new Stand( 0.4f);
         ObstacleActor stand1Actor = new ObstacleActor(stand1Model.getTexture(), (int)stand1Model.getCollisionBox().x, (int)stand1Model.getCollisionBox().y,(int) stand1Model.getCollisionBox().getWidth(),(int) stand1Model.getCollisionBox().getHeight());
@@ -72,9 +73,9 @@ public class GameController extends Controller<GameView>{
         }
 
         playerModel.setPosition(GameView.getInstance().getPlayerActor().getSprite().getX(), GameView.getInstance().getPlayerActor().getSprite().getY());
-        playerModel.setCollisionBox(playerModel.getPosition().x, playerModel.getPosition().y, playerModel.getWidth(), playerModel.getHeight());
         playerModel.setWidth((int)GameView.getInstance().getPlayerActor().getSprite().getWidth());
         playerModel.setHeight((int)GameView.getInstance().getPlayerActor().getSprite().getHeight());
+        playerModel.setCollisionBox(playerModel.getPosition().x, playerModel.getPosition().y, playerModel.getWidth(), playerModel.getHeight());
         modelActors.add(new GameControllerModelActorHelper(playerModel, playerActor));
 
     }
@@ -97,10 +98,18 @@ public class GameController extends Controller<GameView>{
         return instance;
     }
 
-    public void updateShield(){
+    public void updatePowerup(){
         for (String id : playerModel.getActivePowerupIds()){
-            if (id.equals("virus") || id.equals("stand")){
+            if (id.equals("virus")){
+                System.out.println("FACEMASK ACTIVATED");
                 GameView.getInstance().getPlayerActor().setShield(true);
+            }
+            else if (id.equals("stand")){
+                System.out.println("COFFEE ACTIVATED");
+                GameView.getInstance().getPlayerActor().setShield(true);
+            }
+            else if (id.equals("justlostlife")){
+                GameView.getInstance().getPlayerActor().blinking(true);
             }
             else{
                 GameView.getInstance().getPlayerActor().setShield(false);
@@ -110,15 +119,17 @@ public class GameController extends Controller<GameView>{
 
     @Override
     public void update(float dt) {
-        this.updateShield();
+        this.updatePowerup();
         if (playerModel.getBottom()){
-            playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.RUNNING);
+            playerActor.setActiveAnimation(PlayerActor.ANIMATION_TYPES.RUNNING);
         }
         else if (playerModel.getDirection()){
-            playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.UP);
+            playerActor.setActiveAnimation(PlayerActor.ANIMATION_TYPES.FLYING);
+            playerActor.setFlames(true);
         }
         else{
-            playerActor.setActiveAnimation(StripaSurvivorActor.ANIMATION_TYPES.DOWN);
+            playerActor.setActiveAnimation(PlayerActor.ANIMATION_TYPES.FLYING);
+            playerActor.setFlames(false);
         }
         for (GameControllerModelActorHelper modelActor : modelActors){
             modelActor.getModel().update(dt);
@@ -135,23 +146,14 @@ public class GameController extends Controller<GameView>{
 
 
         if (playerModel.getLifePoints() < 1){
-            //TODO game over screen
-            System.out.println("Game Over");
-
             playerModel.reset();
             GameView.getInstance().playSound();
-            //SPILL AV ANIMASJON DER SPILLEREN HOPPER TILBAKE OG UT AV BANEN
-            //SPILL AV GAME-OVER LYD
-            //BYTT TIL GAME-OVER VIEW
-         
-            ControllerManager.getInstance().push(GameOverController.getInstance());
-
 
             for (GameControllerModelActorHelper modelActor : modelActors) {
                 modelActor.getModel().reset();
             }
-
-          
+            System.out.println("GAME OVER");
+            ControllerManager.getInstance().push(GameOverController.getInstance());
         }
     }
 }

@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class ObstacleActor extends StripaSurvivorActor {
 
     public ObstacleActor(Texture texture, int x, int y, int width, int height){
-        super(x, y, width, height, 1, new ArrayList<PlayerItem>(), new ArrayList<Texture>(Arrays.asList(texture)));
+        super(x, y, width, height, 1, new ArrayList<Texture>(Arrays.asList(texture)));
 
     }
 
