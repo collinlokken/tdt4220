@@ -25,7 +25,7 @@ public class CoffeeStandShield extends Model{
 
     @Override
     public void interact(PlayerModel playerModel) {
-        playerModel.addPowerup(powerupId,duration);
+        playerModel.addPowerup(powerupId);
         reset();
     }
 

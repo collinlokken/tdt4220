@@ -21,7 +21,7 @@ public class PlayerModel extends Model{
     private Rectangle collisionBox;
 
     private ArrayList<String> activePowerupIds;
-    private ArrayList<Float> activePowerupTimers;
+    private float justLostLifeTimer;
 
     private static final int GRAVITY = -25;
     private Vector2 velocity;
@@ -39,8 +39,8 @@ public class PlayerModel extends Model{
     private PlayerModel(){
         super();
         lifePoints = 3;
+        justLostLifeTimer = 0;
         activePowerupIds = new ArrayList<>();
-        activePowerupTimers = new ArrayList<>();
         collisionBox = new Rectangle(0, 0, 10, 10);
 
         velocity = new Vector2(0, 0);
@@ -126,15 +126,10 @@ public class PlayerModel extends Model{
         velocity.scl(1/dt);
         gameSpeed += 5*dt;
 
-
-        //Decrease powerup timers
-        for (int i = 0; i < activePowerupTimers.size(); i++) {
-            activePowerupTimers.set(i, activePowerupTimers.get(i)-dt);
-            //System.out.println(activePowerupTimers.get(i));
-            if (activePowerupTimers.get(i) < 0){
-                System.out.println("remove powerup: "+ activePowerupIds.get(i));
-                activePowerupIds.remove(i);
-                activePowerupTimers.remove(i);
+        if (justLostLifeTimer > 0) {
+            justLostLifeTimer -= dt;
+            if (justLostLifeTimer < 0) {
+                removePowerup("justlostlife");
             }
         }
 
@@ -157,20 +152,28 @@ public class PlayerModel extends Model{
         return collisionBox.overlaps(rectangle);
     }
 
-    public void addPowerup(String powerupId, float powerupDuration){
+    public void addPowerup(String powerupId){
         System.out.println("Add powerup: "+ powerupId);
         for (String id : activePowerupIds){
             if (id.equals(powerupId)){
-                activePowerupTimers.set(activePowerupIds.indexOf(id),powerupDuration);
                 return;
             }
         }
         activePowerupIds.add(powerupId);
-        //System.out.println(activePowerupIds);
-        activePowerupTimers.add(powerupDuration);
-        //System.out.println(activePowerupTimers);
 
     }
+    public void removePowerup(String powerupId){
+        System.out.println("Removing powerup: "+ powerupId);
+        for (String id : activePowerupIds){
+            if (id.equals(powerupId)){
+                activePowerupIds.remove(id);
+                System.out.println("Active powerups after remove: " +  activePowerupIds.toString());
+                return;
+            }
+        }
+
+    }
+
     public boolean hasPowerup(String powerupId){
         //System.out.println(activePowerupIds);
         for (String id : activePowerupIds){
@@ -195,7 +198,8 @@ public class PlayerModel extends Model{
     public void decreaseLifePoints(){
         if (!hasPowerup("justlostlife")) {
             lifePoints -= 1;
-            addPowerup("justlostlife", 2f);
+            addPowerup("justlostlife");
+            justLostLifeTimer = 2;
             System.out.println("lifepoints: " + lifePoints);
         }
     }
@@ -234,11 +238,12 @@ public class PlayerModel extends Model{
 
     public float getSpeed(){ return gameSpeed; }
 
+    public float getJustLostLifeTimer() {return justLostLifeTimer;}
+
     public void reset(){
         lifePoints = 3;
         score = 0;
         gameSpeed = startSpeed;
-        activePowerupTimers.clear();
         activePowerupIds.clear();
     }
 

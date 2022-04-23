@@ -11,6 +11,7 @@ public class Stand extends Model{
     private Rectangle collisionBox;
     private Texture texture;
     private String powerupId = "stand";
+    private boolean isInteracting = false;
 
     public Stand(float scale){
         texture = new Texture(Gdx.files.internal("stand.png"));
@@ -22,9 +23,18 @@ public class Stand extends Model{
 
     @Override
     public void interact(PlayerModel playerModel) {
-        if (!(playerModel.hasPowerup(powerupId))){
+        if (!(playerModel.hasPowerup(powerupId))&& !isInteracting){
             playerModel.decreaseLifePoints();
+
         }
+        else if (!isInteracting){
+            playerModel.removePowerup(powerupId);
+            isInteracting = true;
+            System.out.println("---------");
+            System.out.println(powerupId);
+            System.out.println("---------");
+        }
+
     }
 
     @Override
@@ -49,5 +59,6 @@ public class Stand extends Model{
 
     public void reset(){
         getCollisionBox().setX((float) (Gdx.graphics.getWidth()*1.5));
+        isInteracting=false;
     }
 }
