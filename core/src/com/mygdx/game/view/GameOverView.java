@@ -25,7 +25,7 @@ public class GameOverView extends View<GameOverController>{
         bg.setSize(getCamera().viewportWidth/3, getCamera().viewportHeight/3);
 
         Image quit = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("quit.png"))));
-        quit.setPosition(getCamera().viewportWidth/3+100, getCamera().viewportHeight/3+100);
+        quit.setPosition((float) (getCamera().viewportWidth*0.38), (float) (getCamera().viewportHeight/3+100));
         quit.setSize(100, 50);
         quit.addListener(new ClickListener(){
             @Override
@@ -36,7 +36,7 @@ public class GameOverView extends View<GameOverController>{
         });
 
         Image restart = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("replay.png"))));
-        restart.setPosition(getCamera().viewportWidth/3+200, getCamera().viewportHeight/3+100);
+        restart.setPosition((float) (getCamera().viewportWidth*0.46), (float) (getCamera().viewportHeight/3+100));
         restart.setSize(100, 50);
         restart.addListener(new ClickListener(){
             @Override
@@ -47,8 +47,8 @@ public class GameOverView extends View<GameOverController>{
         });
 
         Image highscore = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("highscore.png"))));
-        highscore.setPosition(getCamera().viewportWidth/3+300, getCamera().viewportHeight/3+100);
-        highscore.setSize(100, 50);
+        highscore.setPosition((float) (getCamera().viewportWidth*0.55), (float) (getCamera().viewportHeight/3+100));
+        highscore.setSize(120, 50);
         highscore.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
