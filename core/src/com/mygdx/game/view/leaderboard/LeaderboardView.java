@@ -26,7 +26,7 @@ public class LeaderboardView extends View<LeaderboardController> {
     private ArrayList<Label> highScores = new ArrayList<>();
 
     private LeaderboardView(){
-        Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("leaderboard_eksempel.png"))));
+        Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("blackboard2.png"))));
         background.setPosition(0, 0);
         background.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         background.addListener(new ClickListener(){
