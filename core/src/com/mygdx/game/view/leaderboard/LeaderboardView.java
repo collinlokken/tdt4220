@@ -33,10 +33,11 @@ public class LeaderboardView extends View<LeaderboardController> {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                LeaderboardController.getInstance().switchState(MainMenuController.getInstance());
+                ControllerManager.getInstance().set(MainMenuController.getInstance());
                 for(Label highScore : highScores){
                     highScore.remove();
                 }
+                highScores.clear();
             }
         });
         this.addActor(background);
@@ -45,7 +46,7 @@ public class LeaderboardView extends View<LeaderboardController> {
 
     public void addHighScoreToView(HighScore highScore){
         Label label = new Label(highScore.getUsername() +"   "+ highScore.getScore(), glassySkin, "font", "red");
-        label.setPosition((float) (getCamera().viewportWidth*0.28),(float) (getCamera().viewportHeight-getCamera().viewportHeight*0.1*highScores.size()));
+        label.setPosition((float) (getCamera().viewportWidth*0.28),(float) (getCamera().viewportHeight-getCamera().viewportHeight*0.1*(highScores.size()+1)));
         label.setFontScale(getCamera().viewportHeight/550);
         this.addActor(label);
         this.highScores.add(label);
