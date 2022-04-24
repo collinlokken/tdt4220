@@ -2,6 +2,7 @@ package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -15,8 +16,14 @@ import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.controller.RegisterController;
 
+import java.util.ArrayList;
+
 public class RegisterView extends View<RegisterController> {
     private static RegisterView instance = null;
+    Skin glassySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
+    ArrayList<Actor> modalActors = new ArrayList<>();
+    Texture emptyUsernameTexture = new Texture("empty_username.png");
+    Texture emptyPasswordTexture = new Texture("empty_password.png");
 
     private RegisterView(){
         super();
@@ -53,8 +60,6 @@ public class RegisterView extends View<RegisterController> {
         this.addActor(passwordField);
         this.addActor(confirmPasswordField);
 
-        Skin glassySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
-
         Button registerButton = new TextButton("Create account", glassySkin, "small");
         registerButton.setPosition((float) (getCamera().viewportWidth*0.08), (float) (getCamera().viewportHeight*0.2));
         registerButton.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.1));
@@ -62,16 +67,60 @@ public class RegisterView extends View<RegisterController> {
             @Override //TODO add user in database
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                LoginController.getInstance().registerUserInDB(usernameField.getText(),passwordField.getText());
-                usernameField.setMessageText("Username");
-                passwordField.setMessageText("Password");
-                confirmPasswordField.setMessageText("Confirm password");
-                LoginController.getInstance().switchState(MainMenuController.getInstance());
+                if (usernameField.getText().equals("")){
+                    addModal("username");
+                } else if (passwordField.getText().equals("")) {
+                    addModal("password");
+                } else {
+                    LoginController.getInstance().registerUserInDB(usernameField.getText(), passwordField.getText());
+                    usernameField.setMessageText("Username");
+                    passwordField.setMessageText("Password");
+                    confirmPasswordField.setMessageText("Confirm password");
+                    LoginController.getInstance().switchState(MainMenuController.getInstance());
+                }
             }
         });
 
         this.addActor(registerButton);
 
+    }
+
+    public void addModal(String empty){
+        Image bg;
+        if (empty.equals("username")){
+            bg = new Image(new TextureRegionDrawable(emptyUsernameTexture));
+        } else {
+            bg = new Image(new TextureRegionDrawable(emptyPasswordTexture));
+        }
+
+        bg.setSize((float) (getCamera().viewportWidth*0.4),(float) (getCamera().viewportHeight*0.4));
+        int modalWidth = emptyPasswordTexture.getWidth();
+        int modalHeight = emptyPasswordTexture.getHeight();
+        float modalOriginX = (getCamera().viewportWidth-modalWidth)/2;
+        float modalOriginY = (getCamera().viewportHeight-modalHeight)/2;
+        bg.setPosition(modalOriginX, modalOriginY);
+
+        TextButton textButton = new TextButton("OK", glassySkin);
+        textButton.setPosition(modalOriginX+(modalWidth-textButton.getWidth())/2, modalOriginY+(modalHeight-textButton.getWidth())/2);
+        textButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                removeModal();
+            }
+        });
+
+
+        addActor(bg);
+        addActor(textButton);
+
+        this.modalActors.add(bg);
+        this.modalActors.add(textButton);
+    }
+
+    public void removeModal(){
+        for(Actor actor : modalActors){
+            actor.remove();
+        }
     }
 
     public static final RegisterView getInstance(){
