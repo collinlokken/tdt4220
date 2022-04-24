@@ -8,14 +8,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.mygdx.game.controller.LeaderboardController;
 import com.mygdx.game.controller.LoginController;
+import com.mygdx.game.model.HighScore;
 import com.mygdx.game.model.User;
+import com.mygdx.game.view.leaderboard.LeaderboardView;
 
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class AndroidInterfaceClass implements FireBaseInterface{
@@ -107,8 +112,42 @@ public class AndroidInterfaceClass implements FireBaseInterface{
                             }
                         }
                     }
-                    SetValueInDBb("highscore/"+uuid.toString(), (double) score);
+                    SetValueInDBb("highscore"+uuid.toString(), (double) score);
                     System.out.println("User highscore was updated");
+                }
+            }
+        });
+    }
+    @Override
+    public void getAllHighScores(){
+        getDatabase().getReference("").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                HashMap<String, Double> uuidScores = new HashMap<>();
+                HashMap<String, String> uuidUnames = new HashMap<>();
+                ArrayList<String> uuids = new ArrayList<>();
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else{
+                    DataSnapshot highScores = task.getResult().child("highscore");
+                    for(DataSnapshot child: highScores.getChildren()){
+                        String uuid = child.getKey();
+                        double score = (double) child.getValue();
+                        uuidScores.put(uuid,score);
+                        uuids.add(uuid);
+
+                    }
+                    DataSnapshot users = task.getResult().child("users");
+                    for(DataSnapshot child: users.getChildren()){
+                        String uuid = child.getKey();
+                        String username = child.child("username").getValue().toString();
+                        uuidUnames.put(uuid,username);
+                    }
+                    for (String uuid : uuids){
+                        LeaderboardView.getInstance().addHighScoreToView(new HighScore(uuidUnames.get(uuid), uuidScores.get(uuid)));
+                    }
+                    return;
                 }
             }
         });

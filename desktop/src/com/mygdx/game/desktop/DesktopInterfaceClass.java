@@ -25,4 +25,9 @@ public class DesktopInterfaceClass implements FireBaseInterface {
     public void handleUserHighScore(UUID uuid, float score) {
 
     }
+
+    @Override
+    public void getAllHighScores() {
+
+    }
 }

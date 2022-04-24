@@ -62,11 +62,10 @@ public class LoginView extends View {
             }
         });
 
-        Skin mySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
 
-        Label startText = new Label("Don't have an account? Click", mySkin, "font", "black");
-        Label text = new Label("here", mySkin, "font", "dark-cyan");
-        Label endText = new Label("to register!", mySkin, "font", "black");
+        Label startText = new Label("Don't have an account? Click", glassySkin, "font", "black");
+        Label text = new Label("here", glassySkin, "font", "dark-cyan");
+        Label endText = new Label("to register!", glassySkin, "font", "black");
         startText.setPosition((float) (getCamera().viewportWidth*0.28),(float) (getCamera().viewportHeight*0.18));
         startText.setFontScale(getCamera().viewportHeight/550);
         text.setPosition((float) (getCamera().viewportWidth*0.57),(float) (getCamera().viewportHeight*0.18));
