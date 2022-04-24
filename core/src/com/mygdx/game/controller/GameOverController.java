@@ -1,6 +1,9 @@
 package com.mygdx.game.controller;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.game.StripaSurvivor;
+import com.mygdx.game.model.PlayerModel;
+import com.mygdx.game.model.User;
 import com.mygdx.game.view.GameOverView;
 
 public class GameOverController extends Controller<GameOverView>{
@@ -19,6 +22,10 @@ public class GameOverController extends Controller<GameOverView>{
             instance = new GameOverController();
         }
         instance.gameOverView.setBackground(image);
+        User user = LoginController.getInstance().getUserSession().getUser();
+        if (user != null){
+            StripaSurvivor.getFirebaseInterface().handleUserHighScore(user.getUuid(), PlayerModel.getInstance().getScore());
+        }
         return instance;
     }
 

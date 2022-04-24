@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.UUID;
+
 public class IOSInterfaceClass implements FireBaseInterface{
 
     @Override
@@ -14,6 +16,11 @@ public class IOSInterfaceClass implements FireBaseInterface{
 
     @Override
     public void retrieveUserFromCredentials(String uname, String pwd) {
+
+    }
+
+    @Override
+    public void handleUserHighScore(UUID uuid, float score) {
 
     }
 }

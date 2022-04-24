@@ -155,10 +155,9 @@ public class GameController extends Controller<GameView>{
 
 
         if (playerModel.getLifePoints() < 1){
-            this.reset();
             GameView.getInstance().playSound();
             this.pushState(GameOverController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
-
+            this.reset();
         }
     }
     public void reset(){

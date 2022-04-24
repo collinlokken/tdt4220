@@ -68,21 +68,50 @@ public class AndroidInterfaceClass implements FireBaseInterface{
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
+                    boolean found = false;
                     for(DataSnapshot child: task.getResult().getChildren()){
                         if (child.child("username").getValue().toString().equals(uname) &&
                                 child.child("password").getValue().toString().equals(pwd)) {
                             Log.d("firebase", "User " + uname + " was found!");
                             User usr = new User(uname, pwd, child.getKey());
                             LoginController.getInstance().getUserSession().setUser(usr);
+                            found = true;
                             break;
                         }
                     }
-                    // should only reach here if no user is found
-                    Log.d("firebase", "No user with username "+uname+" and password "+pwd+" was found...");
+                    if (!found){
+                        Log.d("firebase", "No user with username "+uname+" and password "+pwd+" was found...");
+                    }
                 }
                 LoginController.getInstance().loginCallback();
             }
         });
 
     }
+
+    @Override
+    public void handleUserHighScore (UUID uuid, float score){
+        getDatabase().getReference("highscore").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    for(DataSnapshot child: task.getResult().getChildren()){
+                        if(child.getKey().equals(uuid.toString())){
+                            System.out.println("user has highscore and needs update");
+                            if((double) child.getValue() >= (double) score){
+                                System.out.println("New score was not better, nothing done");
+                                return;
+                            }
+                        }
+                    }
+                    SetValueInDBb("highscore/"+uuid.toString(), (double) score);
+                    System.out.println("User highscore was updated");
+                }
+            }
+        });
+    }
+
 }
