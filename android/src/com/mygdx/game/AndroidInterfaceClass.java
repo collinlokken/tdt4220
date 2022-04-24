@@ -19,6 +19,7 @@ import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -144,6 +145,19 @@ public class AndroidInterfaceClass implements FireBaseInterface{
                         String username = child.child("username").getValue().toString();
                         uuidUnames.put(uuid,username);
                     }
+                    uuids.sort(new Comparator<String>() {
+                        @Override
+                        public int compare(String s1, String s2) {
+                            if(uuidScores.get(s1) > uuidScores.get(s2)) {
+                                return -1;
+                            } else if(uuidScores.get(s1) == uuidScores.get(s2)) {
+                                return 0;
+                            } else {
+                                return 1;
+                            }
+
+                        }
+                    });
                     for (String uuid : uuids){
                         LeaderboardView.getInstance().addHighScoreToView(new HighScore(uuidUnames.get(uuid), uuidScores.get(uuid)));
                     }
