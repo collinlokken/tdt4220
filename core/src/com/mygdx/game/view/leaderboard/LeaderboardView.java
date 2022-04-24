@@ -53,7 +53,8 @@ public class LeaderboardView extends View<LeaderboardController> {
         int yOffset = 200;  // margin top
         float screenHeight = getCamera().viewportHeight;
         float xOffset = (float) (getCamera().viewportWidth*0.28);  // margin left
-        float lineHeight = (float) (screenHeight*0.05);  // y distance between displayed scores
+        float lineHeight = (float) (screenHeight*0.07);  // y distance between displayed scores
+        float fontSize = screenHeight/400;
 
         float recordY = (float) (screenHeight-yOffset-lineHeight*position);
         int recordPadding = 200;  // x distance between position, username and score
@@ -63,9 +64,9 @@ public class LeaderboardView extends View<LeaderboardController> {
         score.setPosition(xOffset + recordPadding*2 + recordPadding/3,recordY);
 
 
-        pos.setFontScale(screenHeight/550);
-        uname.setFontScale(screenHeight/550);
-        score.setFontScale(screenHeight/550);
+        pos.setFontScale(fontSize);
+        uname.setFontScale(fontSize);
+        score.setFontScale(fontSize);
 
         this.addActor(pos);
         this.highScores.add(pos);
