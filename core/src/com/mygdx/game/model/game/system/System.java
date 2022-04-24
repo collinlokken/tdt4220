@@ -77,17 +77,17 @@ public abstract class System
     {
         for(Component component : e.getComponents())
         {
-            if(this.componentGroups.containsKey((component.getType())))
-                this.componentGroups.get(component.getType()).remove(e);
+            this.removeComponent(component);
         }
     }
 
     public void removeComponent(Component component)
     {
-
-        if(!this.componentGroups.containsKey((component.getClass())))
-            throw new IllegalArgumentException("System does not handle " + component.getClass().getName());
-        this.componentGroups.get(component.getClass().getName()).remove(component.getEntity());
+        for(Class<? extends  Component> type : this.componentGroups.keySet())
+        {
+            if(type.isInstance(component))
+                this.componentGroups.get(type).remove(component.getEntity());
+        }
     }
 
     public  abstract void update(float dt);
