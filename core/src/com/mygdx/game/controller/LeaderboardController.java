@@ -22,10 +22,6 @@ public class LeaderboardController extends Controller<LeaderboardView>{
         return instance;
     }
 
-    public void addHighScore(HighScore highScore){
-        LeaderboardView.getInstance().addHighScoreToView(highScore);
-    }
-
     @Override
     public void update(float dt) {
 

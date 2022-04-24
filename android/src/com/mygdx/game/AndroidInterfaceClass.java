@@ -112,7 +112,7 @@ public class AndroidInterfaceClass implements FireBaseInterface{
                             }
                         }
                     }
-                    SetValueInDBb("highscore"+uuid.toString(), (double) score);
+                    SetValueInDBb("highscore/"+uuid.toString(), (double) score);
                     System.out.println("User highscore was updated");
                 }
             }
