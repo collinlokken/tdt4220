@@ -45,11 +45,34 @@ public class LeaderboardView extends View<LeaderboardController> {
     }
 
     public void addHighScoreToView(HighScore highScore){
-        Label label = new Label(highScore.getUsername() +"   "+ highScore.getScore(), glassySkin, "font", "red");
-        label.setPosition((float) (getCamera().viewportWidth*0.28),(float) (getCamera().viewportHeight-getCamera().viewportHeight*0.1*(highScores.size()+1)));
-        label.setFontScale(getCamera().viewportHeight/550);
-        this.addActor(label);
-        this.highScores.add(label);
+        double position = highScores.size()/3+1;
+        Label pos = new Label(""+(int) (position), glassySkin, "font", "red");
+        Label uname = new Label(""+highScore.getUsername(), glassySkin, "font", "red");
+        Label score = new Label(""+highScore.getScore(), glassySkin, "font", "red");
+
+        int yOffset = 200;  // margin top
+        float screenHeight = getCamera().viewportHeight;
+        float xOffset = (float) (getCamera().viewportWidth*0.28);  // margin left
+        float lineHeight = (float) (screenHeight*0.05);  // y distance between displayed scores
+
+        float recordY = (float) (screenHeight-yOffset-lineHeight*position);
+        int recordPadding = 200;  // x distance between position, username and score
+
+        pos.setPosition(xOffset,recordY);
+        uname.setPosition(xOffset + recordPadding - recordPadding/3,recordY);
+        score.setPosition(xOffset + recordPadding*2 + recordPadding/3,recordY);
+
+
+        pos.setFontScale(screenHeight/550);
+        uname.setFontScale(screenHeight/550);
+        score.setFontScale(screenHeight/550);
+
+        this.addActor(pos);
+        this.highScores.add(pos);
+        this.addActor(uname);
+        this.highScores.add(uname);
+        this.addActor(score);
+        this.highScores.add(score);
     }
 
     public static final LeaderboardView getInstance(){
