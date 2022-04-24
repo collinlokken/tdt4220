@@ -21,6 +21,10 @@ public class PhysicsSystem extends System
 
             Entity entity = velocityComponent.getEntity();
             PositionComponent positionComponent = velocityComponent.getEntity().getComponent(PositionComponent.class);
+
+            //TODO Clipping logic: Need to make positionComponent never go below 0 in y-direction and x-direction.
+            //Alo make velocity 0 in direction of clipping.
+
             positionComponent.addX(velocityComponent.getX()*dt);
             positionComponent.addY((velocityComponent.getY()*dt));
 
@@ -33,8 +37,10 @@ public class PhysicsSystem extends System
 
             if(entity.hasComponentOfType(BoostComponent.class))
                 yAccel += entity.getComponent(BoostComponent.class).getMagnitude();
+            java.lang.System.out.println("Y acceleration: " + yAccel);
             velocityComponent.addX(xAccel*dt);
             velocityComponent.addY(yAccel*dt);
         }
+
     }
 }

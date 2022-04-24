@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class GameController extends Controller<GameView>{
     private static GameController instance = null;
 
+    //TODO Implement call to game restart using this.game.restart(); (Also, todo is to make this method in Game)
 
     private Game game;
 
@@ -40,7 +41,6 @@ public class GameController extends Controller<GameView>{
     {
         this.game.getPlayerEntity().stopBoosting();
     }
-
 
     @Override
     public void update(float dt)

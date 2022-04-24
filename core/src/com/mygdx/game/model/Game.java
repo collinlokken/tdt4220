@@ -40,17 +40,33 @@ public class Game
 
     public void addEntity(Entity e)
     {
+
         if(e.getId() != -1)
             throw new IllegalStateException("Entity has already been previously added.");
         e.setId(this.nextEntityId);
         this.nextEntityId++;
         this.entities.add(e);
+        java.lang.System.out.println("Adding entity " + e.getClass().getName());
         for(System sys : this.systems)
         {
+
+            java.lang.System.out.println("Adding to system" + sys.getClass().getName());
+            java.lang.System.out.println("Handles");
+            for(Class<? extends Component> type : sys.getComponentTypes())
+            {
+                java.lang.System.out.println(type.getName());
+            }
+
+            java.lang.System.out.println("Adding components: ");
+
             for(Component component : e.getComponents())
             {
-                if(sys.getComponentTypes().contains(component.getType()))
+                if(sys.getComponentTypes().contains(component.getClass()))
+                {
+                    java.lang.System.out.println("Adding " + component.getType() + " to " + sys.getClass().getName());
                     sys.addComponent(component);
+                }
+
             }
         }
     }

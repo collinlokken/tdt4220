@@ -30,17 +30,16 @@ public abstract class System
             if(type.isInstance(component))
             {
                 this.componentGroups.get(type).put(component.getEntity(), component);
-                break;
+                return;
             }
         }
-        throw new IllegalArgumentException("This system does not handle " + componentClassName);
+        throw new IllegalArgumentException(this.getClass().getName() + " does not handle " + componentClassName);
     }
 
     public  <T extends Component> Collection<T> getComponents(Class<T> type)
     {
         if(!this.componentGroups.containsKey(type))
             throw new IllegalArgumentException("Unknown component type " + type.getName());
-        java.lang.System.out.println("HELLO");
         return (Collection<T>) this.componentGroups.get(type).values();
     }
 
@@ -64,7 +63,7 @@ public abstract class System
     {
         if(!this.componentGroups.containsKey(type))
             throw new IllegalArgumentException("The system does not handle components of type " + type.getName());
-        return this.componentGroups.get(type.getName()).keySet();
+        return this.componentGroups.get(type).keySet();
     }
 
     public <T extends Component> Collection<T> getComponentsOfType(Class<T> type)
