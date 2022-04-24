@@ -46,9 +46,9 @@ public class LeaderboardView extends View<LeaderboardController> {
 
     public void addHighScoreToView(HighScore highScore){
         double position = highScores.size()/3+1;
-        Label pos = new Label(""+(int) (position), glassySkin, "font", "red");
-        Label uname = new Label(""+highScore.getUsername(), glassySkin, "font", "red");
-        Label score = new Label(""+highScore.getScore(), glassySkin, "font", "red");
+        Label pos = new Label(""+(int) (position), glassySkin, "font", "white");
+        Label uname = new Label(""+highScore.getUsername(), glassySkin, "font", "white");
+        Label score = new Label(""+highScore.getScore(), glassySkin, "font", "white");
 
         int yOffset = 200;  // margin top
         float screenHeight = getCamera().viewportHeight;
