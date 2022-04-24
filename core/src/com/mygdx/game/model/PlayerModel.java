@@ -124,7 +124,7 @@ public class PlayerModel extends Model{
         }
 
         velocity.scl(1/dt);
-        gameSpeed += 0.5*dt;
+        gameSpeed += 5*dt;
 
         if (justLostLifeTimer > 0) {
             justLostLifeTimer -= dt;
