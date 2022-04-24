@@ -29,7 +29,7 @@ public class StripaSurvivor extends ApplicationAdapter {
 		LoginController login = LoginController.getInstance();
 		MainMenuController mainMenu = MainMenuController.getInstance();
 		GameController game = GameController.getInstance();
-		controllerManager.push(game);
+		controllerManager.push(login);
 		_FBIC.SetOnValueChangedListener("message");
 		_FBIC.SetValueInDBb("message","TDT4240 er keeeegt");
 	}

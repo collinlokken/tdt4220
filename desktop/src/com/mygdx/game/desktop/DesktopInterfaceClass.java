@@ -2,6 +2,8 @@ package com.mygdx.game.desktop;
 
 import com.mygdx.game.FireBaseInterface;
 
+import java.util.UUID;
+
 public class DesktopInterfaceClass implements FireBaseInterface {
 
     @Override
@@ -16,6 +18,16 @@ public class DesktopInterfaceClass implements FireBaseInterface {
 
     @Override
     public void retrieveUserFromCredentials(String uname, String pwd) {
+
+    }
+
+    @Override
+    public void handleUserHighScore(UUID uuid, float score) {
+
+    }
+
+    @Override
+    public void getAllHighScores() {
 
     }
 }
