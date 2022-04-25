@@ -9,7 +9,7 @@ Contributors:
 * Erlend Haakegaard
 * Christopher Løkken
 
-##HOW TO RUN
+## HOW TO RUN
 
 1. git clone https://github.com/collinlokken/tdt4220.git
 2. Open project folder in Android Studio (File -> Open...)
