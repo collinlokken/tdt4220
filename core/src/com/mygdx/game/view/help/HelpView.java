@@ -26,7 +26,7 @@ public class HelpView extends View<HelpController> {
 
 
     private HelpView(){
-        Image firstSlide = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("tutorials.png"))));
+        Image firstSlide = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("ssTutorials.png"))));
        // Image secondSlide = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("tutorialsBiggerText.png"))));
        // Image thirdSlide = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("tutorialsBiggerText.png"))));
 
