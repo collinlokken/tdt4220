@@ -65,14 +65,14 @@ public class LoginView extends View {
 
 
         Label startText = new Label("Don't have an account? Click", glassySkin, "font", "black");
-        Image text = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("here.jpg"))));
+        Image text = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("here.png"))));
         //Label text = new Label("here", glassySkin, "font", "dark-cyan");
         Label endText = new Label("to register!", glassySkin, "font", "black");
         startText.setPosition((float) (getCamera().viewportWidth*0.28),(float) (getCamera().viewportHeight*0.18));
         startText.setFontScale(getCamera().viewportHeight/550);
-        text.setPosition((float) (getCamera().viewportWidth*0.57),(float) (getCamera().viewportHeight*0.18));
-        text.setWidth(getCamera().viewportWidth/100);
-        text.setHeight(getCamera().viewportHeight/100);
+        text.setPosition((float) (getCamera().viewportWidth*0.54),(float) (getCamera().viewportHeight*0.15));
+        text.setWidth(getCamera().viewportWidth/12);
+        text.setHeight(getCamera().viewportHeight/12);
         endText.setPosition((float) (getCamera().viewportWidth*0.62),(float) (getCamera().viewportHeight*0.18));
         endText.setFontScale(getCamera().viewportHeight/550);
 
