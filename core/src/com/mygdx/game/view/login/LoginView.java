@@ -3,6 +3,7 @@ package com.mygdx.game.view.login;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -64,12 +65,14 @@ public class LoginView extends View {
 
 
         Label startText = new Label("Don't have an account? Click", glassySkin, "font", "black");
-        Label text = new Label("here", glassySkin, "font", "dark-cyan");
+        Image text = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("here.jpg"))));
+        //Label text = new Label("here", glassySkin, "font", "dark-cyan");
         Label endText = new Label("to register!", glassySkin, "font", "black");
         startText.setPosition((float) (getCamera().viewportWidth*0.28),(float) (getCamera().viewportHeight*0.18));
         startText.setFontScale(getCamera().viewportHeight/550);
         text.setPosition((float) (getCamera().viewportWidth*0.57),(float) (getCamera().viewportHeight*0.18));
-        text.setFontScale(getCamera().viewportHeight/550);
+        text.setWidth(getCamera().viewportWidth/100);
+        text.setHeight(getCamera().viewportHeight/100);
         endText.setPosition((float) (getCamera().viewportWidth*0.62),(float) (getCamera().viewportHeight*0.18));
         endText.setFontScale(getCamera().viewportHeight/550);
 
