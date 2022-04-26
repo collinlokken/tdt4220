@@ -1,16 +1,17 @@
-package com.mygdx.game.view.game.spriteActors;
+package com.mygdx.game.view.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.mygdx.game.model.game.component.HitboxComponent;
 import com.mygdx.game.model.game.component.PositionComponent;
 import com.mygdx.game.model.game.entity.Entity;
-import com.mygdx.game.view.game.Animation;
+import com.mygdx.game.view.game.actors.Animation;
 import java.util.ArrayList;
 
-public abstract class GameActor<T extends Entity> extends Actor {
+public abstract class EntityActor<T extends Entity> extends Actor {
 
     private Animation animation;
     protected ArrayList<Animation> playerAnimations;
@@ -64,13 +65,14 @@ public abstract class GameActor<T extends Entity> extends Actor {
         return  (float)((this.getHitbox().getHeight() / this.entity.getGame().getHeight())*this.getStage().getCamera().viewportHeight);
     }
 
-    public GameActor(int numberOfAnimations, ArrayList<Texture> textures, T entity){
+    public EntityActor(int numberOfAnimations, ArrayList<Texture> textures, T entity){
         this.playerAnimations = new ArrayList<>();
         this.entity= entity;
         for (int i=0; i < numberOfAnimations; i++){
             this.animation = new Animation(textures.size()/numberOfAnimations, 0.3f, new ArrayList<>(textures.subList(i*textures.size()/numberOfAnimations, i*textures.size()/numberOfAnimations+textures.size()/numberOfAnimations)));
             this.playerAnimations.add(this.animation);
         }
+        this.setTouchable(Touchable.disabled);
 
     }
 
@@ -90,9 +92,6 @@ public abstract class GameActor<T extends Entity> extends Actor {
     }
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-        this.sprite.setSize(this.getWidth(), this.getHeight());
-        this.sprite.setPosition(this.getX(), this.getY());
         this.sprite.draw(batch);
     }
 }

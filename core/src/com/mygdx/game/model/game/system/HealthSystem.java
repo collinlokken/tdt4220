@@ -16,7 +16,7 @@ public class HealthSystem extends AbstractSystem
     private  Game game;
     public  HealthSystem(Game game)
     {
-        super(HealthComponent.class, DamageComponent.class, HitboxComponent.class);
+        super(HealthComponent.class, DamageComponent.class);
         this.game = game;
 
     }

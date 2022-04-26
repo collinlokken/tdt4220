@@ -11,6 +11,7 @@ import com.mygdx.game.model.game.entity.Entity;
 import java.util.Random;
 
 public class CoinItem extends Entity {
+    @Spawnable
     public  CoinItem(PositionComponent position)
     {
         super(position, new ScoreRewardComponent(25), new HitboxComponent(10, 10, position));

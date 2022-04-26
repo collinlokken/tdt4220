@@ -1,13 +1,12 @@
-package com.mygdx.game.view.game;
+package com.mygdx.game.view.game.actors;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.model.game.entity.Player;
-import com.mygdx.game.view.game.spriteActors.GameActor;
+import com.mygdx.game.view.game.EntityActor;
 
 import java.util.ArrayList;
 
-public class PlayerItem extends GameActor<Player>
+public class PlayerItem extends EntityActor<Player>
 {
 
     private ArrayList<Texture> textures;

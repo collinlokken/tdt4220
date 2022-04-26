@@ -1,4 +1,4 @@
-package com.mygdx.game.view.game;
+package com.mygdx.game.view.game.actors;
 
 import com.badlogic.gdx.graphics.Texture;
 

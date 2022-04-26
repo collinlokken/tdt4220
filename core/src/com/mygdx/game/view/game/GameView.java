@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -17,12 +18,12 @@ import com.mygdx.game.model.game.GameObserver;
 import com.mygdx.game.model.game.entity.Entity;
 import com.mygdx.game.model.game.entity.Player;
 import com.mygdx.game.view.View;
-import com.mygdx.game.view.game.spriteActors.BackgroundActor;
+import com.mygdx.game.view.game.actors.BackgroundActor;
 
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameView extends View<GameController> implements GameObserver
 {
@@ -32,16 +33,7 @@ public class GameView extends View<GameController> implements GameObserver
 
     private  Game game;
 
-    private ArrayList<Texture> textures = new ArrayList<Texture>(Arrays.asList(
-            new Texture(Gdx.files.internal("player1.png")),
-            new Texture(Gdx.files.internal("player2.png")),
-            new Texture(Gdx.files.internal("player3.png")),
-            new Texture(Gdx.files.internal("player4.png")),
-            new Texture(Gdx.files.internal("player_flying.png")),
-            new Texture(Gdx.files.internal("player_flying.png")),
-            new Texture(Gdx.files.internal("player_flying.png")),
-            new Texture(Gdx.files.internal("player_flying.png"))
-    ));
+    private Map<Entity, Actor> actors = new HashMap();
 
     public static final GameView getInstance(){
         if (instance == null){
@@ -57,22 +49,6 @@ public class GameView extends View<GameController> implements GameObserver
 
 
 
-    protected Texture shieldTexture;
-    PlayerItem shield;
-    protected Texture flame1;
-    protected Texture flame2;
-    protected Texture flame3;
-    PlayerItem flames;
-    protected Texture star1;
-    protected Texture star2;
-    protected Texture star3;
-    protected Texture star4;
-    PlayerItem stars;
-
-    private ArrayList<PlayerItem> playerItems;
-
-
-    private PlayerActor playerActor;
 
     private Label scoreText;
     private Label activePowerups;
@@ -83,37 +59,11 @@ public class GameView extends View<GameController> implements GameObserver
     private Sound died = Gdx.audio.newSound(Gdx.files.internal("aghh.ogg"));
     private Music music;
 
-    private GameView(){
+    private GameView()
+    {
+
     }
 
-    public PlayerActor getPlayerActor() {
-        return playerActor;
-    }
-
-
-
-    public void setLifePoints(int lifePoints){
-        for (Image image : this.lifePointImages){
-            image.remove();
-        }
-        for (int i=0; i<lifePoints; i++){
-            this.addActor(this.lifePointImages.get(i));
-        }
-    }
-
-    public void setActivePowerups(String... ids){
-        for (Image image : this.powerupImages){
-            image.remove();
-        }
-        for (String id : ids){
-            if (id.equals("virus")){
-                this.addActor(this.powerupImages.get(1));
-            }
-            else if(id.equals("stand")){
-                this.addActor(this.powerupImages.get(0));
-            }
-        }
-    }
 
     public void setScore(float s){
         this.scoreText.setText("Score: "+df.format(s));
@@ -134,36 +84,36 @@ public class GameView extends View<GameController> implements GameObserver
 
     @Override
     public void onEntityAdded(Game game, Entity entity) {
-
+        try
+        {
+            Actor entityActor = EntityActorFactory.getInstance().createActor(entity);
+            this.actors.put(entity, entityActor);
+            this.addActor(entityActor);
+        }
+        catch(Exception e)
+        {
+            System.out.println("Unhandled exception occurred when creating actor: " + e.getMessage());
+        }
     }
 
     @Override
-    public void onEntityRemoved(Game game, Entity entity) {
-
+    public void onEntityRemoved(Game game, Entity entity)
+    {
+        this.actors.get(entity).remove();
     }
 
     @Override
-    public void onGameEnded(Game game, Player player, float score) {
+    public void onGameEnded(Game game, Player player, float score)
+    {
 
     }
 
     @Override
     public void onGameStarted(Game game)
     {
-        shieldTexture = new Texture(Gdx.files.internal("shield.png"));
 
-        shield = new PlayerItem(this.game.getPlayerEntity(), 1, new ArrayList<>(Arrays.asList(shieldTexture)));
-        flame1 = new Texture(Gdx.files.internal("flame1.png"));
-        flame2 = new Texture(Gdx.files.internal("flame2.png"));
-        flame3 = new Texture(Gdx.files.internal("flame3.png"));
-        flames = new PlayerItem(this.game.getPlayerEntity(), 1, new ArrayList<>(Arrays.asList(flame1, flame2, flame3)));
-        star1 = new Texture(Gdx.files.internal("star1.png"));
-        star2 = new Texture(Gdx.files.internal("star2.png"));
-        star3 = new Texture(Gdx.files.internal("star3.png"));
-        star4 = new Texture(Gdx.files.internal("star4.png"));
-        stars = new PlayerItem(this.game.getPlayerEntity(), 1, new ArrayList<>(Arrays.asList(star1, star2, star3, star4)));
-        playerItems = new ArrayList<PlayerItem>(Arrays.asList(shield, flames, stars));
-        playerActor = new PlayerActor(2, playerItems, textures, this.game.getPlayerEntity());
+
+        //playerActor = new PlayerActor(2, playerItems, textures, this.game.getPlayerEntity());
         music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
         music.setLooping(true);
         music.setVolume(1f);
@@ -201,7 +151,6 @@ public class GameView extends View<GameController> implements GameObserver
             image.setPosition((i*(image.getWidth()+10))+5, getCamera().viewportHeight-image.getHeight()-5);
             this.addActor(image);
         }
-        this.addActor(this.playerActor);
         this.addActor(this.scoreText);
 
         this.activePowerups = new Label("Protection against:", skin, "font", "black");

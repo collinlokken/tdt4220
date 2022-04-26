@@ -13,7 +13,7 @@ public class PhysicsSystem extends AbstractSystem
     private Game game;
     public PhysicsSystem(Game game)
     {
-        super(PositionComponent.class, GravityComponent.class, BoostComponent.class, VelocityComponent.class);
+        super(PositionComponent.class);
         this.game = game;
     }
 
@@ -23,11 +23,11 @@ public class PhysicsSystem extends AbstractSystem
     public void update(float dt)
     {
         elapsedTime += dt;
-        for(VelocityComponent velocityComponent : this.getComponents(VelocityComponent.class))
+        for(PositionComponent positionComponent : this.getComponents(PositionComponent.class))
         {
 
-            Entity entity = velocityComponent.getEntity();
-            PositionComponent positionComponent = velocityComponent.getEntity().getComponent(PositionComponent.class);
+            Entity entity = positionComponent.getEntity();
+            VelocityComponent velocityComponent = entity.getComponent(VelocityComponent.class);
             HitboxComponent hitbox = entity.getComponent(HitboxComponent.class);
 
             positionComponent.addX(velocityComponent.getX()*dt);
@@ -57,9 +57,6 @@ public class PhysicsSystem extends AbstractSystem
                 }
                 // Also X
             }
-
-            System.out.println(velocityComponent.getY());
-
         }
 
 

@@ -1,4 +1,4 @@
-package com.mygdx.game.view.game.spriteActors;
+package com.mygdx.game.view.game.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +15,8 @@ public class BackgroundActor extends Actor {
     private Sprite background2;
 
     public BackgroundActor(){
+        System.out.println(this.getClass().getName());
+
         Texture texture1 = new Texture(Gdx.files.internal("background1.png"));
         background1 = new Sprite(texture1);
         background1.setPosition(0,0);

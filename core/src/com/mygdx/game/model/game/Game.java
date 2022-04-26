@@ -105,11 +105,12 @@ public class Game
             throw new IllegalStateException("Cannot start a game that is running.");
         this.started = true;
         this.player = new Player(new PositionComponent(width/4, 0, true), (float) (30*9.81));
-        this.addEntity(this.player);
         for(GameObserver observer : this.observers)
         {
             observer.onGameStarted(this);
         }
+        this.addEntity(this.player);
+
     }
     public void addEntity(Entity e)
     {
@@ -120,7 +121,6 @@ public class Game
         e.setGame(this);
         this.nextEntityId++;
         this.entities.add(e);
-        java.lang.System.out.println("Adding entity " + e.getClass().getName());
         for(AbstractSystem sys : this.systems)
         {
 
@@ -142,6 +142,10 @@ public class Game
                 }
 
             }
+        }
+        for(GameObserver observer : this.observers)
+        {
+            observer.onEntityAdded(this, e);
         }
     }
 
