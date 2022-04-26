@@ -14,11 +14,18 @@ public class PositionComponent extends Component
 
     private  double x;
     private  double y;
+    private boolean bounded;
+
 
     public  PositionComponent(double x, double y)
     {
+        this(x, y, false);
+    }
+    public  PositionComponent(double x, double y, boolean bounded)
+    {
         this.x = x;
         this.y = y;
+        this.bounded = bounded;
     }
 
     public void setX(int x)
@@ -29,6 +36,11 @@ public class PositionComponent extends Component
     public void setY(int y)
     {
         this.y = y;
+    }
+
+    public boolean isBounded()
+    {
+        return this.bounded;
     }
 
     public void addX(double delta)

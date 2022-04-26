@@ -1,6 +1,6 @@
 package com.mygdx.game.model.game.system;
 
-import com.mygdx.game.model.Game;
+import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.component.DamageComponent;
 import com.mygdx.game.model.game.component.HealthComponent;
 import com.mygdx.game.model.game.component.HitboxComponent;
@@ -9,11 +9,15 @@ import com.mygdx.game.model.game.entity.Entity;
 
 import java.util.Collection;
 
-public class HealthSystem extends System
+
+public class HealthSystem extends AbstractSystem
 {
+
+    private  Game game;
     public  HealthSystem(Game game)
     {
         super(HealthComponent.class, DamageComponent.class, HitboxComponent.class);
+        this.game = game;
 
     }
 
@@ -33,15 +37,22 @@ public class HealthSystem extends System
                 {
                     HealthComponent health = damageTakingEntity.getComponent(HealthComponent.class);
                     Collection<ShieldComponent> shields = damageTakingEntity.getComponentsOfType(ShieldComponent.class);
+                    boolean isProtected = false;
                     for(ShieldComponent shield : shields)
                     {
                         if(shield.protectsAgainst(damagingEntity))
                         {
                             damageTakingEntity.removeComponent(shield);
+                            isProtected = true;
                             break;
                         }
                     }
-                    health.decrease(damageComponent.getValue());
+                    if(!isProtected)
+                    {
+                        health.decrease(damageComponent.getValue());
+                        if(health.getValue() == 0 && damageTakingEntity == this.game.getPlayerEntity())
+                            this.game.endGame();
+                    }
                 }
             }
         }

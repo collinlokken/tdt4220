@@ -7,13 +7,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-public abstract class System
+public abstract class AbstractSystem
 {
     private HashMap<Class<? extends Component>, HashMap<Entity, Component>> componentGroups;
 
 
+    public void reset()
+    {
+        for(Class<? extends Component> type : this.componentGroups.keySet())
+        {
+            this.componentGroups.get(type).clear();
+        }
+    }
 
-    public System(Class<? extends Component>...components)
+    public AbstractSystem(Class<? extends Component>...components)
     {
         this.componentGroups = new HashMap<>();
         for(Class<? extends Component> comp : components)
@@ -25,6 +32,7 @@ public abstract class System
     public void addComponent(Component component)
     {
         String componentClassName = component.getClass().getName();
+        boolean valid= false;
         for(Class<? extends  Component> type : this.componentGroups.keySet())
         {
             if(type.isInstance(component))
@@ -33,7 +41,6 @@ public abstract class System
                 return;
             }
         }
-        throw new IllegalArgumentException(this.getClass().getName() + " does not handle " + componentClassName);
     }
 
     public  <T extends Component> Collection<T> getComponents(Class<T> type)
@@ -41,17 +48,6 @@ public abstract class System
         if(!this.componentGroups.containsKey(type))
             throw new IllegalArgumentException("Unknown component type " + type.getName());
         return (Collection<T>) this.componentGroups.get(type).values();
-    }
-
-    public <T extends Component> T getComponent(Class<T> type, int entity)
-    {
-        String className = type.getName();
-        if(!this.componentGroups.containsKey(className))
-            throw new IllegalArgumentException("Unknown type provided");
-        HashMap<Entity, Component> group = this.componentGroups.get(className);
-        if(!group.containsKey(entity))
-            throw new IllegalArgumentException("Entity does not have a component of type " + className);
-        return (T)group.get(entity);
     }
 
     public Collection<Class<? extends Component>>  getComponentTypes()

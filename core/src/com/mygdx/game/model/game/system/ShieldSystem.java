@@ -1,12 +1,12 @@
 package com.mygdx.game.model.game.system;
 
-import com.mygdx.game.model.Game;
+import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.component.HitboxComponent;
 import com.mygdx.game.model.game.component.ShieldComponent;
 import com.mygdx.game.model.game.component.ShieldConsumerComponent;
 import com.mygdx.game.model.game.entity.Entity;
 
-public class ShieldSystem extends  System
+public class ShieldSystem extends AbstractSystem
 {
     private Game game;
     public ShieldSystem(Game game)
@@ -29,7 +29,7 @@ public class ShieldSystem extends  System
 
                 HitboxComponent shieldHitbox =  shield.getEntity().getComponent(HitboxComponent.class);
                 if(shieldHitbox == null)
-                        continue;
+                    continue;
                 if(shieldHitbox.overlaps(consumerHitbox))
                 {
                     shield.getEntity().removeComponent(shield);

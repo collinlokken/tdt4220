@@ -13,7 +13,7 @@ import java.util.Random;
 public class CoinItem extends Entity {
     public  CoinItem(PositionComponent position)
     {
-        super(position, new ScoreRewardComponent(1), new HitboxComponent(10, 10, position));
+        super(position, new ScoreRewardComponent(25), new HitboxComponent(10, 10, position));
     }
 
 }

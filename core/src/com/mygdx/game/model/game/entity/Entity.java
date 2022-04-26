@@ -1,5 +1,6 @@
 package com.mygdx.game.model.game.entity;
 
+import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.component.Component;
 
 import java.util.ArrayDeque;
@@ -11,6 +12,8 @@ public abstract class Entity
 {
     private  int id = -1;
     private  Collection<Component> components;
+    private Game game;
+
 
     public Entity(Component... components)
     {
@@ -81,5 +84,12 @@ public abstract class Entity
         return this.id;
     }
 
+    public  void setGame(Game game)
+    {
+        this.game = game;
+    }
 
+    public Game getGame() {
+        return game;
+    }
 }

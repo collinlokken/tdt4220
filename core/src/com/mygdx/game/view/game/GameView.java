@@ -12,6 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.controller.GameController;
+import com.mygdx.game.model.game.Game;
+import com.mygdx.game.model.game.GameObserver;
+import com.mygdx.game.model.game.entity.Entity;
+import com.mygdx.game.model.game.entity.Player;
 import com.mygdx.game.view.View;
 import com.mygdx.game.view.game.spriteActors.BackgroundActor;
 
@@ -20,11 +24,13 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class GameView extends View<GameController> {
+public class GameView extends View<GameController> implements GameObserver
+{
     private static GameView instance = null;
-    private int playerWidth = (int) (getCamera().viewportHeight*0.125);
-    private int playerHeight = (int) (getCamera().viewportHeight*0.13);
 
+    private float speed;
+
+    private  Game game;
 
     private ArrayList<Texture> textures = new ArrayList<Texture>(Arrays.asList(
             new Texture(Gdx.files.internal("player1.png")),
@@ -37,24 +43,36 @@ public class GameView extends View<GameController> {
             new Texture(Gdx.files.internal("player_flying.png"))
     ));
 
+    public static final GameView getInstance(){
+        if (instance == null){
+            instance = new GameView();
+        }
+        return instance;
+    }
 
-    protected Texture shieldTexture = new Texture(Gdx.files.internal("shield.png"));
-    PlayerItem shield = new PlayerItem(-playerWidth/4, -playerWidth/4, (int)(playerWidth*1.5), (int)(playerWidth*1.5), 1, new ArrayList<>(Arrays.asList(shieldTexture)));
-    protected Texture flame1 = new Texture(Gdx.files.internal("flame1.png"));
-    protected Texture flame2 = new Texture(Gdx.files.internal("flame2.png"));
-    protected Texture flame3 = new Texture(Gdx.files.internal("flame3.png"));
-    PlayerItem flames = new PlayerItem(-playerWidth/3, -playerHeight+3, playerWidth, playerHeight*5, 1, new ArrayList<>(Arrays.asList(flame1, flame2, flame3)));
-    protected Texture star1 = new Texture(Gdx.files.internal("star1.png"));
-    protected Texture star2 = new Texture(Gdx.files.internal("star2.png"));
-    protected Texture star3 = new Texture(Gdx.files.internal("star3.png"));
-    protected Texture star4 = new Texture(Gdx.files.internal("star4.png"));
-    PlayerItem stars = new PlayerItem((int)(playerWidth*0.1), (int)(playerHeight*0.9), (int)(playerHeight*0.8), (int)(playerHeight*0.2), 1, new ArrayList<>(Arrays.asList(star1, star2, star3, star4)));
+    public void setSpeed(float speed){
+        this.speed = speed;
+    }
+    public float getSpeed(){return this.speed;}
 
-    private ArrayList<PlayerItem> playerItems = new ArrayList<PlayerItem>(Arrays.asList(shield, flames, stars));
 
-    private float speed;
 
-    private PlayerActor playerActor = PlayerActor.getInstance((int)(getCamera().viewportHeight/3), (int)getCamera().viewportHeight-playerHeight, playerWidth, playerHeight, 2, playerItems, textures);
+    protected Texture shieldTexture;
+    PlayerItem shield;
+    protected Texture flame1;
+    protected Texture flame2;
+    protected Texture flame3;
+    PlayerItem flames;
+    protected Texture star1;
+    protected Texture star2;
+    protected Texture star3;
+    protected Texture star4;
+    PlayerItem stars;
+
+    private ArrayList<PlayerItem> playerItems;
+
+
+    private PlayerActor playerActor;
 
     private Label scoreText;
     private Label activePowerups;
@@ -66,6 +84,86 @@ public class GameView extends View<GameController> {
     private Music music;
 
     private GameView(){
+    }
+
+    public PlayerActor getPlayerActor() {
+        return playerActor;
+    }
+
+
+
+    public void setLifePoints(int lifePoints){
+        for (Image image : this.lifePointImages){
+            image.remove();
+        }
+        for (int i=0; i<lifePoints; i++){
+            this.addActor(this.lifePointImages.get(i));
+        }
+    }
+
+    public void setActivePowerups(String... ids){
+        for (Image image : this.powerupImages){
+            image.remove();
+        }
+        for (String id : ids){
+            if (id.equals("virus")){
+                this.addActor(this.powerupImages.get(1));
+            }
+            else if(id.equals("stand")){
+                this.addActor(this.powerupImages.get(0));
+            }
+        }
+    }
+
+    public void setScore(float s){
+        this.scoreText.setText("Score: "+df.format(s));
+    }
+
+
+    public void playSound(){
+        this.music.stop();
+        this.died.play(0.5f);
+    }
+
+    public void initialize(Game game)
+    {
+        this.game = game;
+        game.addObserver(this);
+    }
+
+
+    @Override
+    public void onEntityAdded(Game game, Entity entity) {
+
+    }
+
+    @Override
+    public void onEntityRemoved(Game game, Entity entity) {
+
+    }
+
+    @Override
+    public void onGameEnded(Game game, Player player, float score) {
+
+    }
+
+    @Override
+    public void onGameStarted(Game game)
+    {
+        shieldTexture = new Texture(Gdx.files.internal("shield.png"));
+
+        shield = new PlayerItem(this.game.getPlayerEntity(), 1, new ArrayList<>(Arrays.asList(shieldTexture)));
+        flame1 = new Texture(Gdx.files.internal("flame1.png"));
+        flame2 = new Texture(Gdx.files.internal("flame2.png"));
+        flame3 = new Texture(Gdx.files.internal("flame3.png"));
+        flames = new PlayerItem(this.game.getPlayerEntity(), 1, new ArrayList<>(Arrays.asList(flame1, flame2, flame3)));
+        star1 = new Texture(Gdx.files.internal("star1.png"));
+        star2 = new Texture(Gdx.files.internal("star2.png"));
+        star3 = new Texture(Gdx.files.internal("star3.png"));
+        star4 = new Texture(Gdx.files.internal("star4.png"));
+        stars = new PlayerItem(this.game.getPlayerEntity(), 1, new ArrayList<>(Arrays.asList(star1, star2, star3, star4)));
+        playerItems = new ArrayList<PlayerItem>(Arrays.asList(shield, flames, stars));
+        playerActor = new PlayerActor(2, playerItems, textures, this.game.getPlayerEntity());
         music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
         music.setLooping(true);
         music.setVolume(1f);
@@ -119,57 +217,5 @@ public class GameView extends View<GameController> {
         miniVirus.setSize((int)(getCamera().viewportHeight*0.1), (int)(getCamera().viewportHeight*0.1));
         miniVirus.setPosition((float)(getCamera().viewportWidth*0.88+miniStand.getWidth()),(float)(getCamera().viewportHeight*0.9));
         this.powerupImages.add(miniStand, miniVirus);
-
     }
-
-    public PlayerActor getPlayerActor() {
-        return playerActor;
-    }
-
-    public static final GameView getInstance(){
-        if (instance == null){
-            instance = new GameView();
-        }
-        return instance;
-    }
-
-    public void setLifePoints(int lifePoints){
-        for (Image image : this.lifePointImages){
-            image.remove();
-        }
-        for (int i=0; i<lifePoints; i++){
-            this.addActor(this.lifePointImages.get(i));
-        }
-    }
-
-    public void setActivePowerups(String... ids){
-        for (Image image : this.powerupImages){
-            image.remove();
-        }
-        for (String id : ids){
-            if (id.equals("virus")){
-                this.addActor(this.powerupImages.get(1));
-            }
-            else if(id.equals("stand")){
-                this.addActor(this.powerupImages.get(0));
-            }
-        }
-    }
-
-    public void setScore(float s){
-        this.scoreText.setText("Score: "+df.format(s));
-    }
-
-
-    public void playSound(){
-        this.music.stop();
-        this.died.play(0.5f);
-    }
-
-    public void setSpeed(float speed){
-        this.speed = speed;
-    }
-    public float getSpeed(){return speed;}
-
-
 }

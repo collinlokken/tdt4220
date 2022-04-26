@@ -1,23 +1,19 @@
 package com.mygdx.game.controller;
 
-import com.mygdx.game.model.Game;
-import com.mygdx.game.model.game.entity.Player;
+import com.mygdx.game.model.game.Game;
 
+import com.mygdx.game.model.game.component.ScoreComponent;
 import com.mygdx.game.view.game.GameView;
-import com.mygdx.game.view.game.PlayerActor;
-
-import java.util.ArrayList;
 
 public class GameController extends Controller<GameView>{
     private static GameController instance = null;
-
-    //TODO Implement call to game restart using this.game.restart(); (Also, todo is to make this method in Game)
 
     private Game game;
 
     private GameController() {
         super(GameView.getInstance());
-        this.game = new Game();
+        this.game = Game.getInstance(this.view.getWidth() / this.view.getHeight());
+        this.view.initialize(this.game);
     }
 
     public static GameController getInstance()
@@ -27,24 +23,25 @@ public class GameController extends Controller<GameView>{
         return instance;
     }
 
-    public  void startGame() //TODO Call this when appropriate
-    {
-        this.game = new Game();
-    }
 
     public  void onTouchDown() //TODO Call this from view!
     {
-        this.game.getPlayerEntity().startBoosting();
+        if(this.game.isStarted())
+            this.game.getPlayerEntity().startBoosting();
     }
 
-    public  void onTouchUp() //TODO Call this from view!
+    public void onTouchUp() //TODO Call this from view!
     {
-        this.game.getPlayerEntity().stopBoosting();
+        if(this.game.isStarted())
+            this.game.getPlayerEntity().stopBoosting();
     }
 
     @Override
     public void update(float dt)
     {
+        if(!this.game.isStarted())
+            this.game.startGame();
         this.game.update(dt);
+        this.view.setScore(this.game.getPlayerEntity().getComponent(ScoreComponent.class).getValue());
     }
 }

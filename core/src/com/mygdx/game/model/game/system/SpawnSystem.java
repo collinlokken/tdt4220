@@ -1,16 +1,11 @@
 package com.mygdx.game.model.game.system;
 
-import com.mygdx.game.model.Game;
+import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.component.HitboxComponent;
-import com.mygdx.game.model.game.component.PositionComponent;
-import com.mygdx.game.model.game.entity.CoffeeCup;
-import com.mygdx.game.model.game.entity.Entity;
 
 import java.util.Random;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-public class SpawnSystem extends System
+public class SpawnSystem extends AbstractSystem
 {
     private float time;
 

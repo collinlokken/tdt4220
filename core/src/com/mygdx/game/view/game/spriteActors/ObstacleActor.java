@@ -1,12 +1,11 @@
 package com.mygdx.game.view.game.spriteActors;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.view.game.PlayerItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-public class ObstacleActor extends StripaSurvivorActor {
+/*
+public class ObstacleActor extends GameActor {
 
     public ObstacleActor(Texture texture, int x, int y, int width, int height){
         super(x, y, width, height, 1, new ArrayList<Texture>(Arrays.asList(texture)));
@@ -14,3 +13,4 @@ public class ObstacleActor extends StripaSurvivorActor {
     }
 
 }
+*/
