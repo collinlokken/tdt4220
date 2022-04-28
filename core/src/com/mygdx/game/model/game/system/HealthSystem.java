@@ -1,6 +1,7 @@
 package com.mygdx.game.model.game.system;
 
 import com.mygdx.game.model.game.Game;
+import com.mygdx.game.model.game.component.CooldownDurationComponent;
 import com.mygdx.game.model.game.component.DamageComponent;
 import com.mygdx.game.model.game.component.HealthComponent;
 import com.mygdx.game.model.game.component.HitboxComponent;
@@ -29,6 +30,16 @@ public class HealthSystem extends AbstractSystem
             HitboxComponent hitbox = damageTakingEntity.getComponent(HitboxComponent.class);
             for(Entity damagingEntity : this.getEntities(DamageComponent.class))
             {
+                CooldownDurationComponent component = damageTakingEntity.getComponent(CooldownDurationComponent.class);
+                if(component != null)
+                {
+                    component.decrease(dt);
+                    if(component.getDuration() == 0)
+                    {
+                        this.game.removeComponent(component);
+                    }
+                    break;
+                }
                 DamageComponent damageComponent = damagingEntity.getComponent(DamageComponent.class);
                 HitboxComponent damageHitbox = damagingEntity.getComponent(HitboxComponent.class);
                 if(damageHitbox == null)
@@ -50,8 +61,17 @@ public class HealthSystem extends AbstractSystem
                     if(!isProtected)
                     {
                         health.decrease(damageComponent.getValue());
-                        if(health.getValue() == 0 && damageTakingEntity == this.game.getPlayerEntity())
-                            this.game.endGame();
+                        if(damageTakingEntity == this.game.getPlayerEntity())
+                        {
+                            if(health.getValue() == 0)
+                                this.game.endGame();
+                            else
+                            {
+                                this.game.addComponent(damageTakingEntity, new CooldownDurationComponent(1f));
+                            }
+
+                        }
+
                     }
                 }
             }

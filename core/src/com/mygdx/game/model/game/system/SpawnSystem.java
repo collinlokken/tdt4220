@@ -3,6 +3,7 @@ package com.mygdx.game.model.game.system;
 import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.component.HitboxComponent;
 import com.mygdx.game.model.game.component.PositionComponent;
+import com.mygdx.game.model.game.component.VelocityComponent;
 import com.mygdx.game.model.game.entity.CoronaVirus;
 import com.mygdx.game.model.game.entity.Entity;
 import com.mygdx.game.model.game.entity.Stand;
@@ -19,6 +20,7 @@ public class SpawnSystem extends AbstractSystem
     private  Game game;
     private Random random;
 
+    private int lastSpawnTime = 0;
 
 
     public  SpawnSystem(Game game)
@@ -45,20 +47,34 @@ public class SpawnSystem extends AbstractSystem
         this.time += dt;
         for(HitboxComponent component : this.getComponents(HitboxComponent.class))
         {
-            if(component.getPosition().getX() < component.getWidth())
+            if(component.getPosition().getX() < -component.getWidth())
+            {
                 game.removeEntity(component.getEntity());
+            }
         }
-        if(Math.round(this.time) % 5 == 0) // Here we need to implement spawning
+        int currentSecond = Math.round(this.time);
+        if(currentSecond != this.lastSpawnTime && currentSecond - this.lastSpawnTime == 5) // Here we need to implement spawning
         {
-
+            this.lastSpawnTime = currentSecond;
+            this.game.addEntity(this.getRandomEntity());
         }
     }
 
-    private void getRandomItem()
+    private Entity getRandomEntity()
     {
-        int nItems = 6;
-        int choice = this.random.nextInt(nItems);
-        //PositionComponent component = new PositionComponent(random.nextInt() - 1, )
-
+        Entity entity = null;
+        int nItems = 2;
+        int choice = this.random.nextInt(nItems) + 1;
+        System.out.println(choice);
+        switch(choice)
+        {
+            case 1:
+                entity = new CoronaVirus(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirus.height)*Math.random()), new VelocityComponent(-20, 0));
+                break;
+            case 2:
+                entity = new Stand(new PositionComponent(this.game.getWidth(), 0), new VelocityComponent(-20, 0));
+                break;
+        }
+        return entity;
     }
 }

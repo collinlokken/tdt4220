@@ -42,6 +42,7 @@ public class GameController extends Controller<GameView>{
         if(!this.game.isStarted())
             this.game.startGame();
         this.game.update(dt);
-        this.view.setScore(this.game.getPlayerEntity().getComponent(ScoreComponent.class).getValue());
+        if(this.game.isStarted())
+            this.view.setScore(this.game.getPlayerEntity().getComponent(ScoreComponent.class).getValue());
     }
 }

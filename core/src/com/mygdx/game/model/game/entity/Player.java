@@ -28,7 +28,6 @@ public class Player extends Entity
     {
         if(this.boosting)
             return;
-        System.out.println("Started boosting");
         this.addComponent(new BoostComponent(this.boostAcceleration));
         this.boosting = true;
     }
@@ -37,7 +36,6 @@ public class Player extends Entity
     {
         if(!this.boosting)
             return;
-        System.out.println("Stopped boosting");
         this.removeComponent(this.getComponent(BoostComponent.class));
         this.boosting = false;
     }

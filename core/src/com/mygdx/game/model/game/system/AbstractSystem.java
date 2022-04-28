@@ -1,11 +1,16 @@
 package com.mygdx.game.model.game.system;
 
+import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.component.Component;
 import com.mygdx.game.model.game.entity.Entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+
+
+import sun.jvm.hotspot.oops.Array;
 
 public abstract class AbstractSystem
 {
@@ -47,7 +52,7 @@ public abstract class AbstractSystem
     {
         if(!this.componentGroups.containsKey(type))
             throw new IllegalArgumentException("Unknown component type " + type.getName());
-        return (Collection<T>) this.componentGroups.get(type).values();
+        return new ArrayList(this.componentGroups.get(type).values());
     }
 
     public Collection<Class<? extends Component>>  getComponentTypes()
@@ -55,11 +60,11 @@ public abstract class AbstractSystem
         return  this.componentGroups.keySet();
     }
 
-    public  Collection<Entity> getEntities(Class<? extends Component> type)
+    public Collection<Entity> getEntities(Class<? extends Component> type)
     {
         if(!this.componentGroups.containsKey(type))
             throw new IllegalArgumentException("The system does not handle components of type " + type.getName());
-        return this.componentGroups.get(type).keySet();
+        return new ArrayList<>(this.componentGroups.get(type).keySet());
     }
 
     public <T extends Component> Collection<T> getComponentsOfType(Class<T> type)

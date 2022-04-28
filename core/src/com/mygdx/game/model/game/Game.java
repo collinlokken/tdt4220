@@ -14,6 +14,7 @@ import com.mygdx.game.model.game.system.AbstractSystem;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Game
@@ -85,6 +86,8 @@ public class Game
     {
         if(!this.started)
             throw new IllegalStateException("Cannot end a game that has not started.");
+
+        System.out.println("GAME OVER");
         for(AbstractSystem sys : this.systems)
         {
             sys.reset();
@@ -115,29 +118,21 @@ public class Game
     public void addEntity(Entity e)
     {
 
+        System.out.println("Adding entity " + e.getClass().getSimpleName());
+
         if(e.getId() != -1)
             throw new IllegalStateException("Entity has already been previously added.");
         e.setId(this.nextEntityId);
         e.setGame(this);
         this.nextEntityId++;
         this.entities.add(e);
+
         for(AbstractSystem sys : this.systems)
         {
-
-            java.lang.System.out.println("Adding to system" + sys.getClass().getName());
-            java.lang.System.out.println("Handles");
-            for(Class<? extends Component> type : sys.getComponentTypes())
-            {
-                java.lang.System.out.println(type.getName());
-            }
-
-            java.lang.System.out.println("Adding components: ");
-
             for(Component component : e.getComponents())
             {
                 if(sys.getComponentTypes().contains(component.getClass()))
                 {
-                    java.lang.System.out.println("Adding " + component.getType() + " to " + sys.getClass().getName());
                     sys.addComponent(component);
                 }
 
@@ -155,6 +150,10 @@ public class Game
         for(AbstractSystem sys : this.systems)
         {
             sys.removeEntityComponents(e);
+        }
+        for(GameObserver observer : this.observers)
+        {
+            observer.onEntityRemoved(this, e);
         }
     }
 

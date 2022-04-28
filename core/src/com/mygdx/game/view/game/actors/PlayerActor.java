@@ -5,89 +5,145 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.model.game.component.CooldownDurationComponent;
+import com.mygdx.game.model.game.component.ShieldComponent;
 import com.mygdx.game.model.game.entity.Player;
 import com.mygdx.game.view.game.EntityActor;
 
 public class PlayerActor extends EntityActor<Player> {
-    private static PlayerActor instance = null;
-    private ArrayList<PlayerItem> playerItems;
-    private ANIMATION_TYPES activeAnimation;
     private boolean shield = false;
     private boolean flames = false;
-    private boolean blinking = false;
+    private boolean stars = false;
+    private boolean flying = false;
+    private boolean boosting = false;
 
 
+    private Animation playerWalkAnimation;
 
-    public enum ANIMATION_TYPES{
-        FLYING,
-        RUNNING
-    }
+    private Sprite playerFlying;
+    private Sprite shieldSprite;
 
-    public PlayerActor(Player player){
-        super(2, new ArrayList<Texture>(Arrays.asList(
+    private Animation boostAnimation;
+    private Animation starsAnimation;
+
+
+    @Override
+    protected void initialize() {
+        this.playerWalkAnimation = new Animation(4, 0.3f, new ArrayList<>(Arrays.asList(
                 new Texture(Gdx.files.internal("player1.png")),
                 new Texture(Gdx.files.internal("player2.png")),
                 new Texture(Gdx.files.internal("player3.png")),
-                new Texture(Gdx.files.internal("player4.png")),
-                new Texture(Gdx.files.internal("player_flying.png")),
-                new Texture(Gdx.files.internal("player_flying.png")),
-                new Texture(Gdx.files.internal("player_flying.png")),
-                new Texture(Gdx.files.internal("player_flying.png"))
-                )), player);
+                new Texture(Gdx.files.internal("player4.png")))));
+        this.playerWalkAnimation.setSpriteSize((int)this.getWidth(), (int)this.getHeight());
 
+        this.renderAnimation(this.playerWalkAnimation);
 
-        Texture shieldTexture = new Texture(Gdx.files.internal("shield.png"));
+        this.playerFlying =  new Sprite(new Texture(Gdx.files.internal("player_flying.png")));
+        this.playerFlying.setSize(this.getWidth(), this.getHeight());
 
-        PlayerItem shield = new PlayerItem(player,1, new ArrayList<>(Arrays.asList(shieldTexture)));
+        this.shieldSprite = new Sprite(new Texture(Gdx.files.internal("shield.png")));
+        this.shieldSprite.setSize(this.getWidth()*1.2f, this.getHeight()*1.2f);
+
         Texture flame1 = new Texture(Gdx.files.internal("flame1.png"));
         Texture flame2 = new Texture(Gdx.files.internal("flame2.png"));
         Texture flame3 = new Texture(Gdx.files.internal("flame3.png"));
-        PlayerItem flames = new PlayerItem(player, 1, new ArrayList<>(Arrays.asList(flame1, flame2, flame3)));
+        this.boostAnimation = new Animation(3, 0.2f, new ArrayList<Texture>(Arrays.asList(flame1, flame2, flame3)));
+
         Texture star1 = new Texture(Gdx.files.internal("star1.png"));
         Texture star2 = new Texture(Gdx.files.internal("star2.png"));
         Texture star3 = new Texture(Gdx.files.internal("star3.png"));
         Texture star4 = new Texture(Gdx.files.internal("star4.png"));
-        PlayerItem  stars = new PlayerItem(player, 1, new ArrayList<>(Arrays.asList(star1, star2, star3, star4)));
-        this.playerItems = new ArrayList<PlayerItem>(Arrays.asList(shield, flames, stars));
 
+
+        this.starsAnimation = new Animation(4, 0.5f, new ArrayList<>(Arrays.asList(star1, star2, star3, star4)));
+        this.starsAnimation.setSpriteSize((int)Math.round(1.2*this.getWidth()), (int)Math.round(1.2*this.getWidth()/4));
     }
+
+    public PlayerActor(Player player){
+        super(player);
+    }
+
+
 
 
 
     @Override
-    public void act(float delta) {
-
+    protected void update(float dt) {
 
         if(this.getY() > 0)
         {
-            this.playerAnimations.get(1).update(delta);
-            this.setSprite(this.playerAnimations.get(1).getSpriteFrame());
+            this.playerFlying.setPosition(this.getX(), this.getY());
+            if(!this.flying)
+            {
+                this.flying = true;
+                this.renderSprite(playerFlying);
+                this.removeAnimation(playerWalkAnimation);
+            }
+            if(!this.entity.isBoosting() && this.boosting)
+            {
+                this.boosting = false;
+                this.removeAnimation(this.boostAnimation);
+            }
+            else if(this.entity.isBoosting())
+            {
+                this.boostAnimation.setSpritePosition(this.getX() - this.getWidth()*(1/8), this.getY() - this.getHeight());
+                this.boostAnimation.update(dt);
+                if(!this.boosting)
+                {
+                    this.boosting = true;
+                    this.renderAnimation(this.boostAnimation);
+                }
+
+            }
+
         }
         else
         {
-            this.playerAnimations.get(0).update(delta);
-            this.setSprite(this.playerAnimations.get(0).getSpriteFrame());
+            this.playerWalkAnimation.update(dt);
+            this.playerWalkAnimation.setSpritePosition(this.getX(), this.getY());
+            if(this.flying)
+            {
+                this.removeSprite(playerFlying);
+                this.flying = false;
+                this.renderAnimation(this.playerWalkAnimation);
+            }
         }
-        for (PlayerItem playerItem : this.playerItems){
-            playerItem.getAnimations().get(0).update(delta);
+        if(this.entity.hasComponentOfType(ShieldComponent.class))
+        {
+            this.shieldSprite.setPosition(this.getX() - (1/5f)*this.getWidth(), this.getY() - (1/5f)*this.getHeight());
+            if(!this.shield)
+            {
+                this.shield = true;
+                this.renderSprite(this.shieldSprite);
+            }
         }
-        this.sprite.setSize(this.getWidth(), this.getHeight());
-        this.sprite.setPosition(this.getX(), this.getY());
-    }
+        else if(!this.entity.hasComponentOfType(ShieldComponent.class) && this.shield)
+        {
+            this.shield = false;
+            this.removeSprite(this.shieldSprite);
+        }
+        if(this.entity.hasComponentOfType(CooldownDurationComponent.class))
+        {
+            this.starsAnimation.update(dt);
+            this.starsAnimation.setSpritePosition(this.getX(), this.getY() + (7f/8f)*this.getHeight());
+            if(!this.stars)
+            {
+                this.stars = true;
+                this.renderAnimation(starsAnimation);
+           }
+        }
+        else if(!this.entity.hasComponentOfType(CooldownDurationComponent.class) && this.stars)
+        {
+            this.stars = false;
+            this.removeAnimation(this.starsAnimation);
+        }
 
-    public void setShield(boolean shield){
-        this.shield = shield;
-    }
 
-    public void setFlames(boolean flames){
-        this.flames = flames;
     }
-
-    public void blinking(boolean blinking){
-        this.blinking = blinking;
-    }
-
 
 
 

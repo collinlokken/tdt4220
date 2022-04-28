@@ -15,7 +15,6 @@ public class BackgroundActor extends Actor {
     private Sprite background2;
 
     public BackgroundActor(){
-        System.out.println(this.getClass().getName());
 
         Texture texture1 = new Texture(Gdx.files.internal("background1.png"));
         background1 = new Sprite(texture1);

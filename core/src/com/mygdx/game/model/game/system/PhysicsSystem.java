@@ -6,6 +6,7 @@ import com.mygdx.game.model.game.component.GravityComponent;
 import com.mygdx.game.model.game.component.HitboxComponent;
 import com.mygdx.game.model.game.component.PositionComponent;
 import com.mygdx.game.model.game.component.VelocityComponent;
+import com.mygdx.game.model.game.entity.CoronaVirus;
 import com.mygdx.game.model.game.entity.Entity;
 
 public class PhysicsSystem extends AbstractSystem
@@ -35,8 +36,6 @@ public class PhysicsSystem extends AbstractSystem
 
                 //TODO Later if wanted, add x acceleration components things.
                 double xAccel = 0;
-
-
                 double yAccel = 0;
 
                 if(entity.hasComponentOfType(GravityComponent.class))

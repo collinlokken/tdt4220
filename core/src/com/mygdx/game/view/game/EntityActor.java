@@ -10,17 +10,18 @@ import com.mygdx.game.model.game.component.PositionComponent;
 import com.mygdx.game.model.game.entity.Entity;
 import com.mygdx.game.view.game.actors.Animation;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public abstract class EntityActor<T extends Entity> extends Actor {
-
-    private Animation animation;
-    protected ArrayList<Animation> playerAnimations;
-
-    protected Batch batch;
+    protected T entity;
 
     private boolean initialized = false;
 
-    protected T entity;
+    protected Collection<Animation> animations = new ArrayList<>();
+    protected Collection<Sprite> sprites = new ArrayList<>();
+
+
+    protected abstract void initialize();
 
 
 
@@ -65,33 +66,64 @@ public abstract class EntityActor<T extends Entity> extends Actor {
         return  (float)((this.getHitbox().getHeight() / this.entity.getGame().getHeight())*this.getStage().getCamera().viewportHeight);
     }
 
-    public EntityActor(int numberOfAnimations, ArrayList<Texture> textures, T entity){
-        this.playerAnimations = new ArrayList<>();
+    public EntityActor(T entity)
+    {
         this.entity= entity;
-        for (int i=0; i < numberOfAnimations; i++){
-            this.animation = new Animation(textures.size()/numberOfAnimations, 0.3f, new ArrayList<>(textures.subList(i*textures.size()/numberOfAnimations, i*textures.size()/numberOfAnimations+textures.size()/numberOfAnimations)));
-            this.playerAnimations.add(this.animation);
-        }
         this.setTouchable(Touchable.disabled);
 
     }
+
+
 
     public T getEntity() {
         return this.entity;
     }
 
-    public ArrayList<Animation> getAnimations(){
-        return this.playerAnimations;
+
+
+    protected void renderAnimation(Animation animation)
+    {
+        this.animations.add(animation);
     }
 
-
-    protected Sprite sprite;
-    protected void setSprite(Sprite sprite)
+    protected void removeAnimation(Animation animation)
     {
-        this.sprite = sprite;
+        this.animations.remove(animation);
+    }
+
+    protected void renderSprite(Sprite sprite)
+    {
+        this.sprites.add(sprite);
+    }
+
+    protected void removeSprite(Sprite sprite)
+    {
+        this.sprites.remove(sprite);
     }
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        this.sprite.draw(batch);
+       for(Sprite sprite : this.sprites) {
+           sprite.draw(batch);
+       }
+       for(Animation animation : this.animations)
+       {
+           animation.getSpriteFrame().draw(batch);
+       }
     }
+
+    @Override
+    public void act(float dt)
+    {
+        if(!this.initialized)
+        {
+            this.initialize();
+            this.initialized = true;
+        }
+        this.update(dt);
+
+    }
+
+    protected abstract  void update(float dt);
+
+
 }
