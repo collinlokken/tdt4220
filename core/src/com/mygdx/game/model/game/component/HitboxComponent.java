@@ -1,6 +1,6 @@
 package com.mygdx.game.model.game.component;
 
-import java.awt.Rectangle;
+import com.badlogic.gdx.math.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 public class HitboxComponent extends Component
