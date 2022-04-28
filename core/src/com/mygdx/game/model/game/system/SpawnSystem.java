@@ -41,6 +41,11 @@ public class SpawnSystem extends AbstractSystem
         this.spawnableEntities = new ArrayList<>(Arrays.asList(entities));
     }
 
+    private double getSpawnPeriod()
+    {
+        return Math.min(0.1, 2*Math.pow(2, -this.time/30));
+    }
+
 
 
     @Override
@@ -53,9 +58,10 @@ public class SpawnSystem extends AbstractSystem
             {
                 game.removeEntity(component.getEntity());
             }
+
         }
         int currentSecond = Math.round(this.time);
-        if(currentSecond != this.lastSpawnTime && currentSecond - this.lastSpawnTime == 1) // Here we need to implement spawning
+        if(currentSecond != this.lastSpawnTime && currentSecond - this.lastSpawnTime >= this.getSpawnPeriod()) // Here we need to implement spawning
         {
             this.lastSpawnTime = currentSecond;
             this.game.addEntity(this.getRandomEntity());

@@ -15,10 +15,13 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.controller.GameController;
 import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.GameObserver;
+import com.mygdx.game.model.game.component.Component;
+import com.mygdx.game.model.game.component.HealthComponent;
 import com.mygdx.game.model.game.entity.Entity;
 import com.mygdx.game.model.game.entity.Player;
 import com.mygdx.game.view.View;
 import com.mygdx.game.view.game.actors.BackgroundActor;
+import com.mygdx.game.view.game.actors.HealthbarActor;
 
 
 import java.text.DecimalFormat;
@@ -29,11 +32,10 @@ public class GameView extends View<GameController> implements GameObserver
 {
     private static GameView instance = null;
 
-    private float speed;
-
     private  Game game;
 
     private Map<Entity, Actor> actors = new HashMap();
+
 
     public static final GameView getInstance(){
         if (instance == null){
@@ -42,18 +44,11 @@ public class GameView extends View<GameController> implements GameObserver
         return instance;
     }
 
-    public void setSpeed(float speed){
-        this.speed = speed;
-    }
-    public float getSpeed(){return this.speed;}
-
-
 
 
     private Label scoreText;
     private Label activePowerups;
     private static  final DecimalFormat df = new DecimalFormat("0.0");
-    private Array<Image> lifePointImages = new Array<>();
     private Array<Image> powerupImages = new Array<>();
 
     private Sound died = Gdx.audio.newSound(Gdx.files.internal("aghh.ogg"));
@@ -103,9 +98,20 @@ public class GameView extends View<GameController> implements GameObserver
     }
 
     @Override
-    public void onGameEnded(Game game, Player player, float score)
+    public void onEntityComponentAdded(Game game, Entity entity, Component component) {
+
+    }
+
+    @Override
+    public void onEntityComponentRemoved(Game game, Entity entity, Component component)
     {
 
+    }
+
+    @Override
+    public void onGameEnded(Game game, Player player, float score)
+    {
+        this.playSound();
     }
 
     @Override
@@ -119,7 +125,7 @@ public class GameView extends View<GameController> implements GameObserver
         music.setVolume(1f);
         music.play();
 
-        BackgroundActor ba = new BackgroundActor();
+        BackgroundActor ba = new BackgroundActor((int)this.getWidth());
         ba.setPosition(0, 0);
         ba.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         ba.addListener(new ClickListener(){
@@ -139,18 +145,9 @@ public class GameView extends View<GameController> implements GameObserver
         this.scoreText.setPosition(getCamera().viewportWidth/3,(float)(getCamera().viewportHeight*0.95));
         this.scoreText.setFontScale(getCamera().viewportHeight/300);
 
-        Image life1 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
-        Image life2 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
-        Image life3 = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("heart.png"))));
-        this.lifePointImages.add(life1, life2, life3);
 
         this.addActor(ba);
-        for (int i=0; i<this.lifePointImages.size; i++){
-            Image image = this.lifePointImages.get(i);
-            image.setSize((int)(getCamera().viewportHeight*0.1), (int)(getCamera().viewportHeight*0.1));
-            image.setPosition((i*(image.getWidth()+10))+5, getCamera().viewportHeight-image.getHeight()-5);
-            this.addActor(image);
-        }
+        this.addActor(new HealthbarActor((int)this.getCamera().viewportHeight, this.game));
         this.addActor(this.scoreText);
 
         this.activePowerups = new Label("Protection against:", skin, "font", "black");

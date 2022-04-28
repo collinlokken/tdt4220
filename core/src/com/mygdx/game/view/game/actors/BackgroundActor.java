@@ -13,9 +13,11 @@ import com.mygdx.game.view.game.GameView;
 public class BackgroundActor extends Actor {
     private Sprite background1;
     private Sprite background2;
+    private int speed;
 
-    public BackgroundActor(){
+    public BackgroundActor(int screenWidth){
 
+        this.speed = screenWidth / 3;
         Texture texture1 = new Texture(Gdx.files.internal("background1.png"));
         background1 = new Sprite(texture1);
         background1.setPosition(0,0);
@@ -37,8 +39,8 @@ public class BackgroundActor extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        background1.setX(background1.getX()-delta* GameView.getInstance().getSpeed());
-        background2.setX(background2.getX()-delta*GameView.getInstance().getSpeed());
+        background1.setX(background1.getX()-delta* this.speed);
+        background2.setX(background2.getX()-delta*this.speed);
 
         if (background1.getWidth()+background1.getX() < 0){
             background1.setX(background2.getX()+background2.getWidth());
