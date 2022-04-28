@@ -1,7 +1,6 @@
 package com.mygdx.game.model.game.component;
 
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
+import com.badlogic.gdx.math.Rectangle;
 
 public class HitboxComponent extends Component
 {
@@ -36,7 +35,8 @@ public class HitboxComponent extends Component
     {
         Rectangle thisRectangle = new Rectangle((int)Math.round(position.getX()), (int)Math.round(position.getY()), this.width, this.height);
         Rectangle otherRectangle = new Rectangle((int)Math.round(other.position.getX()), (int)Math.round(other.position.getY()), other.width, other.height);
-        return thisRectangle.contains(otherRectangle);
+
+        return thisRectangle.overlaps(otherRectangle);
     }
 
 

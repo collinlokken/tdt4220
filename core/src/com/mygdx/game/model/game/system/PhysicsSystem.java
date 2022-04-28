@@ -49,7 +49,7 @@ public class PhysicsSystem extends AbstractSystem
 
             if(positionComponent.isBounded() && hitbox != null)
             {
-                if(((velocityComponent.getY() < 0 && positionComponent.getY() < 0) || (velocityComponent.getY() > 0 && positionComponent.getY() + hitbox.getHeight() >= this.game.getHeight())))
+                if(((velocityComponent.getY() < 0 && positionComponent.getY() <= 0) || (velocityComponent.getY() > 0 && positionComponent.getY() + hitbox.getHeight() >= this.game.getHeight())))
                 {
                     velocityComponent.setY(0);
                     yAccel = 0;

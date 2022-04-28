@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.model.game.component.Component;
 import com.mygdx.game.model.game.component.CooldownDurationComponent;
 import com.mygdx.game.model.game.component.ShieldComponent;
 import com.mygdx.game.model.game.entity.Player;

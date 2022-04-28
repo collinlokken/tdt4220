@@ -3,22 +3,21 @@ package com.mygdx.game.view.game.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.mygdx.game.model.game.entity.Stand;
+import com.mygdx.game.model.game.entity.CoronaVirusShield;
 import com.mygdx.game.view.game.EntityActor;
 
-public class StandActor extends EntityActor<Stand>
-{
-    private  static  final Texture standTexture = new Texture(Gdx.files.internal("stand.png"));
+public class CoronaVirusShieldActor extends EntityActor<CoronaVirusShield> {
 
+    private  static  final Texture facemaskTexture = new Texture(Gdx.files.internal("facemask.png"));
     private Sprite sprite;
 
-    public  StandActor(Stand entity){
+    public CoronaVirusShieldActor(CoronaVirusShield entity) {
         super(entity);
     }
+
     @Override
-    protected void initialize()
-    {
-        this.sprite = new Sprite(standTexture);
+    protected void initialize() {
+        this.sprite = new Sprite(facemaskTexture);
         this.sprite.setSize(this.getWidth(), this.getHeight());
         this.renderSprite(this.sprite);
     }

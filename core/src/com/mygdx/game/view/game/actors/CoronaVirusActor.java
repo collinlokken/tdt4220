@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class CoronaVirusActor extends EntityActor<CoronaVirus>
 {
 
-
     private  static  final Texture virusTexture = new Texture(Gdx.files.internal("virus.png"));
 
     private Sprite sprite;
@@ -29,7 +28,6 @@ public class CoronaVirusActor extends EntityActor<CoronaVirus>
     public CoronaVirusActor(CoronaVirus entity)
     {
         super(entity);
-      //  super(numberOfAnimations, textures, entity);
     }
 
     @Override

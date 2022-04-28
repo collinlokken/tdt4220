@@ -4,7 +4,9 @@ import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.component.HitboxComponent;
 import com.mygdx.game.model.game.component.PositionComponent;
 import com.mygdx.game.model.game.component.VelocityComponent;
+import com.mygdx.game.model.game.entity.CoffeeCup;
 import com.mygdx.game.model.game.entity.CoronaVirus;
+import com.mygdx.game.model.game.entity.CoronaVirusShield;
 import com.mygdx.game.model.game.entity.Entity;
 import com.mygdx.game.model.game.entity.Stand;
 
@@ -63,7 +65,7 @@ public class SpawnSystem extends AbstractSystem
     private Entity getRandomEntity()
     {
         Entity entity = null;
-        int nItems = 2;
+        int nItems = 4;
         int choice = this.random.nextInt(nItems) + 1;
         System.out.println(choice);
         switch(choice)
@@ -73,6 +75,12 @@ public class SpawnSystem extends AbstractSystem
                 break;
             case 2:
                 entity = new Stand(new PositionComponent(this.game.getWidth(), 0), new VelocityComponent(-20, 0));
+                break;
+            case 3:
+                entity = new CoronaVirusShield(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirusShield.height)*Math.random()), new VelocityComponent(-20, 0));
+                break;
+            case 4:
+                entity = new CoffeeCup(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(-20, 0));
                 break;
         }
         return entity;

@@ -1,14 +1,19 @@
 package com.mygdx.game.model.game.entity;
 
 
+import com.mygdx.game.model.game.component.CoronaVirusShieldComponent;
 import com.mygdx.game.model.game.component.HitboxComponent;
 import com.mygdx.game.model.game.component.PositionComponent;
+import com.mygdx.game.model.game.component.VelocityComponent;
 
 public class CoronaVirusShield extends Entity {
 
-    public CoronaVirusShield(PositionComponent position)
+    public  static  final int height = 10;
+    public  static  final int width = 10;
+
+    public CoronaVirusShield(PositionComponent position, VelocityComponent velocity)
     {
-        super(position, new HitboxComponent(30, 30, position));
+        super(new HitboxComponent(CoronaVirusShield.width, CoronaVirusShield.height, position), new CoronaVirusShieldComponent(), position, velocity, );
 
     }
 }

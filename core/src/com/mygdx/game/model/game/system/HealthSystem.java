@@ -61,6 +61,7 @@ public class HealthSystem extends AbstractSystem
                     if(!isProtected)
                     {
                         health.decrease(damageComponent.getValue());
+                        System.out.println("Collision with "+damageComponent.getType());
                         if(damageTakingEntity == this.game.getPlayerEntity())
                         {
                             if(health.getValue() == 0)

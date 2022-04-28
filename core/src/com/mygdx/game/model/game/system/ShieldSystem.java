@@ -32,6 +32,7 @@ public class ShieldSystem extends AbstractSystem
                     continue;
                 if(shieldHitbox.overlaps(consumerHitbox))
                 {
+                    //System.out.println(shield.getType());
                     shield.getEntity().removeComponent(shield);
                     this.game.removeEntity(shield.getEntity());
                     if(shieldConsumer.hasComponentOfType(shield.getClass()))
