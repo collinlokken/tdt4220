@@ -3,9 +3,12 @@ package com.mygdx.game.model.game.component;
 public class HealthComponent extends  Component
 {
     private  int value;
-    public  HealthComponent(int value)
+    private  int maxValue;
+
+    public  HealthComponent(int value, int maxValue)
     {
         this.value = value;
+        this.maxValue = maxValue;
     }
 
     public void decrease(int value)
@@ -20,7 +23,7 @@ public class HealthComponent extends  Component
     {
         if(value <= 0)
             throw new IllegalArgumentException("Invalid increasement value");
-        this.value += value;
+        this.value = Math.min(this.maxValue, this.value + value);
     }
 
 

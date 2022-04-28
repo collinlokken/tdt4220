@@ -19,7 +19,6 @@ public class HealthbarActor extends Actor
         this.game = game;
         this.screenHeight = screenHeight;
         heartSprite.setSize((1/8f)*screenHeight, (1/8f)*screenHeight);
-        System.out.println(heartSprite.getWidth());
 
     }
     @Override
@@ -32,7 +31,6 @@ public class HealthbarActor extends Actor
         for(int i = 0; i < healthPoints; i++)
         {
             heartSprite.setPosition(i*heartSprite.getWidth() + 0.1f*this.getWidth(), this.screenHeight - heartSprite.getHeight());
-            System.out.println(heartSprite.getX() + " , " + heartSprite.getY());
             heartSprite.draw(batch);
         }
     }

@@ -12,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.GameController;
+import com.mygdx.game.controller.GameOverController;
 import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.GameObserver;
 import com.mygdx.game.model.game.component.Component;
@@ -22,6 +24,7 @@ import com.mygdx.game.model.game.entity.Player;
 import com.mygdx.game.view.View;
 import com.mygdx.game.view.game.actors.BackgroundActor;
 import com.mygdx.game.view.game.actors.HealthbarActor;
+import com.mygdx.game.view.game.actors.ProtectionAgainstActor;
 
 
 import java.text.DecimalFormat;
@@ -87,6 +90,7 @@ public class GameView extends View<GameController> implements GameObserver
         }
         catch(Exception e)
         {
+            System.out.println(e.getClass().getSimpleName());
             System.out.println("Unhandled exception occurred when creating actor: " + e.getMessage());
         }
     }
@@ -111,7 +115,6 @@ public class GameView extends View<GameController> implements GameObserver
     @Override
     public void onGameEnded(Game game, Player player, float score)
     {
-        this.playSound();
     }
 
     @Override
@@ -148,6 +151,7 @@ public class GameView extends View<GameController> implements GameObserver
 
         this.addActor(ba);
         this.addActor(new HealthbarActor((int)this.getCamera().viewportHeight, this.game));
+        this.addActor(new ProtectionAgainstActor((int)this.getCamera().viewportWidth, (int)this.getCamera().viewportHeight, this.game));
         this.addActor(this.scoreText);
 
         this.activePowerups = new Label("Protection against:", skin, "font", "black");

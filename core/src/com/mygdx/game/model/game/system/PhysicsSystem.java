@@ -4,10 +4,13 @@ import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.component.BoostComponent;
 import com.mygdx.game.model.game.component.GravityComponent;
 import com.mygdx.game.model.game.component.HitboxComponent;
+import com.mygdx.game.model.game.component.LinearlyTimeDependentAccelerationComponent;
 import com.mygdx.game.model.game.component.PositionComponent;
 import com.mygdx.game.model.game.component.VelocityComponent;
 import com.mygdx.game.model.game.entity.CoronaVirus;
 import com.mygdx.game.model.game.entity.Entity;
+
+import org.w3c.dom.html.HTMLLIElement;
 
 public class PhysicsSystem extends AbstractSystem
 {
@@ -43,6 +46,12 @@ public class PhysicsSystem extends AbstractSystem
 
                 if(entity.hasComponentOfType(BoostComponent.class))
                     yAccel += entity.getComponent(BoostComponent.class).getMagnitude();
+                if(entity.hasComponentOfType(LinearlyTimeDependentAccelerationComponent.class))
+                {
+                    LinearlyTimeDependentAccelerationComponent acceleration = entity.getComponent(LinearlyTimeDependentAccelerationComponent.class);
+                    xAccel += acceleration.getMagnitudeX(this.elapsedTime);
+                    yAccel += acceleration.getMagnitudeY(this.elapsedTime);
+                }
 
             velocityComponent.addX(xAccel*dt);
             velocityComponent.addY(yAccel*dt);
@@ -57,10 +66,6 @@ public class PhysicsSystem extends AbstractSystem
                 // Also X
             }
         }
-
-
-
-
 
     }
 }

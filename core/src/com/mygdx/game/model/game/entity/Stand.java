@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.model.game.component.DamageComponent;
 import com.mygdx.game.model.game.component.HitboxComponent;
+import com.mygdx.game.model.game.component.LinearlyTimeDependentAccelerationComponent;
 import com.mygdx.game.model.game.component.PositionComponent;
 import com.mygdx.game.model.game.component.VelocityComponent;
 import com.mygdx.game.model.game.entity.Entity;
@@ -16,6 +17,6 @@ public class Stand extends Entity
 
     public  Stand(PositionComponent position, VelocityComponent velocity)
     {
-        super(position, new HitboxComponent(Stand.width, Stand.height, position), new DamageComponent(1), velocity);
+        super(position, new HitboxComponent(Stand.width, Stand.height, position), new DamageComponent(1), velocity, new LinearlyTimeDependentAccelerationComponent(-20, 0, -40f, 0));
     }
 }

@@ -15,7 +15,7 @@ public class Player extends Entity
     private  boolean boosting = false;
     public Player(PositionComponent position, float boostAcceleration)
     {
-        super(position, new HitboxComponent(15, 20, position), new ShieldConsumerComponent(),new VelocityComponent(0, 0),new HealthComponent(3), new ShieldConsumerComponent(), new GravityComponent(10*9.81f),new ScoreComponent(0));
+        super(position, new HitboxComponent(15, 20, position), new ShieldConsumerComponent(),new VelocityComponent(0, 0),new HealthComponent(3, 3), new ShieldConsumerComponent(), new GravityComponent(10*9.81f),new ScoreComponent(0));
         this.boostAcceleration = boostAcceleration;
     }
 

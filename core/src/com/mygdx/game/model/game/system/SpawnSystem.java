@@ -8,6 +8,7 @@ import com.mygdx.game.model.game.entity.CoffeeCup;
 import com.mygdx.game.model.game.entity.CoronaVirus;
 import com.mygdx.game.model.game.entity.CoronaVirusShield;
 import com.mygdx.game.model.game.entity.Entity;
+import com.mygdx.game.model.game.entity.LifePointItem;
 import com.mygdx.game.model.game.entity.Stand;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class SpawnSystem extends AbstractSystem
 
     private double getSpawnPeriod()
     {
-        return Math.min(0.1, 2*Math.pow(2, -this.time/30));
+        return Math.min(0.05, 2*Math.pow(2, -this.time));
     }
 
 
@@ -71,9 +72,8 @@ public class SpawnSystem extends AbstractSystem
     private Entity getRandomEntity()
     {
         Entity entity = null;
-        int nItems = 4;
+        int nItems = 5;
         int choice = this.random.nextInt(nItems) + 1;
-        System.out.println(choice);
         switch(choice)
         {
             case 1:
@@ -88,6 +88,8 @@ public class SpawnSystem extends AbstractSystem
             case 4:
                 entity = new CoffeeCup(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(-80, 0));
                 break;
+            case 5:
+                entity = new LifePointItem(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(-80, 0));
         }
         return entity;
     }

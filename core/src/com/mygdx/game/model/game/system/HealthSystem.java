@@ -3,6 +3,7 @@ package com.mygdx.game.model.game.system;
 import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.component.CooldownDurationComponent;
 import com.mygdx.game.model.game.component.DamageComponent;
+import com.mygdx.game.model.game.component.HealingComponent;
 import com.mygdx.game.model.game.component.HealthComponent;
 import com.mygdx.game.model.game.component.HitboxComponent;
 import com.mygdx.game.model.game.component.ShieldComponent;
@@ -17,7 +18,7 @@ public class HealthSystem extends AbstractSystem
     private  Game game;
     public  HealthSystem(Game game)
     {
-        super(HealthComponent.class, DamageComponent.class);
+        super(HealthComponent.class, DamageComponent.class, HealingComponent.class);
         this.game = game;
 
     }
@@ -74,6 +75,17 @@ public class HealthSystem extends AbstractSystem
                         }
 
                     }
+                }
+            }
+            for(Entity healthGivingEntity : this.getEntities(HealingComponent.class))
+            {
+                HitboxComponent healthHitbox = healthGivingEntity.getComponent(HitboxComponent.class);
+                if(healthHitbox == null)
+                    break;
+                if(hitbox.overlaps(healthHitbox))
+                {
+                    this.game.removeEntity(healthGivingEntity);
+                    damageTakingEntity.getComponent(HealthComponent.class).increase(1);
                 }
             }
         }

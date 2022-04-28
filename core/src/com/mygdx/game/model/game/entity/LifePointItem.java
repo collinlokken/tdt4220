@@ -7,13 +7,14 @@ import com.mygdx.game.model.game.component.Component;
 import com.mygdx.game.model.game.component.HealingComponent;
 import com.mygdx.game.model.game.component.HitboxComponent;
 import com.mygdx.game.model.game.component.PositionComponent;
+import com.mygdx.game.model.game.component.VelocityComponent;
 
 import java.util.Random;
 
-public class LifepointItem extends Entity
+public class LifePointItem extends Entity
 {
-    public LifepointItem(PositionComponent position)
+    public LifePointItem(PositionComponent position, VelocityComponent velocity)
     {
-        super(new HealingComponent(1), position, new HitboxComponent(10, 10, position));
+        super(new HealingComponent(1), position, new HitboxComponent(10, 10, position), velocity);
     }
 }
