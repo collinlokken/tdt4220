@@ -2,6 +2,7 @@ package com.mygdx.game.model.game.component;
 
 import com.badlogic.gdx.math.Rectangle;
 
+
 public class HitboxComponent extends Component
 {
     private  int width;

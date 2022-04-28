@@ -8,8 +8,8 @@ import com.mygdx.game.model.game.entity.Entity;
 
 public class CoronaVirus extends Entity {
 
-    public  static  final int height = 10;
-    public  static  final int width = 10;
+    public  static  final int height = 15;
+    public  static  final int width = 15;
 
     public CoronaVirus(PositionComponent position, VelocityComponent velocity)
     {

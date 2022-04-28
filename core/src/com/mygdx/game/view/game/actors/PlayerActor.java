@@ -11,6 +11,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.model.game.component.Component;
 import com.mygdx.game.model.game.component.CooldownDurationComponent;
+import com.mygdx.game.model.game.component.PositionComponent;
 import com.mygdx.game.model.game.component.ShieldComponent;
 import com.mygdx.game.model.game.entity.Player;
 import com.mygdx.game.view.game.EntityActor;
@@ -53,6 +54,7 @@ public class PlayerActor extends EntityActor<Player> {
         Texture flame2 = new Texture(Gdx.files.internal("flame2.png"));
         Texture flame3 = new Texture(Gdx.files.internal("flame3.png"));
         this.boostAnimation = new Animation(3, 0.2f, new ArrayList<Texture>(Arrays.asList(flame1, flame2, flame3)));
+        this.boostAnimation.setSpriteSize((int)this.getWidth(), (int)this.getHeight());
 
         Texture star1 = new Texture(Gdx.files.internal("star1.png"));
         Texture star2 = new Texture(Gdx.files.internal("star2.png"));
@@ -91,7 +93,7 @@ public class PlayerActor extends EntityActor<Player> {
             }
             else if(this.entity.isBoosting())
             {
-                this.boostAnimation.setSpritePosition(this.getX() - this.getWidth()*(1/8), this.getY() - this.getHeight());
+                this.boostAnimation.setSpritePosition(this.getX()-25, this.getY() - this.getHeight());
                 this.boostAnimation.update(dt);
                 if(!this.boosting)
                 {
