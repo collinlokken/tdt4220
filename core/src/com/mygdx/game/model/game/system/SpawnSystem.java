@@ -55,7 +55,7 @@ public class SpawnSystem extends AbstractSystem
             }
         }
         int currentSecond = Math.round(this.time);
-        if(currentSecond != this.lastSpawnTime && currentSecond - this.lastSpawnTime == 5) // Here we need to implement spawning
+        if(currentSecond != this.lastSpawnTime && currentSecond - this.lastSpawnTime == 1) // Here we need to implement spawning
         {
             this.lastSpawnTime = currentSecond;
             this.game.addEntity(this.getRandomEntity());
@@ -71,16 +71,16 @@ public class SpawnSystem extends AbstractSystem
         switch(choice)
         {
             case 1:
-                entity = new CoronaVirus(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirus.height)*Math.random()), new VelocityComponent(-20, 0));
+                entity = new CoronaVirus(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirus.height)*Math.random()), new VelocityComponent(-80, 0));
                 break;
             case 2:
-                entity = new Stand(new PositionComponent(this.game.getWidth(), 0), new VelocityComponent(-20, 0));
+                entity = new Stand(new PositionComponent(this.game.getWidth(), 0), new VelocityComponent(-80, 0));
                 break;
             case 3:
-                entity = new CoronaVirusShield(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirusShield.height)*Math.random()), new VelocityComponent(-20, 0));
+                entity = new CoronaVirusShield(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirusShield.height)*Math.random()), new VelocityComponent(-80, 0));
                 break;
             case 4:
-                entity = new CoffeeCup(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(-20, 0));
+                entity = new CoffeeCup(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(-80, 0));
                 break;
         }
         return entity;

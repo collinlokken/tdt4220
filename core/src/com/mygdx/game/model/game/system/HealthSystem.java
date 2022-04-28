@@ -42,7 +42,7 @@ public class HealthSystem extends AbstractSystem
                 }
                 DamageComponent damageComponent = damagingEntity.getComponent(DamageComponent.class);
                 HitboxComponent damageHitbox = damagingEntity.getComponent(HitboxComponent.class);
-                if(damageHitbox == null)
+                if(damageHitbox == null || damageComponent == null)
                     continue;
                 if(hitbox.overlaps(damageHitbox))
                 {
@@ -53,7 +53,8 @@ public class HealthSystem extends AbstractSystem
                     {
                         if(shield.protectsAgainst(damagingEntity))
                         {
-                            damageTakingEntity.removeComponent(shield);
+                            this.game.removeComponent(damageComponent);
+                            this.game.removeComponent(shield);
                             isProtected = true;
                             break;
                         }
@@ -61,7 +62,6 @@ public class HealthSystem extends AbstractSystem
                     if(!isProtected)
                     {
                         health.decrease(damageComponent.getValue());
-                        System.out.println("Collision with "+damageComponent.getType());
                         if(damageTakingEntity == this.game.getPlayerEntity())
                         {
                             if(health.getValue() == 0)

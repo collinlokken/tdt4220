@@ -131,10 +131,8 @@ public class Game
         {
             for(Component component : e.getComponents())
             {
-                if(sys.getComponentTypes().contains(component.getClass()))
-                {
+                if(sys.handlesComponent(component))
                     sys.addComponent(component);
-                }
 
             }
         }
@@ -143,7 +141,6 @@ public class Game
             observer.onEntityAdded(this, e);
         }
     }
-
     public void removeEntity(Entity e)
     {
         this.entities.remove(e);
@@ -159,11 +156,16 @@ public class Game
 
     public void removeComponent(Component component)
     {
+
         component.getEntity().removeComponent(component);
         for(AbstractSystem sys : this.systems)
         {
             if(sys.getComponentTypes().contains((component.getType())))
                 sys.removeComponent(component);
+        }
+        for(GameObserver observer : this.observers)
+        {
+            observer.onEntityComponentRemoved(this, component.getEntity(), component);
         }
     }
 
@@ -174,6 +176,10 @@ public class Game
         {
             if(sys.getComponentTypes().contains((component.getType())))
                 sys.addComponent(component);
+        }
+        for(GameObserver observer : this.observers)
+        {
+            observer.onEntityComponentAdded(this, e, component);
         }
     }
 

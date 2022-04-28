@@ -48,7 +48,7 @@ public class PlayerActor extends EntityActor<Player> {
         this.playerFlying.setSize(this.getWidth(), this.getHeight());
 
         this.shieldSprite = new Sprite(new Texture(Gdx.files.internal("shield.png")));
-        this.shieldSprite.setSize(this.getWidth()*1.2f, this.getHeight()*1.2f);
+        this.shieldSprite.setSize(this.getWidth()*1.8f, this.getWidth()*1.8f);
 
         Texture flame1 = new Texture(Gdx.files.internal("flame1.png"));
         Texture flame2 = new Texture(Gdx.files.internal("flame2.png"));
@@ -117,7 +117,7 @@ public class PlayerActor extends EntityActor<Player> {
         }
         if(this.entity.hasComponentOfType(ShieldComponent.class))
         {
-            this.shieldSprite.setPosition(this.getX() - (1/5f)*this.getWidth(), this.getY() - (1/5f)*this.getHeight());
+            this.shieldSprite.setPosition(this.getX() - (2/5f)*this.getWidth(), this.getY() - (1/5f)*this.getHeight());
             if(!this.shield)
             {
                 this.shield = true;

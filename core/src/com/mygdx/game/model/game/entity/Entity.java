@@ -71,7 +71,6 @@ public abstract class Entity
 
     {
         this.components.remove(component);
-        component.setEntity(null);
     }
 
     public  void setId(int id)

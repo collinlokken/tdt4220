@@ -2,6 +2,8 @@ package com.mygdx.game.model.game.system;
 
 import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.component.Component;
+import com.mygdx.game.model.game.component.ShieldComponent;
+import com.mygdx.game.model.game.component.ShieldRewardComponent;
 import com.mygdx.game.model.game.entity.Entity;
 
 import java.util.ArrayList;
@@ -36,16 +38,26 @@ public abstract class AbstractSystem
 
     public void addComponent(Component component)
     {
-        String componentClassName = component.getClass().getName();
-        boolean valid= false;
         for(Class<? extends  Component> type : this.componentGroups.keySet())
         {
             if(type.isInstance(component))
             {
+                if(type == ShieldRewardComponent.class && this.getClass() == ShieldSystem.class)
+                    System.out.println("Added shield to Shield system");
                 this.componentGroups.get(type).put(component.getEntity(), component);
                 return;
             }
         }
+    }
+
+    public  boolean handlesComponent(Component component)
+    {
+        for(Class<? extends  Component> type : this.componentGroups.keySet())
+        {
+            if(type.isInstance(component))
+                return true;
+        }
+        return false;
     }
 
     public  <T extends Component> Collection<T> getComponents(Class<T> type)
@@ -71,7 +83,7 @@ public abstract class AbstractSystem
     {
         if(!this.componentGroups.containsKey(type))
             throw new IllegalArgumentException("System does not handle components of type " + type.getName());
-        return (Collection<T>)this.componentGroups.get(type).values();
+        return new ArrayList(this.componentGroups.get(type).values());
     }
 
     public  void removeEntityComponents(Entity e)
