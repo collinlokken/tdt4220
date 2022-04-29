@@ -21,7 +21,7 @@ public class HelpView extends View<HelpController> {
         this.firstSlide.setPosition(0, 0);
         this.firstSlide.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
 
-        this.backButton.setSize(getCamera().viewportHeight/10, getCamera().viewportHeight/10);
+        this.backButton.setSize(getCamera().viewportHeight/7, getCamera().viewportHeight/10);
         this.backButton.setPosition(getCamera().viewportWidth - this.backButton.getWidth(), getCamera().viewportHeight - this.backButton.getHeight());
         this.backButton.addListener(new ClickListener(){
             @Override

@@ -124,7 +124,9 @@ public class GameView extends View<GameController> implements GameObserver
 
         this.startMusic();
 
-        BackgroundActor ba = new BackgroundActor((int)this.getWidth(), (int)this.getHeight());
+        float ratio = ((float)this.getWidth()/(float)this.game.getWidth());
+
+        BackgroundActor ba = new BackgroundActor((int)this.getWidth(), (int)this.getHeight(), (int)(ratio*80));
         ba.setPosition(0, 0);
         ba.setSize(this.getWidth(), this.getHeight());
         ba.addListener(new ClickListener(){

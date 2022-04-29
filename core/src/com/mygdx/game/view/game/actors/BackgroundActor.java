@@ -14,10 +14,13 @@ public class BackgroundActor extends Actor {
     private Sprite background1;
     private Sprite background2;
     private int speed;
+    private float time;
+    private float ratio;
 
-    public BackgroundActor(int screenWidth, int screenHeight){
+    public BackgroundActor(int screenWidth, int screenHeight, int speed){
 
-        this.speed = screenWidth / 3;
+        this.speed = speed;
+
         Texture texture1 = new Texture(Gdx.files.internal("background1.png"));
         background1 = new Sprite(texture1);
         background1.setPosition(0,0);
@@ -37,6 +40,8 @@ public class BackgroundActor extends Actor {
 
     @Override
     public void act(float delta) {
+        this.time += delta;
+
         background1.setX(background1.getX() - delta*this.speed);
         background2.setX(background2.getX() - delta*this.speed);
 
@@ -46,6 +51,7 @@ public class BackgroundActor extends Actor {
         if (background2.getWidth() + background2.getX() < 0){
             background2.setX(background1.getX() + background1.getWidth());
         }
+
 
     }
 }

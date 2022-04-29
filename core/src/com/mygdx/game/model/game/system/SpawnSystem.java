@@ -5,6 +5,7 @@ import com.mygdx.game.model.game.component.HitboxComponent;
 import com.mygdx.game.model.game.component.PositionComponent;
 import com.mygdx.game.model.game.component.VelocityComponent;
 import com.mygdx.game.model.game.entity.CoffeeCup;
+import com.mygdx.game.model.game.entity.CoinItem;
 import com.mygdx.game.model.game.entity.CoronaVirus;
 import com.mygdx.game.model.game.entity.CoronaVirusShield;
 import com.mygdx.game.model.game.entity.Entity;
@@ -65,22 +66,42 @@ public class SpawnSystem extends AbstractSystem
         if(currentSecond != this.lastSpawnTime && currentSecond - this.lastSpawnTime >= this.getSpawnPeriod()) // Here we need to implement spawning
         {
             this.lastSpawnTime = currentSecond;
-            this.game.addEntity(this.getRandomEntity());
+
+            Entity e = this.getRandomEntity();
+            if (e instanceof CoinItem)
+            {
+                this.game.addEntity(e);
+                int yPos = (int)(Math.round(e.getComponent(PositionComponent.class).getY()));
+                for (int i=1; i<5; i++){
+                    Entity coin = this.getCoinItemEntity();
+                    coin.getComponent(PositionComponent.class).setY(yPos);
+                    coin.getComponent(PositionComponent.class).setX((int)(this.game.getWidth() + i*coin.getComponent(HitboxComponent.class).getWidth()));
+                    this.game.addEntity(coin);
+                }
+            }
+            else{
+                this.game.addEntity(this.getRandomEntity());
+            }
         }
+    }
+
+    private Entity getCoinItemEntity()
+    {
+        return new CoinItem(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoinItem.height)*Math.random()), new VelocityComponent(-80, 0));
     }
 
     private Entity getRandomEntity()
     {
         Entity entity = null;
-        int nItems = 5;
+        int nItems = 6;
         int choice = this.random.nextInt(nItems) + 1;
         switch(choice)
         {
             case 1:
-                entity = new CoronaVirus(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirus.height)*Math.random()), new VelocityComponent(-80, 0));
+                entity = new CoronaVirus(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirus.height)*Math.random()), new VelocityComponent((int)(-80f - this.time), 0));
                 break;
             case 2:
-                entity = new Stand(new PositionComponent(this.game.getWidth(), 0), new VelocityComponent(-80, 0));
+                entity = new Stand(new PositionComponent(this.game.getWidth(), 0), new VelocityComponent((int)(-80f - this.time), 0));
                 break;
             case 3:
                 entity = new CoronaVirusShield(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirusShield.height)*Math.random()), new VelocityComponent(-80, 0));
@@ -90,6 +111,10 @@ public class SpawnSystem extends AbstractSystem
                 break;
             case 5:
                 entity = new LifePointItem(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(-80, 0));
+                break;
+            case 6:
+                entity = new CoinItem(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoinItem.height)*Math.random()), new VelocityComponent(-80, 0));
+                break;
         }
         return entity;
     }

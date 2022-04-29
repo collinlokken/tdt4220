@@ -17,6 +17,6 @@ public class Stand extends Entity
 
     public  Stand(PositionComponent position, VelocityComponent velocity)
     {
-        super(position, new HitboxComponent(Stand.width, Stand.height, position), new DamageComponent(1), velocity, new LinearlyTimeDependentAccelerationComponent(-20, 0, -40f, 0));
+        super(position, new HitboxComponent(Stand.width, Stand.height, position), new DamageComponent(1), velocity);
     }
 }

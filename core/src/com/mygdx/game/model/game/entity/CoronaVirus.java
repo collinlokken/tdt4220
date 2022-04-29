@@ -14,6 +14,6 @@ public class CoronaVirus extends Entity {
 
     public CoronaVirus(PositionComponent position, VelocityComponent velocity)
     {
-        super(new DamageComponent(1), new HitboxComponent(CoronaVirus.width, CoronaVirus.height, position), position, velocity, new LinearlyTimeDependentAccelerationComponent(-20f, 0,  -40f, 0));
+        super(new DamageComponent(1), new HitboxComponent(CoronaVirus.width, CoronaVirus.height, position), position, velocity);
     }
 }

@@ -41,7 +41,7 @@ public class RegisterView extends View<RegisterController> {
 
     private RegisterView(){
 
-        this.backButton.setSize(getCamera().viewportHeight/10, getCamera().viewportHeight/10);
+        this.backButton.setSize(getCamera().viewportHeight/7, getCamera().viewportHeight/10);
         this.backButton.setPosition(getCamera().viewportWidth - this.backButton.getWidth(), getCamera().viewportHeight - this.backButton.getHeight());
         this.backButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
@@ -74,6 +74,7 @@ public class RegisterView extends View<RegisterController> {
         this.addActor(this.usernameField);
         this.addActor(this.passwordField);
         this.addActor(this.confirmPasswordField);
+        this.addActor(this.backButton);
 
 
         this.registerButton.setPosition((float) (getCamera().viewportWidth*0.08), (float) (getCamera().viewportHeight*0.2));
