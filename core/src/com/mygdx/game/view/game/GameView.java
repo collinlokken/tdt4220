@@ -113,14 +113,15 @@ public class GameView extends View<GameController> implements GameObserver
     @Override
     public void onGameEnded(Game game, Player player, float score)
     {
-        //TODO: Her må vi sørge for at onGameEnded ikke blir kalt ETTER at scoren resettes
-        System.out.println("GAME OVER. SCORE: "+this.game.getPlayerEntity().getComponent(ScoreComponent.class).getValue());
+        this.playGameOverSound();
         this.controller.switchState(GameOverController.getInstance(new Image(ScreenUtils.getFrameBufferTexture()), this.game.getPlayerEntity().getComponent(ScoreComponent.class).getValue()));
     }
 
     @Override
     public void onGameStarted(Game game)
     {
+        System.out.println("NEW GAME STARTED!");
+
         this.startMusic();
 
         BackgroundActor ba = new BackgroundActor((int)this.getWidth(), (int)this.getHeight());

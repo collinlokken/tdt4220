@@ -27,8 +27,6 @@ public class MainMenuView extends View<MainMenuController> {
 
     private MainMenuView() {
 
-        //TODO: Lag dynamisk størrelser på knappene!!
-
         this.background.setPosition(0, 0);
         this.background.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         this.addActor(this.background);
