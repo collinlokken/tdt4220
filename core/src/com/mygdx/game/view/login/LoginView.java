@@ -3,6 +3,7 @@ package com.mygdx.game.view.login;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -62,23 +63,24 @@ public class LoginView extends View {
             }
         });
 
-        Skin mySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
 
-        Label startText = new Label("Don't have an account? Click", mySkin, "font", "black");
-        Label text = new Label("here", mySkin, "font", "dark-cyan");
-        Label endText = new Label("to register!", mySkin, "font", "black");
-        startText.setPosition((float) (getCamera().viewportWidth*0.315),(float) (getCamera().viewportHeight*0.18));
+        Label startText = new Label("Don't have an account? Click", glassySkin, "font", "black");
+        Image text = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("here.png"))));
+        //Label text = new Label("here", glassySkin, "font", "dark-cyan");
+        Label endText = new Label("to register!", glassySkin, "font", "black");
+        startText.setPosition((float) (getCamera().viewportWidth*0.28),(float) (getCamera().viewportHeight*0.18));
         startText.setFontScale(getCamera().viewportHeight/550);
-        text.setPosition((float) (getCamera().viewportWidth*0.53),(float) (getCamera().viewportHeight*0.18));
-        text.setFontScale(getCamera().viewportHeight/550);
-        endText.setPosition((float) (getCamera().viewportWidth*0.57),(float) (getCamera().viewportHeight*0.18));
+        text.setPosition((float) (getCamera().viewportWidth*0.54),(float) (getCamera().viewportHeight*0.15));
+        text.setWidth(getCamera().viewportWidth/12);
+        text.setHeight(getCamera().viewportHeight/12);
+        endText.setPosition((float) (getCamera().viewportWidth*0.62),(float) (getCamera().viewportHeight*0.18));
         endText.setFontScale(getCamera().viewportHeight/550);
 
         text.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(RegisterController.getInstance());
+                LoginController.getInstance().switchState(RegisterController.getInstance());
             }
         });
 

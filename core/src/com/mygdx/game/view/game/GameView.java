@@ -4,23 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.GameController;
-import com.mygdx.game.controller.GameOverController;
 import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.GameObserver;
 import com.mygdx.game.model.game.component.Component;
-import com.mygdx.game.model.game.component.HealthComponent;
 import com.mygdx.game.model.game.entity.Entity;
 import com.mygdx.game.model.game.entity.Player;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.controller.PauseController;
 import com.mygdx.game.view.View;
 import com.mygdx.game.view.game.actors.BackgroundActor;
 import com.mygdx.game.view.game.actors.HealthbarActor;
@@ -33,6 +34,7 @@ import java.util.Map;
 
 public class GameView extends View<GameController> implements GameObserver
 {
+
     private static GameView instance = null;
 
     private  Game game;
@@ -47,12 +49,12 @@ public class GameView extends View<GameController> implements GameObserver
         return instance;
     }
 
-
-
     private Label scoreText;
     private Label activePowerups;
     private static  final DecimalFormat df = new DecimalFormat("0.0");
     private Array<Image> powerupImages = new Array<>();
+
+    ImageButton pauseButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("pause.png"))));;
 
     private Sound died = Gdx.audio.newSound(Gdx.files.internal("aghh.ogg"));
     private Music music;
@@ -143,6 +145,18 @@ public class GameView extends View<GameController> implements GameObserver
             }
         });
 
+        //PAUSE BUTTON
+        pauseButton.setSize(Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
+        pauseButton.setPosition(0, getCamera().viewportHeight-pauseButton.getHeight());
+        pauseButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                System.out.println("PAUSE");
+                GameController.getInstance().pushState(PauseController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
+            }
+        });
+
         Skin skin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
         this.scoreText = new Label("", skin, "font", "black");
         this.scoreText.setPosition(getCamera().viewportWidth/3,(float)(getCamera().viewportHeight*0.95));
@@ -150,22 +164,29 @@ public class GameView extends View<GameController> implements GameObserver
 
 
         this.addActor(ba);
+
         this.addActor(new HealthbarActor((int)this.getCamera().viewportHeight, this.game));
         this.addActor(new ProtectionAgainstActor((int)this.getCamera().viewportWidth, (int)this.getCamera().viewportHeight, this.game));
+
         this.addActor(this.scoreText);
 
+
+
+        this.addActor(pauseButton);
         this.activePowerups = new Label("Protection against:", skin, "font", "black");
-        this.activePowerups.setPosition((float)(getCamera().viewportWidth*0.65),(float)(getCamera().viewportHeight*0.93));
+        this.activePowerups.setPosition((float)(getCamera().viewportWidth*0.63),(float)(getCamera().viewportHeight*0.93));
         this.activePowerups.setFontScale(getCamera().viewportHeight/350);
 
         this.addActor(this.activePowerups);
 
         Image miniStand = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("stand.png"))));
-        miniStand.setSize((int)(getCamera().viewportHeight*0.1), (int)(getCamera().viewportHeight*0.1));
+        miniStand.setSize((int)(getCamera().viewportHeight*0.08), (int)(getCamera().viewportHeight*0.08));
         miniStand.setPosition((float)(getCamera().viewportWidth*0.88),(float)(getCamera().viewportHeight*0.9));
         Image miniVirus = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("virus.png"))));
-        miniVirus.setSize((int)(getCamera().viewportHeight*0.1), (int)(getCamera().viewportHeight*0.1));
+        miniVirus.setSize((int)(getCamera().viewportHeight*0.08), (int)(getCamera().viewportHeight*0.08));
         miniVirus.setPosition((float)(getCamera().viewportWidth*0.88+miniStand.getWidth()),(float)(getCamera().viewportHeight*0.9));
         this.powerupImages.add(miniStand, miniVirus);
+
     }
+
 }

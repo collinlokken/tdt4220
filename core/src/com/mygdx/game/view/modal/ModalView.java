@@ -38,7 +38,8 @@ public class ModalView extends View<ModalController> {
         textButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                ControllerManager.getInstance().pop(); // remove itself from the stack so that the state below is showed again
+                ModalController.getInstance().popState();
+                //ControllerManager.getInstance().pop(); // remove itself from the stack so that the state below is showed again
             }
         });
 

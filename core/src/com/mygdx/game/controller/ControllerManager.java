@@ -37,6 +37,7 @@ public class ControllerManager {
         Gdx.input.setInputProcessor(state.getView());
     }
 
+
     public Controller getCurrent()
     {
         return this.controllers.peek();

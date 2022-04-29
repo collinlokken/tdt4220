@@ -16,44 +16,50 @@ public class GameOverView extends View<GameOverController>{
     private static GameOverView instance = null;
 
     private float finalScore;
+    private Image screenshotBg;
 
     private GameOverView(){
         super();
 
         Image bg = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("blackboard.png"))));
-        bg.setPosition(getCamera().viewportWidth/3, getCamera().viewportHeight/3);
-        bg.setSize(getCamera().viewportWidth/3, getCamera().viewportHeight/3);
+        bg.setPosition(0.25f*getCamera().viewportWidth, 0.25f*getCamera().viewportHeight);
+        bg.setSize(this.getCamera().viewportWidth/2, this.getCamera().viewportHeight/2);
 
         Image quit = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("quit.png"))));
-        quit.setPosition(getCamera().viewportWidth/3+100, getCamera().viewportHeight/3+100);
-        quit.setSize(100, 50);
+        quit.setPosition(bg.getX()+bg.getWidth()/6, bg.getY()+bg.getHeight()/5);
+        quit.setSize(bg.getWidth()/6, bg.getHeight()/6);
         quit.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(MainMenuController.getInstance());
+                screenshotBg.remove();
+                GameOverController.getInstance().switchState(MainMenuController.getInstance());
+
             }
         });
 
         Image restart = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("replay.png"))));
-        restart.setPosition(getCamera().viewportWidth/3+200, getCamera().viewportHeight/3+100);
-        restart.setSize(100, 50);
+        restart.setPosition(bg.getX()+bg.getWidth()/2.5f, bg.getY()+bg.getHeight()/5);
+        restart.setSize(bg.getWidth()/6, bg.getHeight()/6);
         restart.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(GameController.getInstance());
+                screenshotBg.remove();
+                GameOverController.getInstance().popState();
+                GameOverController.getInstance().switchState(GameController.getInstance());
             }
         });
 
         Image highscore = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("highscore.png"))));
-        highscore.setPosition(getCamera().viewportWidth/3+300, getCamera().viewportHeight/3+100);
-        highscore.setSize(100, 50);
+        highscore.setPosition(bg.getX()+bg.getWidth()/1.5f, bg.getY()+bg.getHeight()/5);
+        highscore.setSize(bg.getWidth()/5, bg.getHeight()/6);
         highscore.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(LeaderboardController.getInstance());
+                screenshotBg.remove();
+                GameOverController.getInstance().switchState(LeaderboardController.getInstance());
             }
         });
 
@@ -66,8 +72,16 @@ public class GameOverView extends View<GameOverController>{
 
     public static final GameOverView getInstance(){
         if (instance == null){
-            return new GameOverView();
+            instance =  new GameOverView();
         }
         return instance;
     }
+
+    public void setBackground(Image image){
+        this.screenshotBg = image;
+        screenshotBg.setPosition(0,0);
+        this.addActor(screenshotBg);
+        screenshotBg.toBack();
+    }
+
 }
