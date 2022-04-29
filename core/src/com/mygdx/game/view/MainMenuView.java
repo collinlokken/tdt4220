@@ -20,10 +20,10 @@ public class MainMenuView extends View<MainMenuController> {
     private static MainMenuView instance = null;
 
     private Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("bg.png"))));
-    private ImageButton playButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("play.png"))));
-    private Button helpButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("help_button.png"))));
-    private Button leaderboardButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("leaderboard.png"))));
-    private Button logoutButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("logout.png"))));
+    private Image playButton = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("play.png"))));
+    private Image helpButton = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("help_button.png"))));
+    private Image leaderboardButton = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("leaderboard.png"))));
+    private Image logoutButton = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("logout.png"))));
 
     private MainMenuView() {
 
@@ -33,8 +33,8 @@ public class MainMenuView extends View<MainMenuController> {
         this.background.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         this.addActor(this.background);
 
-        this.playButton.setSize(64, 64);
-        this.playButton.setPosition((float) (getCamera().viewportWidth*0.5-playButton.getWidth()/2), (float) (getCamera().viewportHeight*0.27));
+        this.playButton.setSize(getCamera().viewportWidth/23,getCamera().viewportWidth/23);
+        this.playButton.setPosition((float) (getCamera().viewportWidth*0.5-playButton.getWidth()/2), (float) (getCamera().viewportHeight*0.25));
         this.playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -43,8 +43,8 @@ public class MainMenuView extends View<MainMenuController> {
         });
         this.addActor(this.playButton);
 
-        this.helpButton.setSize(64, 64);
-        this.helpButton.setPosition((float) (getCamera().viewportWidth*0.75-64/2), (float) (getCamera().viewportHeight*0.27));
+        this.helpButton.setSize(getCamera().viewportWidth/23,getCamera().viewportWidth/23);
+        this.helpButton.setPosition((float) (getCamera().viewportWidth*0.75-this.helpButton.getWidth()/2), (float) (getCamera().viewportHeight*0.25));
         this.helpButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -53,8 +53,8 @@ public class MainMenuView extends View<MainMenuController> {
         });
         this.addActor(this.helpButton);
 
-        this.leaderboardButton.setSize(64, 64);
-        this.leaderboardButton.setPosition((float) (getCamera().viewportWidth*0.25-64/2), (float) (getCamera().viewportHeight*0.27));
+        this.leaderboardButton.setSize(getCamera().viewportWidth/23,getCamera().viewportWidth/23);
+        this.leaderboardButton.setPosition((float) (getCamera().viewportWidth*0.25-this.leaderboardButton.getWidth()/2), (float) (getCamera().viewportHeight*0.25));
         this.leaderboardButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -62,9 +62,8 @@ public class MainMenuView extends View<MainMenuController> {
             }
         });
         this.addActor(this.leaderboardButton);
-
-        this.logoutButton.setSize(64, 64);
-        this.logoutButton.setPosition((float) (getCamera().viewportWidth*0.95), (float) (getCamera().viewportHeight*0.90));
+        this.logoutButton.setSize(getCamera().viewportWidth/23,getCamera().viewportWidth/23);
+        this.logoutButton.setPosition((float) (getCamera().viewportWidth*0.95), (float) (getCamera().viewportHeight*0.89));
         this.logoutButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
