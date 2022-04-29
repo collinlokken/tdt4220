@@ -30,7 +30,7 @@ public class HealthbarActor extends Actor
             healthPoints = this.game.getPlayerEntity().getComponent(HealthComponent.class).getValue();
         for(int i = 0; i < healthPoints; i++)
         {
-            heartSprite.setPosition(i*heartSprite.getWidth() + 0.1f*this.getWidth(), this.screenHeight - heartSprite.getHeight());
+            heartSprite.setPosition(i*heartSprite.getWidth() + 0.1f*this.getWidth() + this.screenHeight/10, this.screenHeight - heartSprite.getHeight());
             heartSprite.draw(batch);
         }
     }

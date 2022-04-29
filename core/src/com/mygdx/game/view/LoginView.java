@@ -54,8 +54,6 @@ public class LoginView extends View {
         this.passwordField.setPasswordMode(true);
         this.passwordField.setMessageText("Password");
 
-        //TODO: Reset password text in getInstance such that textFields are empty upon arrival
-
         this.loginButton.setPosition((float) (getCamera().viewportWidth*0.7),(float) (getCamera().viewportHeight*0.322));
         this.loginButton.setSize((float) (getCamera().viewportWidth*0.08), (float) (getCamera().viewportHeight*0.08));
         this.loginButton.addListener(new ClickListener(){
@@ -120,10 +118,18 @@ public class LoginView extends View {
         this.textButtonActor.remove();
     }
 
+    private void clearInputFields(){
+        this.usernameField.setText("");
+        this.usernameField.setMessageText("Username");
+        this.passwordField.setText("");
+        this.passwordField.setMessageText("Password");
+    }
+
     public static final LoginView getInstance(){
         if (instance == null){
             instance = new LoginView();
         }
+        instance.clearInputFields();
         return instance;
     }
 

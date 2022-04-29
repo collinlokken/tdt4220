@@ -18,7 +18,7 @@ import com.mygdx.game.controller.RegisterController;
 import java.util.ArrayList;
 
 public class RegisterView extends View<RegisterController> {
-    //TODO: Reset password text in getInstance such that textFields are empty upon arrival
+
     private static RegisterView instance = null;
 
     Skin glassySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
@@ -126,10 +126,20 @@ public class RegisterView extends View<RegisterController> {
         }
     }
 
+    private void clearInputFields(){
+        this.usernameField.setText("");
+        this.usernameField.setMessageText("Username");
+        this.passwordField.setText("");
+        this.passwordField.setMessageText("Password");
+        this.confirmPasswordField.setText("");
+        this.confirmPasswordField.setMessageText("Confirm password");
+    }
+
     public static final RegisterView getInstance(){
         if (instance == null){
             instance = new RegisterView();
         }
+        instance.clearInputFields();
         return instance;
     }
 }

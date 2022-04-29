@@ -1,5 +1,6 @@
 package com.mygdx.game.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -12,7 +13,8 @@ import com.mygdx.game.controller.MainMenuController;
 public class HelpView extends View<HelpController> {
 
     private static HelpView instance = null;
-    private Image firstSlide = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("ssTutorials.png"))));
+    private Image firstSlide = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("ssTutorials.png"))));
+    private Image back = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("back.png"))));
 
     private HelpView(){
 
