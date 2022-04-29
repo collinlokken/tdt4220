@@ -13,7 +13,7 @@ import com.mygdx.game.controller.MainMenuController;
 public class HelpView extends View<HelpController> {
 
     private static HelpView instance = null;
-    private Image firstSlide = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("ssTutorials.png"))));
+    private Image firstSlide = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("ssHelpView.png"))));
     private Image back = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("back.png"))));
 
     private HelpView(){
