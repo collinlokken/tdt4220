@@ -52,24 +52,24 @@ tdt4240 -> core -> src -> com -> mygdx.game:
    * StandShieldRewardComponent
    * VelocityComponent
 * entity
- * CoffeeCup
- * CoinItem
- * CoronaVirus
- * CoronaVirusShield
- * Entity
- * LifePointItem
- * Player
- * Stand
+   * CoffeeCup
+   * CoinItem
+   * CoronaVirus
+   * CoronaVirusShield
+   * Entity
+   * LifePointItem
+   * Player
+   * Stand
 * System
- * AbstractSystem
- * HealthSystem
- * PhysicsSystem
- * ScoreSystem
- * ShieldSystem
- * SpawnSystem
+   * AbstractSystem
+   * HealthSystem
+   * PhysicsSystem
+   * ScoreSystem
+   * ShieldSystem
+   * SpawnSystem
 
-
-* view
+#### View
+* 
 * CoreInterfaceClass
 * FireBaseInterface
 * StripaSurvivor
