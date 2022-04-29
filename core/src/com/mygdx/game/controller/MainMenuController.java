@@ -1,7 +1,6 @@
 package com.mygdx.game.controller;
 
-
-import com.mygdx.game.view.mainMenu.MainMenuView;
+import com.mygdx.game.view.MainMenuView;
 
 public class MainMenuController extends Controller<MainMenuView>{
 
@@ -19,7 +18,5 @@ public class MainMenuController extends Controller<MainMenuView>{
     }
 
     @Override
-    public void update(float dt) {
-
-    }
+    public void update(float dt) {}
 }

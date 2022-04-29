@@ -3,7 +3,7 @@ package com.mygdx.game.model.game.component;
 public class ScoreComponent extends Component
 {
     private float value;
-    public  ScoreComponent(int value)
+    public ScoreComponent(int value)
     {
         this.value = value;
     }

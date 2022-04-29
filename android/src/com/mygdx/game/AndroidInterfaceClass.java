@@ -3,16 +3,14 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.mygdx.game.controller.LeaderboardController;
 import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.model.HighScore;
 import com.mygdx.game.model.User;
-import com.mygdx.game.view.leaderboard.LeaderboardView;
+import com.mygdx.game.view.LeaderboardView;
 
 import static android.content.ContentValues.TAG;
 
@@ -21,7 +19,6 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class AndroidInterfaceClass implements FireBaseInterface{

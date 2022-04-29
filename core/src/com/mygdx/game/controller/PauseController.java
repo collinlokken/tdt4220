@@ -5,18 +5,16 @@ import com.mygdx.game.view.PauseView;
 
 public class PauseController extends Controller<PauseView>{
     private static PauseController instance = null;
-    private PauseView pauseView;
 
     private PauseController(){
         super(PauseView.getInstance());
-        this.pauseView = (PauseView) this.getView();
     }
 
     public static final PauseController getInstance(Image bg){
         if (instance == null){
             instance = new PauseController();
         }
-        instance.pauseView.setBackground(bg);
+        instance.view.setBackground(bg);
         return instance;
     }
 
@@ -27,11 +25,10 @@ public class PauseController extends Controller<PauseView>{
         return instance;
     }
 
-
-
-    public void resetGameController(){
-        GameController.getInstance().reset();
-    }
+    // TODO: Her vil spilleren starte et nytt spill! Tror ikke vi trenger den under, GameController vil håndtere det
+    /*public void resetGameController(){
+        GameController.getInstance();
+    }*/
 
 
     @Override

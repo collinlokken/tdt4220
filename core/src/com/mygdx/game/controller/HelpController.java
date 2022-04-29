@@ -1,9 +1,9 @@
 package com.mygdx.game.controller;
 
-import com.mygdx.game.view.help.HelpView;
-import com.mygdx.game.view.login.LoginView;
+import com.mygdx.game.view.HelpView;
 
 public class HelpController extends Controller<HelpView>{
+
     private static HelpController instance = null;
 
     private HelpController(){
@@ -18,7 +18,5 @@ public class HelpController extends Controller<HelpView>{
     }
 
     @Override
-    public void update(float dt) {
-
-    }
+    public void update(float dt) { }
 }

@@ -1,7 +1,6 @@
-package com.mygdx.game.controller.modal;
+package com.mygdx.game.controller;
 
-import com.mygdx.game.controller.Controller;
-import com.mygdx.game.view.modal.ModalView;
+import com.mygdx.game.view.ModalView;
 
 public class ModalController extends Controller<ModalView> {
     private static ModalController instance = null;
@@ -16,7 +15,5 @@ public class ModalController extends Controller<ModalView> {
     }
 
     @Override
-    public void update(float dt) {
-
-    }
+    public void update(float dt) {}
 }

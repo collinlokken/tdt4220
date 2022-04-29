@@ -19,10 +19,7 @@ public abstract class View<T extends Controller> extends Stage {
 
     protected  T controller;
 
-    protected View()
-    {
-        super(new ScreenViewport());
-    }
+    protected View() {super(new ScreenViewport());}
 
     public void setController(T controller) {
         this.controller = controller;

@@ -1,10 +1,9 @@
 package com.mygdx.game.controller;
 
 import com.mygdx.game.StripaSurvivor;
-import com.mygdx.game.controller.modal.ModalController;
 import com.mygdx.game.model.User;
 import com.mygdx.game.model.UserSession;
-import com.mygdx.game.view.login.LoginView;
+import com.mygdx.game.view.LoginView;
 
 public class LoginController extends Controller<LoginView>{
     private static LoginController instance = null;
@@ -29,7 +28,6 @@ public class LoginController extends Controller<LoginView>{
         User usr = new User(uname, pwd);
         StripaSurvivor.getFirebaseInterface().SetValueInDBb("users/"+usr.getUuid().toString(), usr.toMap());
         this.loginWithCredentials(uname, pwd);
-
     }
 
     public void logOutUser(){
@@ -40,14 +38,12 @@ public class LoginController extends Controller<LoginView>{
         if(userSession.isLoggedIn()){
             this.switchState(MainMenuController.getInstance());
         } else {
-            LoginView.getInstance().addModal();
+            this.view.addModal();
         }
     }
 
     @Override
-    public void update(float dt) {
-
-    }
+    public void update(float dt) {}
 
     public UserSession getUserSession() {
         return userSession;
