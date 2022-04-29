@@ -18,55 +18,57 @@ Contributors:
 ### PROJECT STRUCTURE
 
 tdt4240 -> core -> src -> com -> mygdx.game:
-* controller
-  * modal
-  * Controller
-  * ControllerManager
-  * GameController
-  * GameOverController
-  * HelpController
-  * LeaderboardController
-  * LoginController
-  * MainMenuController
-  * RegisterController
-* model -> game:
-   * component
-    * BoostComponent
-    * Component
-    * CooldownDurationComponent
-    * CoronaVirusShieldComponent
-    * CoronaVirusShieldRewardComponent
-    * DamageComponent
-    * GravityComponent
-    * HealingComponent
-    * HealthComoponent
-    * HitbooxComponent
-    * LinearlyTimeDependentAccelerationComponent
-    * PositionComponent
-    * ScoreComponent
-    * ScoreRewardComponent
-    * ShieldComponent
-    * ShieldConsumerComponent
-    * ShieldRewardComponent
-    * StandShieldComponent
-    * StandShieldRewardComponent
-    * VelocityComponent
-   * entity
-    * CoffeeCup
-    * CoinItem
-    * CoronaVirus
-    * CoronaVirusShield
-    * Entity
-    * LifePointItem
-    * Player
-    * Stand
-   * System
-    * AbstractSystem
-    * HealthSystem
-    * PhysicsSystem
-    * ScoreSystem
-    * ShieldSystem
-    * SpawnSystem
+#### Controller
+ * modal
+ * Controller
+ * ControllerManager
+ * GameController
+ * GameOverController
+ * HelpController
+ * LeaderboardController
+ * LoginController
+ * MainMenuController
+ * RegisterController
+#### model -> game:
+* component
+ * BoostComponent
+ * Component
+ * CooldownDurationComponent
+ * CoronaVirusShieldComponent
+ * CoronaVirusShieldRewardComponent
+ * DamageComponent
+ * GravityComponent
+ * HealingComponent
+ * HealthComoponent
+ * HitbooxComponent
+ * LinearlyTimeDependentAccelerationComponent
+ * PositionComponent
+ * ScoreComponent
+ * ScoreRewardComponent
+ * ShieldComponent
+ * ShieldConsumerComponent
+ * ShieldRewardComponent
+ * StandShieldComponent
+ * StandShieldRewardComponent
+ * VelocityComponent
+* entity
+ * CoffeeCup
+ * CoinItem
+ * CoronaVirus
+ * CoronaVirusShield
+ * Entity
+ * LifePointItem
+ * Player
+ * Stand
+* System
+ * AbstractSystem
+ * HealthSystem
+ * PhysicsSystem
+ * ScoreSystem
+ * ShieldSystem
+ * SpawnSystem
+
+
 * view
 * CoreInterfaceClass
 * FireBaseInterface
