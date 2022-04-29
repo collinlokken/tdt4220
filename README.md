@@ -31,8 +31,29 @@ tdt4240 -> core -> src -> com -> mygdx.game:
   * RegisterController
 * model
   * game
-    * test
-      * test
+    * component
+     * BoostComponent
+     * Component
+     * CooldownDurationComponent
+     * CoronaVirusShieldComponent
+     * CoronaVirusShieldRewardComponent
+     * DamageComponent
+     * GravityComponent
+     * HealingComponent
+     * HealthComoponent
+     * HitbooxComponent
+     * LinearlyTimeDependentAccelerationComponent
+     * PositionComponent
+     * ScoreComponent
+     * ScoreRewardComponent
+     * ShieldComponent
+     * ShieldConsumerComponent
+     * ShieldRewardComponent
+     * StandShieldComponent
+     * StandShieldRewardComponent
+     * VelocityComponent
+    * entity
+    * system
   * User
   * UserSession
 * view
