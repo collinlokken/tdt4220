@@ -17,10 +17,25 @@ Contributors:
 
 ### PROJECT STRUCTURE
 
-tdt4240
-* android
-** sdfb
-* core
-* desktop
-* html
-* ios 
+tdt4240 -> core -> src -> com -> mygdx.game:
+* controller
+  * modal
+  * Controller
+  * ControllerManager
+  * GameController
+  * GameOverController
+  * HelpController
+  * LeaderboardController
+  * LoginController
+  * MainMenuController
+  * RegisterController
+* model
+  * game
+    * test
+      * test
+  * User
+  * UserSession
+* view
+* CoreInterfaceClass
+* FireBaseInterface
+* StripaSurvivor
