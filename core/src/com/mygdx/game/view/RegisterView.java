@@ -37,7 +37,17 @@ public class RegisterView extends View<RegisterController> {
 
     private Image bg = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("register_bg.png"))));
 
+    private Image backButton = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("back.png"))));
+
     private RegisterView(){
+
+        this.backButton.setSize(getCamera().viewportHeight/10, getCamera().viewportHeight/10);
+        this.backButton.setPosition(getCamera().viewportWidth - this.backButton.getWidth(), getCamera().viewportHeight - this.backButton.getHeight());
+        this.backButton.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y){
+                RegisterController.getInstance().switchState(LoginController.getInstance());
+            }
+        });
 
         this.bg.setPosition(0, 0);
         this.bg.setSize(getCamera().viewportWidth, getCamera().viewportHeight);

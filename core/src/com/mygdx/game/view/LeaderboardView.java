@@ -20,13 +20,19 @@ public class LeaderboardView extends View<LeaderboardController> {
 
     private Skin glassySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
     private Image background = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("blackboard2.png"))));
+    private Image backButton = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("back.png"))));
+
 
     private ArrayList<Label> highScores = new ArrayList<>();
 
     private LeaderboardView(){
         this.background.setPosition(0, 0);
         this.background.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
-        this.background.addListener(new ClickListener(){
+
+        this.backButton.setSize(getCamera().viewportHeight/10, getCamera().viewportHeight/10);
+        this.backButton.setPosition(getCamera().viewportWidth - this.backButton.getWidth(), getCamera().viewportHeight - this.backButton.getHeight());
+
+        this.backButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 LeaderboardController.getInstance().switchState(MainMenuController.getInstance());
@@ -37,6 +43,7 @@ public class LeaderboardView extends View<LeaderboardController> {
             }
         });
         this.addActor(this.background);
+        this.addActor(this.backButton);
 
     }
 

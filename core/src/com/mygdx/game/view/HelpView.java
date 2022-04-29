@@ -13,20 +13,25 @@ import com.mygdx.game.controller.MainMenuController;
 public class HelpView extends View<HelpController> {
 
     private static HelpView instance = null;
-    private Image firstSlide = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("ssTutorials.png"))));
-    private Image back = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("back.png"))));
+    private Image firstSlide = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("ssHelpView.png"))));
+    private Image backButton = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("back.png"))));
 
     private HelpView(){
 
         this.firstSlide.setPosition(0, 0);
         this.firstSlide.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
-        this.firstSlide.addListener(new ClickListener(){
+
+        this.backButton.setSize(getCamera().viewportHeight/10, getCamera().viewportHeight/10);
+        this.backButton.setPosition(getCamera().viewportWidth - this.backButton.getWidth(), getCamera().viewportHeight - this.backButton.getHeight());
+        this.backButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 HelpController.getInstance().switchState(MainMenuController.getInstance());
             }
         });
+
         this.addActor(this.firstSlide);
+        this.addActor(this.backButton);
 
     }
 
