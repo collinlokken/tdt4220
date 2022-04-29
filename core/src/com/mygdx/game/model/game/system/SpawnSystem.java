@@ -22,17 +22,14 @@ public class SpawnSystem extends AbstractSystem
     protected float time;
 
     private  Game game;
-    private Random random;
 
     private int lastSpawnTime = 0;
-
 
     public  SpawnSystem(Game game)
     {
         super(HitboxComponent.class);
         this.game = game;
         this.time = 0;
-        this.random = new Random();
         this.initialize(CoronaVirus.class, Stand.class);
     }
 
@@ -47,7 +44,6 @@ public class SpawnSystem extends AbstractSystem
     {
         return Math.min(0.05, 2*Math.pow(2, -this.time));
     }
-
 
 
     @Override
@@ -87,35 +83,32 @@ public class SpawnSystem extends AbstractSystem
 
     private Entity getCoinItemEntity()
     {
-        return new CoinItem(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoinItem.height)*Math.random()), new VelocityComponent(-80, 0));
+        int xSpeed = (int)(-80f - this.time);
+        return new CoinItem(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoinItem.height)*Math.random()), new VelocityComponent(xSpeed, 0));
     }
 
     private Entity getRandomEntity()
     {
-        Entity entity = null;
-        int nItems = 6;
-        int choice = this.random.nextInt(nItems) + 1;
-        switch(choice)
-        {
-            case 1:
-                entity = new CoronaVirus(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirus.height)*Math.random()), new VelocityComponent((int)(-80f - this.time), 0));
-                break;
-            case 2:
-                entity = new Stand(new PositionComponent(this.game.getWidth(), 0), new VelocityComponent((int)(-80f - this.time), 0));
-                break;
-            case 3:
-                entity = new CoronaVirusShield(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirusShield.height)*Math.random()), new VelocityComponent(-80, 0));
-                break;
-            case 4:
-                entity = new CoffeeCup(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(-80, 0));
-                break;
-            case 5:
-                entity = new LifePointItem(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(-80, 0));
-                break;
-            case 6:
-                entity = new CoinItem(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoinItem.height)*Math.random()), new VelocityComponent(-80, 0));
-                break;
+        double choice = Math.random();
+        System.out.println(choice);
+        int xSpeed = (int)(-80f - this.time);
+
+        if (choice <= 0.25) {
+            return new CoronaVirus(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirus.height) * Math.random()), new VelocityComponent(xSpeed, 0));
         }
-        return entity;
+        else if (0.25 < choice && choice <= 0.5)
+            return new Stand(new PositionComponent(this.game.getWidth(), 0), new VelocityComponent(xSpeed, 0));
+
+        else if (0.5 < choice && choice <= 0.6)
+                return new CoronaVirusShield(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirusShield.height)*Math.random()), new VelocityComponent(xSpeed, 0));
+        else if (0.6 < choice && choice <= 0.7)
+            return new CoffeeCup(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(xSpeed, 0));
+
+        else if (0.7 < choice && choice <= 0.8)
+            return new LifePointItem(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(xSpeed, 0));
+
+        else
+            return new CoinItem(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoinItem.height)*Math.random()), new VelocityComponent(xSpeed, 0));
+
     }
 }

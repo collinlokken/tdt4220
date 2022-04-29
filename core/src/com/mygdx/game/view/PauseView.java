@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.controller.ControllerManager;
+import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.controller.PauseController;
 
@@ -42,6 +43,7 @@ public class PauseView extends View<PauseController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 bg.remove();
+                GameController.getInstance().endGame();
                 PauseController.getInstance().switchState(MainMenuController.getInstance());
             }
         });

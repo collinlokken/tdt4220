@@ -13,11 +13,9 @@ import com.mygdx.game.view.game.GameView;
 public class BackgroundActor extends Actor {
     private Sprite background1;
     private Sprite background2;
-    private int speed;
-    private float time;
-    private float ratio;
+    private float speed;
 
-    public BackgroundActor(int screenWidth, int screenHeight, int speed){
+    public BackgroundActor(float screenHeight, float speed){
 
         this.speed = speed;
 
@@ -38,12 +36,17 @@ public class BackgroundActor extends Actor {
         background2.draw(batch);
     }
 
+    private float time = 0;
+
     @Override
     public void act(float delta) {
+
         this.time += delta;
 
-        background1.setX(background1.getX() - delta*this.speed);
-        background2.setX(background2.getX() - delta*this.speed);
+        //TODO: Fikse matten her sånn at fartsøkningen til entities i ECS-verden matcher fartsøkningen til bakgrunnen
+
+        background1.setX((float)(background1.getX() - this.speed-Math.pow(1, -this.time)));
+        background2.setX((float)(background2.getX() - this.speed-Math.pow(1, -this.time)));
 
         if (background1.getWidth() + background1.getX() < 0){
             background1.setX(background2.getX() + background2.getWidth());

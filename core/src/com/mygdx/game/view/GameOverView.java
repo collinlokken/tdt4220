@@ -32,6 +32,7 @@ public class GameOverView extends View<GameOverController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 screenshotBg.remove();
+                System.out.println("FØR MUSIKK");
                 GameOverController.getInstance().switchState(MainMenuController.getInstance());
 
             }

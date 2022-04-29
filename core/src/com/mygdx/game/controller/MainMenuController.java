@@ -14,6 +14,8 @@ public class MainMenuController extends Controller<MainMenuView>{
         if (instance == null){
             instance = new MainMenuController();
         }
+        System.out.println("MUSIKK");
+        instance.view.startMusic();
         return instance;
     }
 

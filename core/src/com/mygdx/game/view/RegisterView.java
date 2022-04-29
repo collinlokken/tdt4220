@@ -88,9 +88,8 @@ public class RegisterView extends View<RegisterController> {
                     addModal("password");
                 } else {
                     LoginController.getInstance().registerUserInDB(usernameField.getText(), passwordField.getText());
-                    usernameField.setMessageText("Username");
-                    passwordField.setMessageText("Password");
-                    confirmPasswordField.setMessageText("Confirm password");
+                    clearInputFields();
+                    LoginView.getInstance().stopMusic();
                     LoginController.getInstance().switchState(MainMenuController.getInstance());
                 }
             }

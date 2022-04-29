@@ -19,11 +19,14 @@ import com.mygdx.game.controller.GameOverController;
 import com.mygdx.game.model.game.Game;
 import com.mygdx.game.model.game.GameObserver;
 import com.mygdx.game.model.game.component.Component;
+import com.mygdx.game.model.game.component.HealthComponent;
 import com.mygdx.game.model.game.component.ScoreComponent;
+import com.mygdx.game.model.game.component.VelocityComponent;
 import com.mygdx.game.model.game.entity.Entity;
 import com.mygdx.game.model.game.entity.Player;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.controller.PauseController;
+import com.mygdx.game.view.LoginView;
 import com.mygdx.game.view.View;
 import com.mygdx.game.view.game.actors.BackgroundActor;
 import com.mygdx.game.view.game.actors.HealthbarActor;
@@ -53,7 +56,6 @@ public class GameView extends View<GameController> implements GameObserver
     private static final DecimalFormat df = new DecimalFormat("0.0");
     private Array<Image> powerupImages = new Array<>();
 
-    private ImageButton pauseButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("pause.png"))));
     private Image miniStand = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("stand.png"))));
     private Image miniVirus = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("virus.png"))));
 
@@ -113,20 +115,21 @@ public class GameView extends View<GameController> implements GameObserver
     @Override
     public void onGameEnded(Game game, Player player, float score)
     {
-        this.playGameOverSound();
-        this.controller.switchState(GameOverController.getInstance(new Image(ScreenUtils.getFrameBufferTexture()), this.game.getPlayerEntity().getComponent(ScoreComponent.class).getValue()));
+        if (this.game.getPlayerEntity().getComponent(HealthComponent.class).getValue() == 0) {
+            this.playGameOverSound();
+            this.controller.switchState(GameOverController.getInstance(new Image(ScreenUtils.getFrameBufferTexture()), this.game.getPlayerEntity().getComponent(ScoreComponent.class).getValue()));
+        }
+        else
+            this.music.stop();
     }
 
     @Override
     public void onGameStarted(Game game)
     {
-        System.out.println("NEW GAME STARTED!");
-
+        System.out.println("GAME START");
         this.startMusic();
 
-        float ratio = ((float)this.getWidth()/(float)this.game.getWidth());
-
-        BackgroundActor ba = new BackgroundActor((int)this.getWidth(), (int)this.getHeight(), (int)(ratio*80));
+        BackgroundActor ba = new BackgroundActor(this.getHeight(), 7);
         ba.setPosition(0, 0);
         ba.setSize(this.getWidth(), this.getHeight());
         ba.addListener(new ClickListener(){
@@ -141,6 +144,7 @@ public class GameView extends View<GameController> implements GameObserver
             }
         });
 
+        Image pauseButton = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("pause.png"))));
         pauseButton.setSize(this.getHeight()/10, this.getHeight()/10);
         pauseButton.setPosition(0, this.getHeight() - pauseButton.getHeight());
         pauseButton.addListener(new ClickListener(){
@@ -161,7 +165,7 @@ public class GameView extends View<GameController> implements GameObserver
         this.addActor(new HealthbarActor((int)this.getHeight(), this.game));
         this.addActor(new ProtectionAgainstActor((int)this.getWidth(), (int)this.getHeight(), this.game));
         this.addActor(this.scoreText);
-        this.addActor(this.pauseButton);
+        this.addActor(pauseButton);
         this.addActor(this.activePowerups);
 
         this.miniStand.setSize((int)(this.getHeight()*0.08), (int)(this.getHeight()*0.08));

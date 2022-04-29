@@ -1,6 +1,7 @@
 package com.mygdx.game.view.game.actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class PlayerActor extends EntityActor<Player> {
 
     private Animation boostAnimation;
     private Animation starsAnimation;
+
+    private Sound lostLifeSound = Gdx.audio.newSound(Gdx.files.internal("dad_scream.ogg"));
 
 
     @Override
@@ -135,6 +138,7 @@ public class PlayerActor extends EntityActor<Player> {
             this.starsAnimation.setSpritePosition(this.getX(), this.getY() + (7f/8f)*this.getHeight());
             if(!this.stars)
             {
+                this.lostLifeSound.play(0.5f);
                 this.stars = true;
                 this.renderAnimation(starsAnimation);
            }

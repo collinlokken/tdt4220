@@ -36,6 +36,7 @@ public class LoginController extends Controller<LoginView>{
 
     public void loginCallback(){
         if(userSession.isLoggedIn()){
+            this.view.stopMusic();
             this.switchState(MainMenuController.getInstance());
         } else {
             this.view.addModal();

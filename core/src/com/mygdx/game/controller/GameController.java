@@ -20,7 +20,10 @@ public class GameController extends Controller<GameView>{
         if(instance == null)
             instance = new GameController();
         return instance;
+    }
 
+    public void endGame(){
+        this.game.endGame();
     }
 
     public  void onTouchDown()
@@ -40,6 +43,7 @@ public class GameController extends Controller<GameView>{
         {
             if (!this.game.isStarted())
                 this.game.startGame();
+
             this.game.update(dt);
             if (this.game.isStarted())
                 this.view.setScore(this.game.getPlayerEntity().getComponent(ScoreComponent.class).getValue());

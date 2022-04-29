@@ -1,11 +1,11 @@
 package com.mygdx.game.view;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.controller.GameController;
@@ -25,7 +25,12 @@ public class MainMenuView extends View<MainMenuController> {
     private Image leaderboardButton = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("leaderboard.png"))));
     private Image logoutButton = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("logout.png"))));
 
+    private Music mainMenuMusic = Gdx.audio.newMusic(Gdx.files.internal("mainMenu.mp3"));
+
     private MainMenuView() {
+
+        this.mainMenuMusic.setLooping(true);
+        this.mainMenuMusic.setVolume(1f);
 
         this.background.setPosition(0, 0);
         this.background.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
@@ -37,6 +42,7 @@ public class MainMenuView extends View<MainMenuController> {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 MainMenuController.getInstance().switchState(GameController.getInstance());
+                mainMenuMusic.stop();
             }
         });
         this.addActor(this.playButton);
@@ -67,10 +73,16 @@ public class MainMenuView extends View<MainMenuController> {
             public void clicked(InputEvent event, float x, float y) {
                 LoginController.getInstance().logOutUser();
                 MainMenuController.getInstance().switchState(LoginController.getInstance());
+                mainMenuMusic.stop();
+                LoginView.getInstance().startMusic();
             }
         });
         this.addActor(this.logoutButton);
 
+    }
+
+    public void startMusic(){
+        this.mainMenuMusic.play();
     }
 
     public static final MainMenuView getInstance(){
@@ -79,7 +91,5 @@ public class MainMenuView extends View<MainMenuController> {
         }
         return instance;
     }
-
-
 
 }
