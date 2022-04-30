@@ -24,6 +24,7 @@ public class LeaderboardView extends View<LeaderboardController> {
     private ArrayList<HighScore> highScores = new ArrayList<>();
     private Image background = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("blackboard2.png"))));
     private Image backButton = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("back.png"))));
+    private int maxHighScores = 10;
 
     private LeaderboardView(){
         this.background.setPosition(0, 0);
@@ -50,8 +51,8 @@ public class LeaderboardView extends View<LeaderboardController> {
     }
 
     public void renderAllHighScores() {
-        for(HighScore highScore : highScores) {
-            addHighScoreToView(highScore);
+        for(int i = 0; i < this.maxHighScores; i++) {
+            addHighScoreToView(highScores.get(i));
         }
     }
 
@@ -69,7 +70,7 @@ public class LeaderboardView extends View<LeaderboardController> {
         Label uname = new Label(""+highScore.getUsername(), glassySkin, "font", "white");
         Label score = new Label(String.format("%.1f",highScore.getScore()), glassySkin, "font", "white");
 
-        int yOffset = 200;  // margin top
+        int yOffset = 130;  // margin top
         float screenHeight = getCamera().viewportHeight;
         float xOffset = (float) (getCamera().viewportWidth*0.28);  // margin left
         float lineHeight = (float) (screenHeight*0.07);  // y distance between displayed scores
