@@ -24,7 +24,8 @@ import java.util.Map;
 public class LeaderboardView extends View<LeaderboardController> {
     private static LeaderboardView instance = null;
     private Skin glassySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
-    private ArrayList<Label> highScores = new ArrayList<>();
+    private ArrayList<Label> highScoreLabels = new ArrayList<>();
+    private ArrayList<HighScore> highScores = new ArrayList<>();
 
     private LeaderboardView(){
         Image background = new Image(new TextureRegionDrawable(new TextureRegion(new Texture("blackboard2.png"))));
@@ -35,18 +36,33 @@ public class LeaderboardView extends View<LeaderboardController> {
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
                 ControllerManager.getInstance().set(MainMenuController.getInstance());
-                for(Label highScore : highScores){
-                    highScore.remove();
-                }
-                highScores.clear();
+                removeHighScoresFromView();
             }
         });
         this.addActor(background);
 
     }
 
+    public void addHighScore(HighScore highScore){
+        highScores.add(highScore);
+    }
+
+    public void renderAllHighScores() {
+        for(HighScore highScore : highScores) {
+            addHighScoreToView(highScore);
+        }
+    }
+
+    public void removeHighScoresFromView() {
+        for(Label highScore : highScoreLabels){
+            highScore.remove();
+        }
+        highScoreLabels.clear();
+        highScores.clear();
+    }
+
     public void addHighScoreToView(HighScore highScore){
-        int position = highScores.size()/3+1;
+        int position = highScoreLabels.size()/3+1;
         Label pos = new Label(""+position, glassySkin, "font", "white");
         Label uname = new Label(""+highScore.getUsername(), glassySkin, "font", "white");
         Label score = new Label(String.format("%.1f",highScore.getScore()), glassySkin, "font", "white");
@@ -70,11 +86,11 @@ public class LeaderboardView extends View<LeaderboardController> {
         score.setFontScale(fontSize);
 
         this.addActor(pos);
-        this.highScores.add(pos);
+        this.highScoreLabels.add(pos);
         this.addActor(uname);
-        this.highScores.add(uname);
+        this.highScoreLabels.add(uname);
         this.addActor(score);
-        this.highScores.add(score);
+        this.highScoreLabels.add(score);
     }
 
     public static final LeaderboardView getInstance(){
