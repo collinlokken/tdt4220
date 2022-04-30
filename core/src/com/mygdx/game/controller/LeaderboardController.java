@@ -1,11 +1,7 @@
 package com.mygdx.game.controller;
 
 import com.mygdx.game.StripaSurvivor;
-import com.mygdx.game.model.HighScore;
-import com.mygdx.game.view.help.HelpView;
-import com.mygdx.game.view.leaderboard.LeaderboardView;
-
-import java.util.ArrayList;
+import com.mygdx.game.view.LeaderboardView;
 
 public class LeaderboardController extends Controller<LeaderboardView>{
     private static LeaderboardController instance = null;
@@ -23,7 +19,5 @@ public class LeaderboardController extends Controller<LeaderboardView>{
     }
 
     @Override
-    public void update(float dt) {
-
-    }
+    public void update(float dt) { }
 }

@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.controller.RegisterController;
@@ -19,49 +18,65 @@ import com.mygdx.game.controller.RegisterController;
 import java.util.ArrayList;
 
 public class RegisterView extends View<RegisterController> {
+
     private static RegisterView instance = null;
+
     Skin glassySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
+    Skin metalSkin = new Skin(Gdx.files.internal("skin/metal-ui.json"));
+
+    private final TextField usernameField = new TextField("", metalSkin);
+    private final TextField passwordField = new TextField("", metalSkin);
+    private final TextField confirmPasswordField = new TextField("", metalSkin);
+
     ArrayList<Actor> modalActors = new ArrayList<>();
 
+    private Button registerButton = new TextButton("Create account", glassySkin, "small");
+
+    private Image bg = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("register_bg.png"))));
+
+    private Image backButton = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("back.png"))));
+
     private RegisterView(){
-        super();
-        Image bg = new Image(new TextureRegionDrawable(new Texture("register_bg.png")));
-        bg.setPosition(0, 0);
-        bg.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
-        this.addActor(bg);
 
-        Skin metalSkin = new Skin(Gdx.files.internal("skin/metal-ui.json"));
+        this.backButton.setSize(getCamera().viewportHeight/7, getCamera().viewportHeight/10);
+        this.backButton.setPosition(getCamera().viewportWidth - this.backButton.getWidth(), getCamera().viewportHeight - this.backButton.getHeight());
+        this.backButton.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y){
+                RegisterController.getInstance().switchState(LoginController.getInstance());
+            }
+        });
 
-        final TextField usernameField = new TextField("", metalSkin);
-        usernameField.setPosition((float) (getCamera().viewportWidth*0.08),(float) (getCamera().viewportHeight*0.8));
-        usernameField.setMessageText("Username");
-        usernameField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
+        this.bg.setPosition(0, 0);
+        this.bg.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
+        this.addActor(this.bg);
 
-
-        final TextField passwordField = new TextField("", metalSkin);
-        passwordField.setPosition((float) (getCamera().viewportWidth*0.08),(float) (getCamera().viewportHeight*0.6));
-        passwordField.setPasswordCharacter('*');
-        passwordField.setPasswordMode(true);
-        passwordField.setMessageText("Password");
-        passwordField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
+        this.usernameField.setPosition((float) (getCamera().viewportWidth*0.08),(float) (getCamera().viewportHeight*0.8));
+        this.usernameField.setMessageText("Username");
+        this.usernameField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
 
 
-        final TextField confirmPasswordField = new TextField("", metalSkin);
-        confirmPasswordField.setPosition((float) (getCamera().viewportWidth*0.08),(float) (getCamera().viewportHeight*0.4));
-        confirmPasswordField.setPasswordCharacter('*');
-        confirmPasswordField.setPasswordMode(true);
-        confirmPasswordField.setMessageText("Confirm password");
-        confirmPasswordField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
+        this.passwordField.setPosition((float) (getCamera().viewportWidth*0.08),(float) (getCamera().viewportHeight*0.6));
+        this.passwordField.setPasswordCharacter('*');
+        this.passwordField.setPasswordMode(true);
+        this.passwordField.setMessageText("Password");
+        this.passwordField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
+
+        this.confirmPasswordField.setPosition((float) (getCamera().viewportWidth*0.08),(float) (getCamera().viewportHeight*0.4));
+        this.confirmPasswordField.setPasswordCharacter('*');
+        this.confirmPasswordField.setPasswordMode(true);
+        this.confirmPasswordField.setMessageText("Confirm password");
+        this.confirmPasswordField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
 
 
-        this.addActor(usernameField);
-        this.addActor(passwordField);
-        this.addActor(confirmPasswordField);
+        this.addActor(this.usernameField);
+        this.addActor(this.passwordField);
+        this.addActor(this.confirmPasswordField);
+        this.addActor(this.backButton);
 
-        Button registerButton = new TextButton("Create account", glassySkin, "small");
-        registerButton.setPosition((float) (getCamera().viewportWidth*0.08), (float) (getCamera().viewportHeight*0.2));
-        registerButton.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.1));
-        registerButton.addListener(new ClickListener(){
+
+        this.registerButton.setPosition((float) (getCamera().viewportWidth*0.08), (float) (getCamera().viewportHeight*0.2));
+        this.registerButton.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.1));
+        this.registerButton.addListener(new ClickListener(){
             @Override //TODO add user in database
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
@@ -74,7 +89,7 @@ public class RegisterView extends View<RegisterController> {
             }
         });
 
-        this.addActor(registerButton);
+        this.addActor(this.registerButton);
 
     }
 
@@ -84,6 +99,7 @@ public class RegisterView extends View<RegisterController> {
 
         int modalWidth = texture.getWidth();
         int modalHeight = texture.getHeight();
+
         float modalOriginX = (getCamera().viewportWidth-modalWidth)/2;
         float modalOriginY = (getCamera().viewportHeight-modalHeight)/2;
         bg.setPosition(modalOriginX, modalOriginY);
@@ -110,10 +126,20 @@ public class RegisterView extends View<RegisterController> {
         }
     }
 
+    private void clearInputFields(){
+        this.usernameField.setText("");
+        this.usernameField.setMessageText("Username");
+        this.passwordField.setText("");
+        this.passwordField.setMessageText("Password");
+        this.confirmPasswordField.setText("");
+        this.confirmPasswordField.setMessageText("Confirm password");
+    }
+
     public static final RegisterView getInstance(){
         if (instance == null){
             instance = new RegisterView();
         }
+        instance.clearInputFields();
         return instance;
     }
 }
