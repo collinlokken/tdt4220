@@ -11,7 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.model.HighScore;
 import com.mygdx.game.model.User;
-import com.mygdx.game.view.leaderboard.LeaderboardView;
+import com.mygdx.game.view.LeaderboardView;
 
 import static android.content.ContentValues.TAG;
 

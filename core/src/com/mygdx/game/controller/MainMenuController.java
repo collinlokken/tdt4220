@@ -1,7 +1,6 @@
 package com.mygdx.game.controller;
 
-
-import com.mygdx.game.view.mainMenu.MainMenuView;
+import com.mygdx.game.view.MainMenuView;
 
 public class MainMenuController extends Controller<MainMenuView>{
 
@@ -15,11 +14,11 @@ public class MainMenuController extends Controller<MainMenuView>{
         if (instance == null){
             instance = new MainMenuController();
         }
+        System.out.println("MUSIKK");
+        instance.view.startMusic();
         return instance;
     }
 
     @Override
-    public void update(float dt) {
-
-    }
+    public void update(float dt) {}
 }
