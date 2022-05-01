@@ -24,12 +24,6 @@ public class LoginController extends Controller<LoginView>{
         StripaSurvivor.getFirebaseInterface().retrieveUserFromCredentials(uname, pwd);
     }
 
-    public void registerUserInDB(String uname, String pwd) {
-        User usr = new User(uname, pwd);
-        StripaSurvivor.getFirebaseInterface().SetValueInDBb("users/"+usr.getUuid().toString(), usr.toMap());
-        this.loginWithCredentials(uname, pwd);
-    }
-
     public void logOutUser(){
         getUserSession().setToNull();
     }

@@ -30,9 +30,6 @@ public class RegisterView extends View<RegisterController> {
 
     ArrayList<Actor> modalActors = new ArrayList<>();
 
-    Texture emptyUsernameTexture = new Texture(Gdx.files.internal("empty_username.png"));
-    Texture emptyPasswordTexture = new Texture("empty_password.png");
-
     private Button registerButton = new TextButton("Create account", glassySkin, "small");
 
     private Image bg = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("register_bg.png"))));
@@ -82,16 +79,13 @@ public class RegisterView extends View<RegisterController> {
         this.registerButton.addListener(new ClickListener(){
             @Override //TODO add user in database
             public void clicked(InputEvent event, float x, float y){
-                if (usernameField.getText().equals("")){
-                    addModal("username");
-                } else if (passwordField.getText().equals("")) {
-                    addModal("password");
-                } else {
-                    LoginController.getInstance().registerUserInDB(usernameField.getText(), passwordField.getText());
-                    clearInputFields();
-                    LoginView.getInstance().stopMusic();
-                    LoginController.getInstance().switchState(MainMenuController.getInstance());
-                }
+                super.clicked(event, x, y);
+                RegisterController.getInstance().registerUserInDB(usernameField.getText(), passwordField.getText(), confirmPasswordField.getText());
+                /*
+                usernameField.setMessageText("Username");
+                passwordField.setMessageText("Password");
+                confirmPasswordField.setMessageText("Confirm password");
+                 */
             }
         });
 
@@ -99,17 +93,13 @@ public class RegisterView extends View<RegisterController> {
 
     }
 
-    public void addModal(String empty){
-        Image bg;
-        if (empty.equals("username")){
-            bg = new Image(new TextureRegionDrawable(this.emptyUsernameTexture));
-        } else {
-            bg = new Image(new TextureRegionDrawable(this.emptyPasswordTexture));
-        }
-
+    public void addModal(Texture texture){
+        Image bg = new Image(new TextureRegionDrawable(texture));
         bg.setSize((float) (getCamera().viewportWidth*0.4),(float) (getCamera().viewportHeight*0.4));
-        int modalWidth = this.emptyPasswordTexture.getWidth();
-        int modalHeight = this.emptyPasswordTexture.getHeight();
+
+        int modalWidth = texture.getWidth();
+        int modalHeight = texture.getHeight();
+
         float modalOriginX = (getCamera().viewportWidth-modalWidth)/2;
         float modalOriginY = (getCamera().viewportHeight-modalHeight)/2;
         bg.setPosition(modalOriginX, modalOriginY);
@@ -123,8 +113,8 @@ public class RegisterView extends View<RegisterController> {
             }
         });
 
-        this.addActor(bg);
-        this.addActor(textButton);
+        addActor(bg);
+        addActor(textButton);
 
         this.modalActors.add(bg);
         this.modalActors.add(textButton);
