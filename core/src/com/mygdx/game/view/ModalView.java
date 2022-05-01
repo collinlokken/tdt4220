@@ -32,7 +32,7 @@ public class ModalView extends View<ModalController> {
         this.textButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                ModalController.getInstance().popState();
+                controller.popState();
             }
         });
 

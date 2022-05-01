@@ -25,14 +25,6 @@ public class PauseController extends Controller<PauseView>{
         return instance;
     }
 
-    // TODO: Her vil spilleren starte et nytt spill! Tror ikke vi trenger den under, GameController vil håndtere det
-    /*public void resetGameController(){
-        GameController.getInstance();
-    }*/
-
-
     @Override
-    public void update(float dt) {
-
-    }
+    public void update(float dt) { }
 }

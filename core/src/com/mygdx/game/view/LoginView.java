@@ -1,7 +1,6 @@
 package com.mygdx.game.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -14,7 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.controller.LoginController;
+import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.controller.RegisterController;
+import com.mygdx.game.view.game.GameView;
 
 public class LoginView extends View {
 
@@ -39,16 +40,16 @@ public class LoginView extends View {
 
     private TextButton textButton = new TextButton("OK", glassySkin);
 
-    private Music loginMusic = Gdx.audio.newMusic(Gdx.files.internal("skrillex.mp3"));
-
     private LoginView(){
+
+        this.setBackGroundMusic(Gdx.audio.newMusic(Gdx.files.internal("skrillex.mp3")));
+        GameView.getInstance().stopMusic();
+        MainMenuView.getInstance().stopMusic();
+        this.playMusic();
 
         this.bg.setPosition(0, 0);
         this.bg.setSize(getCamera().viewportWidth, getCamera().viewportHeight);
         this.addActor(this.bg);
-
-        this.loginMusic.setLooping(true);
-        this.loginMusic.setVolume(1f);
 
         this.usernameField.setPosition((float) (getCamera().viewportWidth*0.20),(float) (getCamera().viewportHeight*0.335));
         this.usernameField.setSize((float) (getCamera().viewportWidth*0.2), (float) (getCamera().viewportHeight*0.05));
@@ -81,7 +82,7 @@ public class LoginView extends View {
         this.text.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                LoginController.getInstance().switchState(RegisterController.getInstance());
+                instance.controller.switchState(RegisterController.getInstance());
             }
         });
 
@@ -92,14 +93,6 @@ public class LoginView extends View {
         this.addActor(this.passwordField);
         this.addActor(this.loginButton);
 
-    }
-
-    public void stopMusic(){
-        this.loginMusic.stop();
-    }
-
-    public void startMusic(){
-        this.loginMusic.play();
     }
 
     public void addModal(){
@@ -144,7 +137,6 @@ public class LoginView extends View {
             instance = new LoginView();
         }
         instance.clearInputFields();
-        instance.startMusic();
         return instance;
     }
 

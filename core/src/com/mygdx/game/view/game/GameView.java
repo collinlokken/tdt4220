@@ -1,7 +1,6 @@
 package com.mygdx.game.view.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,6 +26,7 @@ import com.mygdx.game.model.game.entity.Player;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.controller.PauseController;
 import com.mygdx.game.view.LoginView;
+import com.mygdx.game.view.MainMenuView;
 import com.mygdx.game.view.View;
 import com.mygdx.game.view.game.actors.BackgroundActor;
 import com.mygdx.game.view.game.actors.HealthbarActor;
@@ -60,28 +60,24 @@ public class GameView extends View<GameController> implements GameObserver
     private Image miniVirus = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("virus.png"))));
 
     private Sound died = Gdx.audio.newSound(Gdx.files.internal("aghh.ogg"));
-    private Music music = Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3"));
 
-    private GameView() {}
+    private GameView() {
+        this.setBackGroundMusic(Gdx.audio.newMusic(Gdx.files.internal("kahoot_bg.mp3")));
+    }
 
     public void setScore(float s){
         this.scoreText.setText("Score: "+df.format(s));
     }
 
     public void playGameOverSound(){
-        this.music.stop();
         this.died.play(0.5f);
-    }
-
-    public void startMusic(){
-        this.music.setLooping(true);
-        this.music.setVolume(1f);
-        this.music.play();
     }
 
     public void initialize(Game game)
     {
         this.game = game;
+        System.out.println("Game: "+this.game.getWidth());
+        System.out.println("Screen"+getCamera().viewportWidth);
         game.addObserver(this);
     }
 
@@ -115,32 +111,32 @@ public class GameView extends View<GameController> implements GameObserver
     @Override
     public void onGameEnded(Game game, Player player, float score)
     {
+        this.stopMusic();
+
         if (this.game.getPlayerEntity().getComponent(HealthComponent.class).getValue() == 0) {
             this.playGameOverSound();
             this.controller.switchState(GameOverController.getInstance(new Image(ScreenUtils.getFrameBufferTexture()), this.game.getPlayerEntity().getComponent(ScoreComponent.class).getValue()));
         }
-        else
-            this.music.stop();
+        else{
+            MainMenuView.getInstance().playMusic();
+        }
     }
 
     @Override
     public void onGameStarted(Game game)
     {
-        System.out.println("GAME START");
-        this.startMusic();
-
-        BackgroundActor ba = new BackgroundActor(this.getHeight(), 7);
+        BackgroundActor ba = new BackgroundActor(this.getHeight(), -4, (float)this.game.getWidth()/(float)getCamera().viewportWidth);
         ba.setPosition(0, 0);
         ba.setSize(this.getWidth(), this.getHeight());
         ba.addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                GameController.getInstance().onTouchDown();
+                instance.controller.onTouchDown();
                 return true;
             }
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button){
-                GameController.getInstance().onTouchUp();
+                instance.controller.onTouchUp();
             }
         });
 
@@ -150,7 +146,7 @@ public class GameView extends View<GameController> implements GameObserver
         pauseButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                GameController.getInstance().pushState(PauseController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
+                controller.switchState(PauseController.getInstance(new Image(ScreenUtils.getFrameBufferTexture())));
             }
         });
 

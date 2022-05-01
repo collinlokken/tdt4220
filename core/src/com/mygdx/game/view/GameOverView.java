@@ -10,6 +10,7 @@ import com.mygdx.game.controller.GameController;
 import com.mygdx.game.controller.GameOverController;
 import com.mygdx.game.controller.LeaderboardController;
 import com.mygdx.game.controller.MainMenuController;
+import com.mygdx.game.view.game.GameView;
 
 public class GameOverView extends View<GameOverController>{
 
@@ -32,9 +33,8 @@ public class GameOverView extends View<GameOverController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 screenshotBg.remove();
-                System.out.println("FØR MUSIKK");
-                GameOverController.getInstance().switchState(MainMenuController.getInstance());
-
+                MainMenuView.getInstance().playMusic();
+                controller.switchState(MainMenuController.getInstance());
             }
         });
 
@@ -44,7 +44,8 @@ public class GameOverView extends View<GameOverController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 screenshotBg.remove();
-                GameOverController.getInstance().switchState(GameController.getInstance());
+                GameView.getInstance().playMusic();
+                controller.switchState(GameController.getInstance());
             }
         });
 
@@ -54,7 +55,8 @@ public class GameOverView extends View<GameOverController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 screenshotBg.remove();
-                GameOverController.getInstance().switchState(LeaderboardController.getInstance());
+                MainMenuView.getInstance().playMusic();
+                controller.switchState(LeaderboardController.getInstance());
             }
         });
 

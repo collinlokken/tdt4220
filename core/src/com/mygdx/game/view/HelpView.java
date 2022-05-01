@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.controller.HelpController;
 import com.mygdx.game.controller.MainMenuController;
 
+import jdk.tools.jmod.Main;
+
 public class HelpView extends View<HelpController> {
 
     private static HelpView instance = null;
@@ -26,7 +28,7 @@ public class HelpView extends View<HelpController> {
         this.backButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                HelpController.getInstance().switchState(MainMenuController.getInstance());
+                controller.switchState(MainMenuController.getInstance());
             }
         });
 

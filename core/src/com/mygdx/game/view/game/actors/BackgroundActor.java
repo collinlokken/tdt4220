@@ -14,10 +14,14 @@ public class BackgroundActor extends Actor {
     private Sprite background1;
     private Sprite background2;
     private float speed;
+    private float time;
+    private float factor;
 
-    public BackgroundActor(float screenHeight, float speed){
+    public BackgroundActor(float screenHeight, float speed, float factor){
 
         this.speed = speed;
+        this.factor = factor;
+        this.time = 0;
 
         Texture texture1 = new Texture(Gdx.files.internal("background1.png"));
         background1 = new Sprite(texture1);
@@ -36,17 +40,13 @@ public class BackgroundActor extends Actor {
         background2.draw(batch);
     }
 
-    private float time = 0;
-
     @Override
     public void act(float delta) {
 
         this.time += delta;
 
-        //TODO: Fikse matten her sånn at fartsøkningen til entities i ECS-verden matcher fartsøkningen til bakgrunnen
-
-        background1.setX((float)(background1.getX() - this.speed-Math.pow(1, -this.time)));
-        background2.setX((float)(background2.getX() - this.speed-Math.pow(1, -this.time)));
+        background1.setX((float)(background1.getX() + (this.speed-(this.time*factor))));
+        background2.setX((float)(background2.getX() + (this.speed-(this.time*factor))));
 
         if (background1.getWidth() + background1.getX() < 0){
             background1.setX(background2.getX() + background2.getWidth());

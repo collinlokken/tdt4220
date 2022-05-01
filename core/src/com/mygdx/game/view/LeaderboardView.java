@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.LeaderboardController;
 import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.model.HighScore;
@@ -37,7 +36,7 @@ public class LeaderboardView extends View<LeaderboardController> {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
-                ControllerManager.getInstance().set(MainMenuController.getInstance());
+                controller.switchState(MainMenuController.getInstance());
                 removeHighScoresFromView();
             }
         });

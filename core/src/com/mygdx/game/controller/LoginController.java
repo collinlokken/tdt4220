@@ -1,9 +1,9 @@
 package com.mygdx.game.controller;
 
 import com.mygdx.game.StripaSurvivor;
-import com.mygdx.game.model.User;
 import com.mygdx.game.model.UserSession;
 import com.mygdx.game.view.LoginView;
+import com.mygdx.game.view.MainMenuView;
 
 public class LoginController extends Controller<LoginView>{
     private static LoginController instance = null;
@@ -31,6 +31,7 @@ public class LoginController extends Controller<LoginView>{
     public void loginCallback(){
         if(userSession.isLoggedIn()){
             this.view.stopMusic();
+            MainMenuView.getInstance().playMusic();
             this.switchState(MainMenuController.getInstance());
         } else {
             this.view.addModal();

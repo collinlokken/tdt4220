@@ -22,11 +22,11 @@ public class LeaderboardController extends Controller<LeaderboardView>{
     }
 
     public static void highScoreCallback(ArrayList<HighScore> highScores) {
-        LeaderboardView.getInstance().removeHighScoresFromView();
+        instance.view.removeHighScoresFromView();
         for(HighScore highScore : highScores) {
-            LeaderboardView.getInstance().addHighScore(highScore);
+            instance.view.addHighScore(highScore);
         }
-        LeaderboardView.getInstance().renderAllHighScores();
+        instance.view.renderAllHighScores();
     }
 
     @Override

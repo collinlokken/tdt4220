@@ -12,10 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.controller.LoginController;
-import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.controller.RegisterController;
 
 import java.util.ArrayList;
+
+import jdk.internal.net.http.common.Log;
 
 public class RegisterView extends View<RegisterController> {
 
@@ -43,7 +44,7 @@ public class RegisterView extends View<RegisterController> {
         this.backButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
                 clearInputFields();
-                RegisterController.getInstance().switchState(LoginController.getInstance());
+                controller.switchState(LoginController.getInstance());
             }
         });
 
@@ -80,8 +81,7 @@ public class RegisterView extends View<RegisterController> {
         this.registerButton.addListener(new ClickListener(){
             @Override //TODO add user in database
             public void clicked(InputEvent event, float x, float y){
-                super.clicked(event, x, y);
-                RegisterController.getInstance().registerUserInDB(usernameField.getText(), passwordField.getText(), confirmPasswordField.getText());
+                instance.controller.registerUserInDB(usernameField.getText(), passwordField.getText(), confirmPasswordField.getText());
             }
         });
 
