@@ -13,8 +13,8 @@ import com.mygdx.game.model.game.component.StandShieldComponent;
 public class ProtectionAgainstActor extends Actor
 {
     private Game game;
-    private  static  final Sprite coffeeSprite = new Sprite(new Texture(Gdx.files.internal("coffee.png")));
-    private  static  final Sprite maskSprite = new Sprite(new Texture(Gdx.files.internal("facemask.png")));
+    private  static  final Sprite coffeeSprite = new Sprite(new Texture(Gdx.files.internal("stand.png")));
+    private  static  final Sprite maskSprite = new Sprite(new Texture(Gdx.files.internal("virus.png")));
 
     private int screenHeight;
     private  int screenWidth;
@@ -25,7 +25,7 @@ public class ProtectionAgainstActor extends Actor
         this.screenWidth = screenWidth;
 
         coffeeSprite.setSize((1/8f)*screenHeight, (1/8f)*screenHeight);
-        coffeeSprite.setPosition((7f/8f)*this.screenWidth, this.screenHeight - ProtectionAgainstActor.coffeeSprite.getHeight());
+        coffeeSprite.setPosition((13f/16f)*this.screenWidth, this.screenHeight - ProtectionAgainstActor.coffeeSprite.getHeight());
         maskSprite.setSize((1/8f)*screenHeight, (1/8f)*screenHeight);
         maskSprite.setPosition((float)(coffeeSprite.getX()+coffeeSprite.getWidth()), this.screenHeight - ProtectionAgainstActor.maskSprite.getHeight());
 

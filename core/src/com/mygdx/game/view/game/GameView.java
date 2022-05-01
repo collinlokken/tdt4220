@@ -157,7 +157,7 @@ public class GameView extends View<GameController> implements GameObserver
         this.scoreText = new Label("", this.skin, "font", "black");
         this.scoreText.setPosition(this.getWidth()/3,(float)(this.getHeight()*0.95));
         this.scoreText.setFontScale(this.getHeight()/300);
-        this.activePowerups = new Label("Protection against:", this.skin, "font", "black");
+        this.activePowerups = new Label("Immune to:", this.skin, "font", "black");
         this.activePowerups.setPosition((float)(this.getWidth()*0.63),(float)(this.getHeight()*0.93));
         this.activePowerups.setFontScale(this.getHeight()/350);
 

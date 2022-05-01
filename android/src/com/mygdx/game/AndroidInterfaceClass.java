@@ -8,6 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.mygdx.game.controller.LeaderboardController;
 import com.mygdx.game.controller.LoginController;
 import com.mygdx.game.model.HighScore;
 import com.mygdx.game.model.User;
@@ -125,7 +126,7 @@ public class AndroidInterfaceClass implements FireBaseInterface{
                 HashMap<String, Double> uuidScores = new HashMap<>();
                 HashMap<String, String> uuidUnames = new HashMap<>();
                 ArrayList<String> uuids = new ArrayList<>();
-
+                ArrayList<HighScore> highScores = new ArrayList<>();
 
                 for(DataSnapshot child: snapshot.getChildren()){
                     String uuid = child.getKey();
@@ -134,6 +135,7 @@ public class AndroidInterfaceClass implements FireBaseInterface{
                     uuids.add(uuid);
 
                 }
+
                 getDatabase().getReference("users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                     @SuppressLint("NewApi")
                     @Override
@@ -147,23 +149,18 @@ public class AndroidInterfaceClass implements FireBaseInterface{
                                 String username = child.child("username").getValue().toString();
                                 uuidUnames.put(uuid,username);
                             }
-                            uuids.sort(new Comparator<String>() {
+
+                            uuids.sort(new Comparator<String>() {  // Sorted descending by score
                                 @Override
                                 public int compare(String s1, String s2) {
-                                    if(uuidScores.get(s1) > uuidScores.get(s2)) {
-                                        return -1;
-                                    } else if(uuidScores.get(s1) == uuidScores.get(s2)) {
-                                        return 0;
-                                    } else {
-                                        return 1;
-                                    }
+                                    return uuidScores.get(s2).compareTo(uuidScores.get(s1));
                                 }
                             });
-                            LeaderboardView.getInstance().removeHighScoresFromView();
+
                             for (String uuid : uuids){
-                                LeaderboardView.getInstance().addHighScore(new HighScore(uuidUnames.get(uuid), uuidScores.get(uuid)));
+                                highScores.add(new HighScore(uuidUnames.get(uuid), uuidScores.get(uuid)));
                             }
-                            LeaderboardView.getInstance().renderAllHighScores();
+                            LeaderboardController.highScoreCallback(highScores);
                         }
                     }
                 });

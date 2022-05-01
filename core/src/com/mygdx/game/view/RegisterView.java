@@ -42,6 +42,7 @@ public class RegisterView extends View<RegisterController> {
         this.backButton.setPosition(getCamera().viewportWidth - this.backButton.getWidth(), getCamera().viewportHeight - this.backButton.getHeight());
         this.backButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
+                clearInputFields();
                 RegisterController.getInstance().switchState(LoginController.getInstance());
             }
         });
@@ -81,11 +82,6 @@ public class RegisterView extends View<RegisterController> {
             public void clicked(InputEvent event, float x, float y){
                 super.clicked(event, x, y);
                 RegisterController.getInstance().registerUserInDB(usernameField.getText(), passwordField.getText(), confirmPasswordField.getText());
-                /*
-                usernameField.setMessageText("Username");
-                passwordField.setMessageText("Password");
-                confirmPasswordField.setMessageText("Confirm password");
-                 */
             }
         });
 
@@ -139,7 +135,6 @@ public class RegisterView extends View<RegisterController> {
         if (instance == null){
             instance = new RegisterView();
         }
-        instance.clearInputFields();
         return instance;
     }
 }
