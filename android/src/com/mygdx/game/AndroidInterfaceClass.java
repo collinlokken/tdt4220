@@ -1,4 +1,5 @@
 package com.mygdx.game;
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -118,48 +119,59 @@ public class AndroidInterfaceClass implements FireBaseInterface{
     }
     @Override
     public void getAllHighScores(){
-        getDatabase().getReference("").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        getDatabase().getReference("highscore").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, Double> uuidScores = new HashMap<>();
                 HashMap<String, String> uuidUnames = new HashMap<>();
                 ArrayList<String> uuids = new ArrayList<>();
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
+
+
+                for(DataSnapshot child: snapshot.getChildren()){
+                    String uuid = child.getKey();
+                    double score = (double) child.getValue();
+                    uuidScores.put(uuid,score);
+                    uuids.add(uuid);
+
                 }
-                else{
-                    DataSnapshot highScores = task.getResult().child("highscore");
-                    for(DataSnapshot child: highScores.getChildren()){
-                        String uuid = child.getKey();
-                        double score = (double) child.getValue();
-                        uuidScores.put(uuid,score);
-                        uuids.add(uuid);
-
-                    }
-                    DataSnapshot users = task.getResult().child("users");
-                    for(DataSnapshot child: users.getChildren()){
-                        String uuid = child.getKey();
-                        String username = child.child("username").getValue().toString();
-                        uuidUnames.put(uuid,username);
-                    }
-                    uuids.sort(new Comparator<String>() {
-                        @Override
-                        public int compare(String s1, String s2) {
-                            if(uuidScores.get(s1) > uuidScores.get(s2)) {
-                                return -1;
-                            } else if(uuidScores.get(s1) == uuidScores.get(s2)) {
-                                return 0;
-                            } else {
-                                return 1;
-                            }
-
+                getDatabase().getReference("users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @SuppressLint("NewApi")
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("firebase", "Error getting data", task.getException());
                         }
-                    });
-                    for (String uuid : uuids){
-                        LeaderboardView.getInstance().addHighScoreToView(new HighScore(uuidUnames.get(uuid), uuidScores.get(uuid)));
+                        else {
+                            for(DataSnapshot child: task.getResult().getChildren()){
+                                String uuid = child.getKey();
+                                String username = child.child("username").getValue().toString();
+                                uuidUnames.put(uuid,username);
+                            }
+                            uuids.sort(new Comparator<String>() {
+                                @Override
+                                public int compare(String s1, String s2) {
+                                    if(uuidScores.get(s1) > uuidScores.get(s2)) {
+                                        return -1;
+                                    } else if(uuidScores.get(s1) == uuidScores.get(s2)) {
+                                        return 0;
+                                    } else {
+                                        return 1;
+                                    }
+                                }
+                            });
+                            LeaderboardView.getInstance().removeHighScoresFromView();
+                            for (String uuid : uuids){
+                                LeaderboardView.getInstance().addHighScore(new HighScore(uuidUnames.get(uuid), uuidScores.get(uuid)));
+                            }
+                            LeaderboardView.getInstance().renderAllHighScores();
+                        }
                     }
-                    return;
-                }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

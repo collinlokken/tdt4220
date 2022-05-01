@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.mygdx.game.controller.ControllerManager;
 import com.mygdx.game.controller.LeaderboardController;
 import com.mygdx.game.controller.MainMenuController;
 import com.mygdx.game.model.HighScore;
@@ -19,11 +20,11 @@ public class LeaderboardView extends View<LeaderboardController> {
     private static LeaderboardView instance = null;
 
     private Skin glassySkin = new Skin(Gdx.files.internal("glassyui/glassy-ui.json"));
+    private ArrayList<Label> highScoreLabels = new ArrayList<>();
+    private ArrayList<HighScore> highScores = new ArrayList<>();
     private Image background = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("blackboard2.png"))));
     private Image backButton = new Image(new TextureRegionDrawable(new Texture(Gdx.files.internal("back.png"))));
-
-
-    private ArrayList<Label> highScores = new ArrayList<>();
+    private int maxHighScores = 10;
 
     private LeaderboardView(){
         this.background.setPosition(0, 0);
@@ -35,11 +36,9 @@ public class LeaderboardView extends View<LeaderboardController> {
         this.backButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                LeaderboardController.getInstance().switchState(MainMenuController.getInstance());
-                for(Label highScore : highScores){
-                    highScore.remove();
-                }
-                highScores.clear();
+                super.clicked(event, x, y);
+                ControllerManager.getInstance().set(MainMenuController.getInstance());
+                removeHighScoresFromView();
             }
         });
         this.addActor(this.background);
@@ -47,14 +46,31 @@ public class LeaderboardView extends View<LeaderboardController> {
 
     }
 
-    public void addHighScoreToView(HighScore highScore){
-        int position = highScores.size()/3+1;
+    public void addHighScore(HighScore highScore){
+        highScores.add(highScore);
+    }
 
+    public void renderAllHighScores() {
+        for(int i = 0; i < this.maxHighScores; i++) {
+            addHighScoreToView(highScores.get(i));
+        }
+    }
+
+    public void removeHighScoresFromView() {
+        for(Label highScore : highScoreLabels){
+            highScore.remove();
+        }
+        highScoreLabels.clear();
+        highScores.clear();
+    }
+
+    public void addHighScoreToView(HighScore highScore){
+        int position = highScoreLabels.size()/3+1;
         Label pos = new Label(""+position, glassySkin, "font", "white");
         Label uname = new Label(""+highScore.getUsername(), glassySkin, "font", "white");
         Label score = new Label(String.format("%.1f",highScore.getScore()), glassySkin, "font", "white");
 
-        int yOffset = 200;  // margin top
+        int yOffset = 130;  // margin top
         float screenHeight = getCamera().viewportHeight;
         float xOffset = (float) (getCamera().viewportWidth*0.28);  // margin left
         float lineHeight = (float) (screenHeight*0.07);  // y distance between displayed scores
@@ -72,11 +88,11 @@ public class LeaderboardView extends View<LeaderboardController> {
         score.setFontScale(fontSize);
 
         this.addActor(pos);
-        this.highScores.add(pos);
+        this.highScoreLabels.add(pos);
         this.addActor(uname);
-        this.highScores.add(uname);
+        this.highScoreLabels.add(uname);
         this.addActor(score);
-        this.highScores.add(score);
+        this.highScoreLabels.add(score);
     }
 
     public static final LeaderboardView getInstance(){
