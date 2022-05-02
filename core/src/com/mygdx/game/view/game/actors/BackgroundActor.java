@@ -45,8 +45,8 @@ public class BackgroundActor extends Actor {
 
         this.time += delta;
 
-        background1.setX((float)(background1.getX() + (this.speed-(this.time*factor))));
-        background2.setX((float)(background2.getX() + (this.speed-(this.time*factor))));
+        background1.setX((float)(background1.getX() + (this.speed - (this.time*factor))));
+        background2.setX((float)(background2.getX() + (this.speed - (this.time*factor))));
 
         if (background1.getWidth() + background1.getX() < 0){
             background1.setX(background2.getX() + background2.getWidth());
