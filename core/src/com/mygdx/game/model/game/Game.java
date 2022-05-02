@@ -107,7 +107,7 @@ public class Game
         if(this.started)
             throw new IllegalStateException("Cannot start a game that is running.");
         this.started = true;
-        this.player = new Player(new PositionComponent(width/4, 0, true), (float) (30*9.81));
+        this.player = new Player(new PositionComponent(width/4, 0, true), (float) (60*9.81));
         for(GameObserver observer : this.observers)
         {
             observer.onGameStarted(this);

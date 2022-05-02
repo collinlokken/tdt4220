@@ -15,7 +15,6 @@ import com.mygdx.game.model.game.entity.Stand;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Random;
 
 public class SpawnSystem extends AbstractSystem
 {
@@ -93,18 +92,18 @@ public class SpawnSystem extends AbstractSystem
         System.out.println(choice);
         int xSpeed = (int)(-80f - this.time);
 
-        if (choice <= 0.25) {
+        if (choice <= 0.6) {
             return new CoronaVirus(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirus.height) * Math.random()), new VelocityComponent(xSpeed, 0));
         }
-        else if (0.25 < choice && choice <= 0.5)
+        else if (0.6 < choice && choice <= 0.8)
             return new Stand(new PositionComponent(this.game.getWidth(), 0), new VelocityComponent(xSpeed, 0));
 
-        else if (0.5 < choice && choice <= 0.6)
+        else if (0.8 < choice && choice <= 0.85)
                 return new CoronaVirusShield(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoronaVirusShield.height)*Math.random()), new VelocityComponent(xSpeed, 0));
-        else if (0.6 < choice && choice <= 0.7)
+        else if (0.85 < choice && choice <= 0.9)
             return new CoffeeCup(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(xSpeed, 0));
 
-        else if (0.7 < choice && choice <= 0.8)
+        else if (0.9 < choice && choice <= 0.92)
             return new LifePointItem(new PositionComponent(this.game.getWidth(), (this.game.getHeight() - CoffeeCup.height)*Math.random()), new VelocityComponent(xSpeed, 0));
 
         else
