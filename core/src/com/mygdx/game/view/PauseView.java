@@ -32,7 +32,7 @@ public class PauseView extends View<PauseController>{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 bg.remove();
-                controller.popState();
+                controller.switchState(GameController.getInstance());
             }
         });
         this.addActor(resume);
